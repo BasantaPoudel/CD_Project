@@ -12,10 +12,13 @@ def data_distribution(filename, dataset, index_col, na_values):
     register_matplotlib_converters()
     data = read_csv(filename, index_col=index_col, na_values=na_values)
     # print(data)
-    data_without_class = data.drop("class", axis='columns')
+    if (dataset == "dataset2"):
+        data_without_class = data.drop("class", axis='columns')
+    else:
+        data_without_class = data
     # print(data_without_class)
-    print_summary5(data_without_class)
-    #single_box_plot(data_without_class)
+    #print_summary5(data_without_class)
+    #single_box_plot(data_without_class, dataset)
     #global_boxplot(data_without_class, dataset)
     #outliers_plot(data_without_class, dataset)
     #hist_plot(data_without_class, dataset)
@@ -82,7 +85,7 @@ def outliers_plot(data, dataset):
 
 
 def hist_plot(data, dataset):
-    numeric_vars = get_variable_types(data)['Numeric']
+    numeric_vars = get_variable_types(data)['Numeric']    
     if [] == numeric_vars:
         raise ValueError('There are no numeric variables.')
     rows, cols = choose_grid(len(numeric_vars))
@@ -174,4 +177,5 @@ def class_distribution(data, dataset):
 
 
 data_distribution('data/classification/drought.csv', 'dataset2', 'date', '0')
+data_distribution('data/classification/diabetic_data.csv', 'dataset1', "encounter_id", "?")
 
