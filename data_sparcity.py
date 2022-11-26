@@ -4,19 +4,23 @@ from matplotlib.pyplot import subplots, savefig, show, figure, title
 from dscharts import get_variable_types, HEIGHT
 from seaborn import heatmap
 
-def data_sparcity(filename, dataset, indexCol, naValues):
+def data_sparcity(filename, dataset, index_col, na_values):
     register_matplotlib_converters()
-    data = read_csv(filename, index_col=indexCol, parse_dates=True, infer_datetime_format=True)
-    print(data)
-    #scatter_plot_sparcity_Numeric(data, dataset)
+    data = read_csv(filename, index_col=index_col, parse_dates=True, infer_datetime_format=True)
+
+    # print(data)
+    if (dataset == "dataset2"):
+        data_without_class = data.drop("class", axis='columns')
+    else:
+        data_without_class = data
+    scatter_plot_sparcity_Numeric(data, dataset)
     #scatter_plot_sparcity_symbolic(data, dataset)
-    correlation_analisys(data, dataset)
+    #correlation_analysis(data, dataset)
 
 def scatter_plot_sparcity_Numeric(data, dataset):
     numeric_vars = get_variable_types(data)['Numeric']
     if [] == numeric_vars:
         raise ValueError('There are no numeric variables.')
-
     rows, cols = len(numeric_vars)-1, len(numeric_vars)-1
     fig, axs = subplots(rows, cols, figsize=(cols*HEIGHT, rows*HEIGHT), squeeze=False)
     for i in range(len(numeric_vars)):
@@ -50,7 +54,7 @@ def scatter_plot_sparcity_symbolic(data, dataset):
     savefig(image_location+'/sparsity_study_symbolic.png')
     #show()
 
-def correlation_analisys(data, dataset):
+def correlation_analysis(data, dataset):
     corr_mtx = abs(data.corr())
     print(corr_mtx)
     fig = figure(figsize=[12, 12])
@@ -65,4 +69,5 @@ def class_sparcity(data, dataset):
     # TODO
     return True
 
-data_sparcity('data/classification/diabetic_data.csv', 'dataset1', "encounter_id", "?")
+#data_sparcity('data/classification/diabetic_data.csv', 'dataset1', "encounter_id", "?")
+data_sparcity('data/classification/drought.csv', 'dataset2', "fips", 0)
