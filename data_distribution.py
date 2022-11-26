@@ -8,9 +8,9 @@ from pandas import Series
 from scipy.stats import norm, expon, lognorm
 
 
-def data_distribution(filename, dataset):
+def data_distribution(filename, dataset, index_col, na_values):
     register_matplotlib_converters()
-    data = read_csv(filename, index_col='date', na_values='0')
+    data = read_csv(filename, index_col=index_col, na_values=na_values)
     # print(data)
     data_without_class = data.drop("class", axis='columns')
     # print(data_without_class)
@@ -19,7 +19,7 @@ def data_distribution(filename, dataset):
     #global_boxplot(data_without_class, dataset)
     #outliers_plot(data_without_class, dataset)
     #hist_plot(data_without_class, dataset)
-    best_fit_distribution(data_without_class, dataset)
+    #best_fit_distribution(data_without_class, dataset)
     #hist_symbolic(data_without_class, dataset)
 
 
@@ -173,5 +173,5 @@ def class_distribution(data, dataset):
     return True
 
 
-data_distribution('data/classification/drought.csv', 'dataset2')
+data_distribution('data/classification/drought.csv', 'dataset2', 'date', '0')
 
