@@ -6,19 +6,19 @@ from seaborn import heatmap
 
 def data_sparcity(filename, dataset, index_col, na_values):
     register_matplotlib_converters()
-    data = read_csv(filename, index_col=index_col, parse_dates=True, infer_datetime_format=True)
-
+    data = read_csv(filename, dayfirst=True, parse_dates=['date'], infer_datetime_format=True, index_col=index_col, na_values=na_values)
     # print(data)
     if (dataset == "dataset2"):
         data_without_class = data.drop("class", axis='columns')
     else:
         data_without_class = data
-    scatter_plot_sparcity_Numeric(data, dataset)
-    #scatter_plot_sparcity_symbolic(data, dataset)
-    #correlation_analysis(data, dataset)
+    scatter_plot_sparcity_Numeric(data_without_class, dataset)
+    #scatter_plot_sparcity_symbolic(data_without_class, dataset)
+    #correlation_analysis(data_without_class, dataset)
 
 def scatter_plot_sparcity_Numeric(data, dataset):
     numeric_vars = get_variable_types(data)['Numeric']
+    print(len(numeric_vars))
     if [] == numeric_vars:
         raise ValueError('There are no numeric variables.')
     rows, cols = len(numeric_vars)-1, len(numeric_vars)-1
@@ -70,4 +70,4 @@ def class_sparcity(data, dataset):
     return True
 
 #data_sparcity('data/classification/diabetic_data.csv', 'dataset1', "encounter_id", "?")
-data_sparcity('data/classification/drought.csv', 'dataset2', "fips", 0)
+data_sparcity('data/classification/drought.csv', 'dataset2', "fips", '')
