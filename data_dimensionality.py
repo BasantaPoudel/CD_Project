@@ -19,7 +19,7 @@ print(df.dtypes)
 figure(figsize=(4,2))
 values = {'nr records': df.shape[0], 'nr variables': df.shape[1]}
 bar_chart(list(values.keys()), list(values.values()), title='Nr of records vs nr variables')
-savefig('images/data_dimensionality/records_variables.png')
+savefig('images/data_dimensionality/dataset1/records_variables.png')
 show()
 
 
@@ -35,5 +35,5 @@ for tp in variable_types.keys():
     counts[tp] = len(variable_types[tp])
 figure(figsize=(4,2))
 bar_chart(list(counts.keys()), list(counts.values()), title='Nr of variables per type')
-savefig('images/data_dimensionality/variable_types.png')
+savefig('images/data_dimensionality/dataset1/variable_types.png')
 show()
