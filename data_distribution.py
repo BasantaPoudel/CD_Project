@@ -10,7 +10,11 @@ from scipy.stats import norm, expon, lognorm
 
 def data_distribution(filename, dataset, index_col, na_values):
     register_matplotlib_converters()
-    data = read_csv(filename, dayfirst=True, parse_dates=['date'], infer_datetime_format=True, index_col=index_col, na_values=na_values)
+    if (dataset == "dataset2"):
+        data = read_csv(filename, dayfirst=True, parse_dates=['date'], infer_datetime_format=True, index_col=index_col, na_values=na_values)
+    else:
+        data = read_csv(filename, index_col=index_col, na_values=na_values)
+    
     # print(data)
     if (dataset == "dataset2"):
         data_without_class = data.drop("class", axis='columns')
@@ -24,6 +28,7 @@ def data_distribution(filename, dataset, index_col, na_values):
     #hist_plot(data_without_class, dataset)
     #best_fit_distribution(data_without_class, dataset)
     #hist_symbolic(data_without_class, dataset)
+    class_distribution(data_without_class, dataset)
 
 
 def print_summary5(data):
@@ -128,7 +133,7 @@ def compute_known_distributions(x_values: list) -> dict:
     distributions['Exp(%.2f)'%(1/scale)] = expon.pdf(x_values, loc, scale)
     # LogNorm
     sigma, loc, scale = lognorm.fit(x_values)
-    distributions['LogNor(%.1f,%.2f)'%(log(scale),sigma)] = lognorm.pdf(x_values, sigma, loc, scale)
+    distributions['LogNor(%.1f,%.2f)'%(log(scale),sigma)] = lognorm.pdf(x_values, sigma, loc, scale)    
     return distributions
 
 
@@ -136,6 +141,8 @@ def histogram_with_distributions(ax: Axes, series: Series, var: str):
     values = series.sort_values().values
     ax.hist(values, 20, density=True)
     distributions = compute_known_distributions(values)
+    print(var)
+    print(distributions)
     multiple_line_chart(values, distributions, ax=ax, title='Best fit for %s'%var, xlabel=var, ylabel='')
 
 
@@ -172,10 +179,19 @@ def hist_symbolic(data, dataset):
 
 
 def class_distribution(data, dataset):
-    # TODO
-    return True
+    readmitted = data['readmitted']
+
+    rows, cols = 1,1
+    fig, axs = subplots(rows, cols, figsize=(cols*HEIGHT, rows*HEIGHT), squeeze=False)
+    i, j = 0, 0
+    counts = data['readmitted'].value_counts()
+    bar_chart(counts.index.to_list(), counts.values, ax=axs[i, j], title='Distribution for Readmitted Classification', xlabel='Readmitted', ylabel='nr records', percentage=False)
+    i, j = (i + 1, 0) if (1) % cols == 0 else (i, j + 1)
+    image_location = 'images/data_distribution/' + dataset
+    savefig(image_location+'/class_distribution.png')
 
 
-data_distribution('data/classification/drought.csv', 'dataset2', 'date', '')
-# data_distribution('data/classification/diabetic_data.csv', 'dataset1', "encounter_id", "?")
+data_distribution('data/classification/diabetic_data.csv', 'dataset1', "encounter_id", "?")
+#data_distribution('data/classification/drought.csv', 'dataset2', 'date', '')
+
 
