@@ -28,6 +28,5 @@ for i in range(rows):
         axs[i, j].set_xlabel(variables[i])
         axs[i, j].set_ylabel('Nr records')
         axs[i, j].hist(df[variables[i]].values, bins=bins[j])
-        print(j)
 savefig('images/data_granularity/dataset1/granularity_study.png')
 show()
