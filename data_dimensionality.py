@@ -1,10 +1,8 @@
-import numpy as np
 import pandas as pd
-from matplotlib.pyplot import figure, savefig, show, subplots
-# import matplotlib.pyplot as plt
+from matplotlib.pyplot import figure, savefig
 from pandas.plotting import register_matplotlib_converters
 register_matplotlib_converters()
-from dscharts import get_variable_types, choose_grid, HEIGHT, multiple_bar_chart, bar_chart
+from dscharts import get_variable_types, bar_chart
 
 
 def data_dimensionality(filename, dataset, index_col, na_values):
