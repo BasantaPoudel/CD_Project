@@ -10,7 +10,7 @@ from subprocess import call
 from numpy import arange, ndarray, newaxis, set_printoptions
 from pandas import DataFrame, concat
 from matplotlib.pyplot import Axes, gca, figure, savefig, subplots, imshow, imread, axis
-# from matplotlib.dates import _reset_epoch_test_example, set_epoch, AutoDateLocator, AutoDateFormatter
+from matplotlib.dates import _reset_epoch_test_example, set_epoch, AutoDateLocator, AutoDateFormatter
 import matplotlib.font_manager as fm
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.tree import export_graphviz
@@ -238,6 +238,8 @@ def get_variable_types(df: DataFrame) -> dict:
         if len(uniques) == 2:
             variable_types['Binary'].append(c)
             df[c].astype('bool')
+        elif df[c].dtype == 'datetime64[ns]':
+            variable_types['Date'].append(c)
         elif df[c].dtype == 'datetime64':
             variable_types['Date'].append(c)
         elif df[c].dtype == 'int':
