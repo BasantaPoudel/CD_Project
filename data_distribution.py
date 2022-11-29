@@ -28,7 +28,7 @@ def data_distribution(filename, dataset, index_col, na_values, class_column):
     #hist_plot(data_without_class, dataset)
     best_fit_distribution(data_without_class, dataset)
     #hist_symbolic(data_without_class, dataset)
-    class_distribution(data_without_class, dataset)
+    #class_distribution(data_without_class, dataset)
 
 
 def print_summary5(data):
