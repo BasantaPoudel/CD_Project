@@ -9,13 +9,11 @@ def data_sparcity(filename, dataset, index_col, na_values):
     register_matplotlib_converters()
     if (dataset == "dataset2"):         
         data = read_csv(filename, dayfirst=True, parse_dates=['date'], infer_datetime_format=True, index_col=index_col)
-        data_without_class = data.drop("class", axis='columns')
     else:
         data = read_csv(filename, index_col=index_col, parse_dates=True, infer_datetime_format=True)
-        data_without_class = data    
-    scatter_plot_sparcity_Numeric(data_without_class, dataset)
-    # scatter_plot_sparcity_symbolic(data_without_class, dataset)
-    #correlation_analysis(data_without_class, dataset)
+    scatter_plot_sparcity_Numeric(data, dataset)
+    # scatter_plot_sparcity_symbolic(data, dataset)
+    #correlation_analysis(data, dataset)
 
 def scatter_plot_sparcity_Numeric(data, dataset):
     numeric_vars = get_variable_types(data)['Numeric']
