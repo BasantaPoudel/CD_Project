@@ -28,7 +28,7 @@ def data_distribution(filename, dataset, index_col, na_values, class_column):
     #hist_plot(data_without_class, dataset)
     best_fit_distribution(data_without_class, dataset)
     #hist_symbolic(data_without_class, dataset)
-    #class_distribution(data, dataset, class_column)
+    class_distribution(data_without_class, dataset)
 
 
 def print_summary5(data):
@@ -150,10 +150,10 @@ def best_fit_distribution(data, dataset):
     numeric_vars = get_variable_types(data)['Numeric']
     if [] == numeric_vars:
         raise ValueError('There are no numeric variables.')
-    rows, cols = choose_grid(15)
+    rows, cols = choose_grid(15) #len(numeric_vars))
     fig, axs = subplots(rows, cols, figsize=(cols*HEIGHT, rows*HEIGHT), squeeze=False)
     i, j = 0, 0
-    for n in range(15):
+    for n in range(15): #len(numeric_vars)):
         histogram_with_distributions(axs[i, j], data[numeric_vars[n]].dropna(), numeric_vars[n])
         i, j = (i + 1, 0) if (n+1) % cols == 0 else (i, j + 1)
     image_location = 'images/data_distribution/' + dataset

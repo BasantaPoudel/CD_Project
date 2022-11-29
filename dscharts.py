@@ -10,7 +10,7 @@ from subprocess import call
 from numpy import arange, ndarray, newaxis, set_printoptions
 from pandas import DataFrame, concat
 from matplotlib.pyplot import Axes, gca, figure, savefig, subplots, imshow, imread, axis
-from matplotlib.dates import _reset_epoch_test_example, set_epoch, AutoDateLocator, AutoDateFormatter
+# from matplotlib.dates import _reset_epoch_test_example, set_epoch, AutoDateLocator, AutoDateFormatter
 import matplotlib.font_manager as fm
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.tree import export_graphviz
@@ -23,8 +23,8 @@ import config as cfg
 FONT_TEXT = fm.FontProperties(size=8)
 TEXT_MARGIN = 0.05
 
-_reset_epoch_test_example()
-set_epoch('0000-12-31T00:00:00')  # old epoch (pre MPL 3.3)
+# _reset_epoch_test_example()
+# set_epoch('0000-12-31T00:00:00')  # old epoch (pre MPL 3.3)
 
 simplefilter("ignore")
 NR_COLUMNS: int = 3
