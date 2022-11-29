@@ -4,16 +4,17 @@ from matplotlib.pyplot import subplots, savefig, show, figure, title
 from dscharts import get_variable_types, HEIGHT
 from seaborn import heatmap
 
+
 def data_sparcity(filename, dataset, index_col, na_values):
     register_matplotlib_converters()
-    data = read_csv(filename, dayfirst=True, parse_dates=['date'], infer_datetime_format=True, index_col=index_col, na_values=na_values)
-    # print(data)
-    if (dataset == "dataset2"):
+    if (dataset == "dataset2"):         
+        data = read_csv(filename, dayfirst=True, parse_dates=['date'], infer_datetime_format=True, index_col=index_col)
         data_without_class = data.drop("class", axis='columns')
     else:
-        data_without_class = data
+        data = read_csv(filename, index_col=index_col, parse_dates=True, infer_datetime_format=True)
+        data_without_class = data    
     scatter_plot_sparcity_Numeric(data_without_class, dataset)
-    #scatter_plot_sparcity_symbolic(data_without_class, dataset)
+    # scatter_plot_sparcity_symbolic(data_without_class, dataset)
     #correlation_analysis(data_without_class, dataset)
 
 def scatter_plot_sparcity_Numeric(data, dataset):
@@ -21,11 +22,11 @@ def scatter_plot_sparcity_Numeric(data, dataset):
     print(len(numeric_vars))
     if [] == numeric_vars:
         raise ValueError('There are no numeric variables.')
-    rows, cols = len(numeric_vars)-1, len(numeric_vars)-1
+    rows, cols = 15, 15
     fig, axs = subplots(rows, cols, figsize=(cols*HEIGHT, rows*HEIGHT), squeeze=False)
-    for i in range(len(numeric_vars)):
+    for i in range(16):
         var1 = numeric_vars[i]
-        for j in range(i+1, len(numeric_vars)):
+        for j in range(i+1, 16):
             var2 = numeric_vars[j]
             axs[i, j-1].set_title("%s x %s"%(var1,var2))
             axs[i, j-1].set_xlabel(var1)
@@ -69,5 +70,5 @@ def class_sparcity(data, dataset):
     # TODO
     return True
 
-#data_sparcity('data/classification/diabetic_data.csv', 'dataset1', "encounter_id", "?")
-data_sparcity('data/classification/drought.csv', 'dataset2', "fips", '')
+# data_sparcity('data/classification/diabetic_data.csv', 'dataset1', "encounter_id", "?")
+data_sparcity('data/classification/drought.csv', 'dataset2', "date", '')
