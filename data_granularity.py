@@ -12,7 +12,7 @@ def data_granularity(filename, dataset, index_col, na_values):
     else:
         df = pd.read_csv(filename)
     print(df.dtypes)
-    variables = get_variable_types(df)['Numeric']
+    variables = get_variable_types(df)['Date']
     rows = len(variables)
     bins = (10, 100, 1000)
     cols = len(bins)
@@ -24,7 +24,7 @@ def data_granularity(filename, dataset, index_col, na_values):
             axs[i, j].set_ylabel('Nr records')
             axs[i, j].hist(df[variables[i]].values, bins=bins[j])
     image_location = 'images/data_granularity/' + dataset
-    savefig(image_location+'/granularity_study.png')
+    savefig(image_location+'/granularity_study_date.png')
     show()
 
 
