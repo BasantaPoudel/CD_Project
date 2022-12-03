@@ -5,11 +5,15 @@ from dscharts import get_variable_types
 
 def outliers_treatment(filename, file, dataset, index_col, na_values):
     register_matplotlib_converters()
-    data = read_csv(filename, index_col='date', na_values='', dayfirst=True, parse_dates=['date'], infer_datetime_format=True)
+    if (dataset == "dataset2"):
+        data = read_csv(filename, dayfirst=True, parse_dates=['date'], infer_datetime_format=True, index_col=index_col, na_values=na_values)
+    else:
+        data = read_csv(filename, index_col=index_col, na_values=na_values)
+
     print_summary5(data)
     drop_outliers(data, file)
-    # replacing_outliers(data, file)
-    # truncating_outliers(data, file)
+    #replacing_outliers(data, file)
+    #truncating_outliers(data, file)
 
 
 def determine_outlier_thresholds(summary5: DataFrame, var: str):
@@ -81,4 +85,5 @@ def print_summary5(data):
     print(data.describe())
 
 
-outliers_treatment('data/classification/drought.csv', 'drought', 'dataset2', 'date', '')
+# outliers_treatment('data/classification/drought.csv', 'drought', 'dataset2', 'date', '')
+outliers_treatment('data/classification/diabetic_data.csv', 'diabetic_data', 'dataset1', 'encounter_id', '?')
