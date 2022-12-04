@@ -9,8 +9,6 @@ file = ""
 def data_encoding(filename):
     file = filename
     data = read_csv(filename, dayfirst=True, parse_dates=['date'], infer_datetime_format=True)
-    col = data['date']
-    print(col)
     variable_encoding(data)
 
 def variable_encoding(data):
@@ -18,9 +16,9 @@ def variable_encoding(data):
     data_datetime_encoding = {}
     
     for n in range(len(data['date'])):
-        print(data['date'][n])
+        # print(data['date'][n])
         data_datetime_encoding[n] = 10000*data['date'][n].year + 100*data['date'][n].month + data['date'][n].day
-        print(data_datetime_encoding[n])
+        # print(data_datetime_encoding[n])
         
     data['date'] =  data_datetime_encoding.values()
 
