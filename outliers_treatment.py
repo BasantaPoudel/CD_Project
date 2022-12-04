@@ -85,5 +85,5 @@ def print_summary5(data):
     print(data.describe())
 
 
-# outliers_treatment('data/classification/drought.csv', 'drought', 'dataset2', 'date', '')
-outliers_treatment('data/classification/diabetic_data.csv', 'diabetic_data', 'dataset1', 'encounter_id', '?')
+outliers_treatment('data/classification/drought.csv', 'drought', 'dataset2', 'date', '')
+# outliers_treatment('data/classification/diabetic_data.csv', 'diabetic_data', 'dataset1', 'encounter_id', '?')
