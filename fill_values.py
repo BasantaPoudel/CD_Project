@@ -3,7 +3,7 @@ from pandas import concat, DataFrame
 from dscharts import get_variable_types
 from numpy import nan
 import pandas as pd
-import dataframe_image as dfi
+#import dataframe_image as dfi
 
 data = pd.read_csv('data/classification/lab2_datasets/dataset1/drop_recs_cols_dataset1.csv',
                    index_col = 'encounter_id')
@@ -32,7 +32,7 @@ if strategy == 1:
     df.drop(['Unnamed: 0'], axis=1, inplace=True)
     df.to_csv('data/classification/lab2_datasets/dataset1/mv_filled_constant_dataset1.csv', index=True)
     describe = df.describe(include='all')
-    dfi.export(describe, 'images/missing_values_imputation/dataset1/describe_constant_fill.png',max_cols=(-1))
+    #dfi.export(describe, 'images/missing_values_imputation/dataset1/describe_constant_fill.png',max_cols=(-1))
 
 else:
     tmp_nr, tmp_sb, tmp_bool = None, None, None
@@ -58,7 +58,7 @@ else:
     df.drop(['Unnamed: 0'], axis=1, inplace=True)
     df.to_csv('data/classification/lab2_datasets/dataset1/mv_filled_most_frequent_dataset1.csv', index=True)
     describe = df.describe(include='all')
-    dfi.export(describe, 'images/missing_values_imputation//dataset1/describe_most_frequent_fill.png', max_cols=(-1))
+    #dfi.export(describe, 'images/missing_values_imputation//dataset1/describe_most_frequent_fill.png', max_cols=(-1))
     
     
     
