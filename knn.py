@@ -75,4 +75,5 @@ def plot_overfitting_study(dataset, method, xvalues, prd_trn, prd_tst, name, xla
 
 
 #Last Paramenter correspond to MVI or scaling (Lab2 --> First part is MVI and Second part --> Scaling)
-knn_variants('diabetes', 'data/classification/lab2_datasets/dataset1/diabetes', 'readmitted', 'dataset1', 'scaling')
+knn_variants('diabetes', 'data/classification/lab2_datasets/dataset1/minmax_diabetes', 'readmitted', 'dataset1', 'minmax_scaling')
+knn_variants('diabetes', 'data/classification/lab2_datasets/dataset1/zscore_diabetes', 'readmitted', 'dataset1', 'zscore_scaling')

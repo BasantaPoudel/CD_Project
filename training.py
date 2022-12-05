@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import dscharts as ds
 from sklearn.model_selection import train_test_split
 
-def training_split(file_tag, data, target, positive, negative, urlfiles):
+def training_split(file_tag, data, target, positive, negative, urlfiles, scalingtype):
     file_tag = file_tag #'diabetes'
     data: DataFrame = read_csv(data) #'data/diabetic_scaled_minmax.csv')
     target = target #'readmitted'
@@ -21,10 +21,10 @@ def training_split(file_tag, data, target, positive, negative, urlfiles):
     trnX, tstX, trnY, tstY = train_test_split(X, y, train_size=0.7, stratify=y)
 
     train = concat([DataFrame(trnX, columns=data.columns), DataFrame(trnY,columns=[target])], axis=1)
-    train.to_csv(urlfiles+'/'+file_tag+'_train.csv', index=False)
+    train.to_csv(urlfiles+'/'+scalingtype+'_'+file_tag+'_train.csv', index=False)
 
     test = concat([DataFrame(tstX, columns=data.columns), DataFrame(tstY,columns=[target])], axis=1)
-    test.to_csv(urlfiles+'/'+file_tag+'_test.csv', index=False)
+    test.to_csv(urlfiles+'/'+scalingtype+'_'+file_tag+'_test.csv', index=False)
     values['Train'] = [len(np.delete(trnY, np.argwhere(trnY==negative))), len(np.delete(trnY, np.argwhere(trnY==positive)))]
     values['Test'] = [len(np.delete(tstY, np.argwhere(tstY==negative))), len(np.delete(tstY, np.argwhere(tstY==positive)))]
 
@@ -32,6 +32,8 @@ def training_split(file_tag, data, target, positive, negative, urlfiles):
     ds.multiple_bar_chart([positive, negative], values, title='Data distribution per dataset')
     plt.show()
 
-training_split('diabetes','data/classification/lab2_datasets/dataset1/dataset1_scaled_minmax.csv', 'readmitted', 1, 0, 'data/classification/lab2_datasets/dataset1')
-#train_test_split('diabetes','data/classification/lab2_datasets/dataset1/dataset1_scaled_zscore.csv', 'readmitted', 1, 0, 'data/classification/lab2_datasets/dataset1')
+training_split('diabetes','data/classification/lab2_datasets/dataset1/dataset1_scaled_minmax.csv', 
+               'readmitted', 1, 0, 'data/classification/lab2_datasets/dataset1', 'minmax')
+training_split('diabetes','data/classification/lab2_datasets/dataset1/dataset1_scaled_zscore.csv', 
+                 'readmitted', 1, 0, 'data/classification/lab2_datasets/dataset1', 'zscore')
 

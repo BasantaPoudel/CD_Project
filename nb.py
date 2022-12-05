@@ -50,4 +50,5 @@ def nb_variants(file_tag, filename, target, dataset, method):
     #how()
 
 #Last Paramenter correspond to MVI or scaling (Lab2 --> First part is MVI and Second part --> Scaling)
-nb_variants('diabetes', 'data/classification/lab2_datasets/dataset1/diabetes', 'readmitted', 'dataset1', 'scaling')
+#nb_variants('diabetes', 'data/classification/lab2_datasets/dataset1/minmax_diabetes', 'readmitted', 'dataset1', 'minmax_scaling')
+nb_variants('diabetes', 'data/classification/lab2_datasets/dataset1/zscore_diabetes', 'readmitted', 'dataset1', 'zscore_scaling')
