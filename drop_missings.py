@@ -24,7 +24,7 @@ for j in df:
             s +=1
     mvv[j] = s
             
-bar_chart(list(mvv.keys()), list(mvv.values()), title='Nr of missing values per variable', xlabel='variables', ylabel='nr missing values', rotation=True)
+#bar_chart(list(mvv.keys()), list(mvv.values()), title='Nr of missing values per variable', xlabel='variables', ylabel='nr missing values', rotation=True)
 
 
 '''figure already saved in previous work lab1'''
