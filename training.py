@@ -32,8 +32,24 @@ def training_split(file_tag, data, target, positive, negative, urlfiles, scaling
     ds.multiple_bar_chart([positive, negative], values, title='Data distribution per dataset')
     plt.show()
 
+<<<<<<< HEAD
 training_split('diabetes','data/classification/lab2_datasets/dataset1/dataset1_scaled_minmax.csv', 
-               'readmitted', 1, 0, 'data/classification/lab2_datasets/dataset1', 'minmax')
+                'readmitted', 1, 0, 'data/classification/lab2_datasets/dataset1', 'minmax')
 training_split('diabetes','data/classification/lab2_datasets/dataset1/dataset1_scaled_zscore.csv', 
-                 'readmitted', 1, 0, 'data/classification/lab2_datasets/dataset1', 'zscore')
+                  'readmitted', 1, 0, 'data/classification/lab2_datasets/dataset1', 'zscore')
+training_split('diabetes','data/classification/lab2_datasets/dataset1/mv_filled_mean_dataset1.csv', 
+                  'readmitted', 1, 0, 'data/classification/lab2_datasets/dataset1', 'zscore')
+training_split('diabetes','data/classification/lab2_datasets/dataset1/mv_filled_most_frequent_dataset1.csv', 
+                  'readmitted', 1, 0, 'data/classification/lab2_datasets/dataset1', 'zscore')
+=======
+#training_split('diabetes','data/classification/lab2_datasets/dataset1/dataset1_scaled_minmax.csv', 
+#               'readmitted', 1, 0, 'data/classification/lab2_datasets/dataset1', 'minmax')
+#training_split('diabetes','data/classification/lab2_datasets/dataset1/dataset1_scaled_zscore.csv', 
+#                 'readmitted', 1, 0, 'data/classification/lab2_datasets/dataset1', 'zscore')
+
+training_split('drought','data/classification/lab2_datasets/dataset2/dataset2_scaled_minmax.csv', 
+               'class', 1, 0, 'data/classification/lab2_datasets/dataset2', 'minmax')
+training_split('drought','data/classification/lab2_datasets/dataset2/dataset2_scaled_zscore.csv', 
+                 'class', 1, 0, 'data/classification/lab2_datasets/dataset2', 'zscore')
+>>>>>>> ed51d24eedc1f20588e15b4b07b70484fddaed2f
 
