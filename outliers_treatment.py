@@ -91,4 +91,4 @@ def print_summary5(data):
 
 
 #outliers_treatment('data/classification/drought.csv', 'drought', 'dataset2', 'date', '')
-outliers_treatment('data/classification/datasets_for_further_analysis/dataset1/mv_filled_mean_dataset1.csv', 'diabetic_data', 'dataset1', 'encounter_id', '?')
+outliers_treatment('data/classification/datasets_for_further_analysis/dataset1/mv_filled_mean_dataset1.csv', 'diabetic_data', 'dataset1', 'encounter_id', '')
