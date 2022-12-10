@@ -297,4 +297,4 @@ def dummify(df, vars_to_dummify):
 
 #data_encoding('data/classification/datasets_for_further_analysis/dataset1/drop_recs_cols_dataset1.csv', "?")
 #data_encoding('data/classification/datasets_for_further_analysis/dataset1/mv_filled_most_frequent_dataset1.csv', "?")
-data_encoding('data/diabetic_data_drop_outliers.csv', "?")
+data_encoding('data/classification/diabetic_data.csv', "?")
