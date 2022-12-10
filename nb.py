@@ -31,7 +31,7 @@ def nb_variants(file_tag, filename, target, dataset, method):
     #show()
 
     estimators = {'GaussianNB': GaussianNB(),
-              'MultinomialNB': MultinomialNB(),
+              #'MultinomialNB': MultinomialNB(),
               'BernoulliNB': BernoulliNB()
               #'CategoricalNB': CategoricalNB
               }
@@ -50,11 +50,11 @@ def nb_variants(file_tag, filename, target, dataset, method):
     #how()
 
 #Last Paramenter correspond to MVI or scaling (Lab2 --> First part is MVI and Second part --> Scaling)
-nb_variants('diabetes', 'data/classification/lab2_datasets/dataset1/minmax_diabetes', 'readmitted', 'dataset1', 'minmax_scaling')
+#nb_variants('diabetes', 'data/classification/lab2_datasets/dataset1/minmax_diabetes', 'readmitted', 'dataset1', 'minmax_scaling')
 #if you are going to run the zscore put comment MultinomialNB line 34
-nb_variants('diabetes', 'data/classification/lab2_datasets/dataset1/zscore_diabetes', 'readmitted', 'dataset1', 'zscore_scaling')
+#nb_variants('diabetes', 'data/classification/lab2_datasets/dataset1/zscore_diabetes', 'readmitted', 'dataset1', 'zscore_scaling')
 
 
-#nb_variants('drought', 'data/classification/lab2_datasets/dataset2/minmax_drought', 'class', 'dataset2', 'minmax_scaling')
+#nb_variants('drought', 'data/classification/lab2_datasets/dataset2/replace_outliers_drought', 'class', 'dataset2', 'mvi_replace_outliers')
 #if you are going to run the zscore put comment MultinomialNB line 34
-#nb_variants('drought', 'data/classification/lab2_datasets/dataset2/zscore_drought', 'class', 'dataset2', 'zscore_scaling')
+#nb_variants('drought', 'data/classification/drought_replacing_outliers', 'class', 'dataset2', 'mvi_replace_outliers')

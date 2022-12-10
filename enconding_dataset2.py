@@ -25,4 +25,4 @@ def variable_encoding(data):
     data.to_csv('data/classification/lab2_datasets/dataset2/drought_variable_enconding.csv', index=False)
 
 
-data_encoding('data/classification/drought.csv')
+data_encoding('data/classification/lab2_datasets/dataset2/replace_outliers_drought.csv')

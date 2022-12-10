@@ -276,8 +276,10 @@ def readmitted(data_readmitted) -> dict:
             data_readmitted_encoding[n] = -1
         elif "NO" == data_readmitted[n]:
             data_readmitted_encoding[n] = 0
-        else:
+        elif data_readmitted[n] == ">30":
             data_readmitted_encoding[n] = 1
+        elif data_readmitted[n] == "<30":
+            data_readmitted_encoding[n] = 2
     return data_readmitted_encoding
 
 def dummify(df, vars_to_dummify):
