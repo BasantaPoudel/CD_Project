@@ -8,6 +8,8 @@ import pandas as pd
 data = pd.read_csv('data/classification/datasets_for_further_analysis/dataset1/diabetic_data_variable_enconding.csv',
                    index_col = 'encounter_id')
 
+datareadmitted = data["readmitted"]
+
 strategy = 1
 
 if strategy == 1:
@@ -29,7 +31,8 @@ if strategy == 1:
     
     df = concat([tmp_nr, tmp_sb, tmp_bool], axis=1)
     df.index = data.index
-    df.drop(['Unnamed: 0'], axis=1, inplace=True)
+    #df.drop(['Unnamed: 0'], axis=1, inplace=True)
+    df["readmitted"] = datareadmitted
     df.to_csv('data/classification/datasets_for_further_analysis/dataset1/mv_filled_mean_dataset1.csv', index=True)
     describe = df.describe(include='all')
     #dfi.export(describe, 'images/missing_values_imputation/dataset1/describe_mean_fill.png',max_cols=(-1))
