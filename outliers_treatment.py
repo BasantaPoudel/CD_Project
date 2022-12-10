@@ -11,9 +11,9 @@ def outliers_treatment(filename, file, dataset, index_col, na_values):
         data = read_csv(filename, index_col=index_col, na_values=na_values)
 
     print_summary5(data)
-    drop_outliers(data, file)
-    #replacing_outliers(data, file)
-    #truncating_outliers(data, file)
+    #drop_outliers(data, dataset, file)
+    #replacing_outliers(data, dataset, file)
+    truncating_outliers(data, dataset, file)
 
 
 def determine_outlier_thresholds(summary5: DataFrame, var: str):
@@ -30,7 +30,7 @@ def determine_outlier_thresholds(summary5: DataFrame, var: str):
     return top_threshold, bottom_threshold
 
 
-def drop_outliers(data, file):
+def drop_outliers(data, dataset, file):
     numeric_vars = get_variable_types(data)['Numeric']
     if [] == numeric_vars:
         raise ValueError('There are no numeric variables.')
@@ -41,11 +41,12 @@ def drop_outliers(data, file):
         top_threshold, bottom_threshold = determine_outlier_thresholds(summary5, var)
         outliers = df[(df[var] > top_threshold) | (df[var] < bottom_threshold)]
         df.drop(outliers.index, axis=0, inplace=True)
-    df.to_csv(f'data/{file}_drop_outliers.csv', index=True)
+    output_location = 'data/classification/datasets_for_further_analysis/'+dataset+'/'+file+'_drop_outliers.csv'
+    df.to_csv(f'{output_location}', index=True)
     print('data after dropping outliers:', df.shape)
 
 
-def replacing_outliers(data, file):
+def replacing_outliers(data, dataset, file):
     numeric_vars = get_variable_types(data)['Numeric']
     if [] == numeric_vars:
         raise ValueError('There are no numeric variables.')
@@ -59,12 +60,14 @@ def replacing_outliers(data, file):
 
     print('Original data:', data.shape)
     # print('data after replacing outliers:', df.describe())
-    df.to_csv(f'data/{file}_replacing_outliers.csv', index=True)
+    output_location = 'data/classification/datasets_for_further_analysis/'+dataset+'/'+file+'_replacing_outliers.csv'
+
+    df.to_csv(f'{output_location}', index=True)
     print('data after replacing outliers:', df.shape)
 
 
 
-def truncating_outliers(data, file):
+def truncating_outliers(data, dataset, file):
     numeric_vars = get_variable_types(data)['Numeric']
     if [] == numeric_vars:
         raise ValueError('There are no numeric variables.')
@@ -77,7 +80,9 @@ def truncating_outliers(data, file):
 
     print('Original data:', data.shape)
     # print('data after truncating outliers:', df.describe())
-    df.to_csv(f'data/{file}_truncate_outliers.csv', index=True)
+    output_location = 'data/classification/datasets_for_further_analysis/'+dataset+'/'+file+'_truncate_outliers.csv'
+
+    df.to_csv(f'{output_location}', index=True)
     print('data after truncating outliers:', df.shape)
 
 

@@ -22,34 +22,38 @@ def data_balancing(filename, file, dataset, index_col, class_col, na_values, ):
 
     figure()
     bar_chart(target_count.index, target_count.values, title='Class balance')
-    savefig(f'images/{file}_balance.png')
+    savefig(f'images/data_balancing/{file}_unbalanced.png')
     show()
 
-    # undersampling(file, class_col, original, positive_class, negative_class, values)
-    #oversampling(file, class_col, original, positive_class, negative_class, values)
-    smote(file, class_col, original, positive_class, negative_class, values)
+    #undersampling(file, dataset, class_col, original, positive_class, negative_class, values)
+    #oversampling(file, dataset, class_col, original, positive_class, negative_class, values)
+    smote(file, dataset, class_col, original, positive_class, negative_class, values)
 
 
-def undersampling(file, class_col, original, positive_class, negative_class, values):
+def undersampling(file, dataset, class_col, original, positive_class, negative_class, values):
     df_positives = original[original[class_col] == positive_class]
     df_negatives = original[original[class_col] == negative_class]
 
     df_neg_sample = DataFrame(df_negatives.sample(len(df_positives)))
     df_under = concat([df_positives, df_neg_sample], axis=0)
-    df_under.to_csv(f'data/{file}_under.csv', index=False)
+    output_location = 'data/classification/datasets_for_further_analysis/'+dataset+'/'+file+'_undersampling.csv'
+
+    df_under.to_csv(f'{output_location}', index=False)
     values['UnderSample'] = [len(df_positives), len(df_neg_sample)]
     print('Minority class=', positive_class, ':', len(df_positives))
     print('Majority class=', negative_class, ':', len(df_neg_sample))
     print('Proportion:', round(len(df_positives) / len(df_neg_sample), 2), ': 1')
 
 
-def oversampling(file, class_col, original, positive_class, negative_class, values):
+def oversampling(file, dataset, class_col, original, positive_class, negative_class, values):
     df_positives = original[original[class_col] == positive_class]
     df_negatives = original[original[class_col] == negative_class]
 
     df_pos_sample = DataFrame(df_positives.sample(len(df_negatives), replace=True))
     df_over = concat([df_pos_sample, df_negatives], axis=0)
-    df_over.to_csv(f'data/{file}_over.csv', index=False)
+    output_location = 'data/classification/datasets_for_further_analysis/'+dataset+'/'+file+'_oversampling.csv'
+
+    df_over.to_csv(f'{output_location}', index=False)
     values['OverSample'] = [len(df_pos_sample), len(df_negatives)]
     print('Minority class=', positive_class, ':', len(df_pos_sample))
     print('Majority class=', negative_class, ':', len(df_negatives))
@@ -57,7 +61,7 @@ def oversampling(file, class_col, original, positive_class, negative_class, valu
 
 
 #oversampling hybrid technique
-def smote(file, class_col, original, positive_class, negative_class, values):
+def smote(file, dataset, class_col, original, positive_class, negative_class, values):
     RANDOM_STATE = 42
     smote = SMOTE(sampling_strategy='minority', random_state=RANDOM_STATE)
     y = original.pop(class_col).values
@@ -65,7 +69,8 @@ def smote(file, class_col, original, positive_class, negative_class, values):
     smote_X, smote_y = smote.fit_resample(X, y)
     df_smote = concat([DataFrame(smote_X), DataFrame(smote_y)], axis=1)
     df_smote.columns = list(original.columns) + [class_col]
-    df_smote.to_csv(f'data/{file}_smote.csv', index=False)
+    output_location = 'data/classification/datasets_for_further_analysis/'+dataset+'/'+file+'_smote.csv'
+    df_smote.to_csv(f'{output_location}', index=False)
 
     smote_target_count = Series(smote_y).value_counts()
     values['SMOTE'] = [smote_target_count[positive_class], smote_target_count[negative_class]]
@@ -75,6 +80,7 @@ def smote(file, class_col, original, positive_class, negative_class, values):
 
     figure()
     multiple_bar_chart([positive_class, negative_class], values, title='Target', xlabel='frequency', ylabel='Class balance')
+    savefig(f'images/data_balancing/{file}_smote.png')
     show()
 
 # data_balancing('data/classification/diabetic_data.csv', 'diabetic_data', 'dataset1', "encounter_id", 'readmitted', "?")
