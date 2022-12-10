@@ -24,13 +24,13 @@ def scaling(data, dataset):
     transf = StandardScaler(with_mean=True, with_std=True, copy=True).fit(df_nr)
     tmp = DataFrame(transf.transform(df_nr), index=data.index, columns= numeric_vars)
     norm_data_zscore = concat([tmp, df_sb,  df_bool], axis=1)
-    norm_data_zscore.to_csv('data/classification/lab2_datasets/'+dataset+'/'+dataset+'_scaled_zscore.csv', index=False)
+    norm_data_zscore.to_csv('data/classification/datasets_for_further_analysis/'+dataset+'/'+dataset+'_scaled_zscore.csv', index=False)
 
 
     transf = MinMaxScaler(feature_range=(0, 1), copy=True).fit(df_nr)
     tmp = DataFrame(transf.transform(df_nr), index=data.index, columns= numeric_vars)
     norm_data_minmax = concat([tmp, df_sb,  df_bool], axis=1)
-    norm_data_minmax.to_csv('data/classification/lab2_datasets/'+dataset+'/'+dataset+'_scaled_minmax.csv', index=False)
+    norm_data_minmax.to_csv('data/classification/datasets_for_further_analysis/'+dataset+'/'+dataset+'_scaled_minmax.csv', index=False)
     print(norm_data_minmax.describe())
 
 
@@ -45,5 +45,5 @@ def scaling(data, dataset):
     image_location = 'images/data_scaling/' + dataset
     savefig(image_location+'/scaling_comparison_dataset1')
 
-scaling('data/classification/lab2_datasets/dataset1/mv_filled_mean_dataset1.csv', "dataset1")
-#scaling('data/classification/lab2_datasets/dataset2/drought_variable_enconding.csv', "dataset2")
+scaling('data/classification/datasets_for_further_analysis/dataset1/mv_filled_mean_dataset1.csv', "dataset1")
+#scaling('data/classification/datasets_for_further_analysis/dataset2/drought_variable_enconding.csv', "dataset2")

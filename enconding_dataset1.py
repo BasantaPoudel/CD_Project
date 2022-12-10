@@ -213,7 +213,7 @@ def variable_encoding(data):
     symbolic_vars = variables['Symbolic']
     #df = dummify(data, symbolic_vars)
     data["readmitted"] = readmitted(data['readmitted']).values()
-    data.to_csv('data/classification/lab2_datasets/dataset1/diabetic_data_variable_enconding.csv', index=False)
+    data.to_csv('data/classification/datasets_for_further_analysis/dataset1/diabetic_data_variable_enconding.csv', index=False)
 
 #Codifying Diag_1, Diag_2, Diag_3 Variables, using ICD9 Codification
 #http://www.icd9data.com/2015/Volume1/default.htm
@@ -295,6 +295,6 @@ def dummify(df, vars_to_dummify):
     final_df = concat([df[other_vars], dummy], axis=1)
     return final_df
 
-#data_encoding('data/classification/lab2_datasets/dataset1/drop_recs_cols_dataset1.csv', "?")
-#data_encoding('data/classification/lab2_datasets/dataset1/mv_filled_most_frequent_dataset1.csv', "?")
+#data_encoding('data/classification/datasets_for_further_analysis/dataset1/drop_recs_cols_dataset1.csv', "?")
+#data_encoding('data/classification/datasets_for_further_analysis/dataset1/mv_filled_most_frequent_dataset1.csv', "?")
 data_encoding('data/diabetic_data_drop_outliers.csv', "?")

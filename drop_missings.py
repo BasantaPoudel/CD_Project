@@ -48,7 +48,7 @@ print(df.shape)
 '''drop payer and medical speciality?? They have many missing values'''
 # data.drop(['payer_code', 'medical_specialty'],axis=1,inplace=True)
 
-data.to_csv('data/classification/lab2_datasets/dataset1/drop_recs_cols_dataset1.csv')
+data.to_csv('data/classification/datasets_for_further_analysis/dataset1/drop_recs_cols_dataset1.csv')
 
 
 

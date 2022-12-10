@@ -5,7 +5,7 @@ from numpy import nan
 import pandas as pd
 #import dataframe_image as dfi
 
-data = pd.read_csv('data/classification/lab2_datasets/dataset1/diabetic_data_variable_enconding.csv',
+data = pd.read_csv('data/classification/datasets_for_further_analysis/dataset1/diabetic_data_variable_enconding.csv',
                    index_col = 'encounter_id')
 
 strategy = 1
@@ -30,13 +30,10 @@ if strategy == 1:
     df = concat([tmp_nr, tmp_sb, tmp_bool], axis=1)
     df.index = data.index
     df.drop(['Unnamed: 0'], axis=1, inplace=True)
-    df.to_csv('data/classification/lab2_datasets/dataset1/mv_filled_mean_dataset1.csv', index=True)
+    df.to_csv('data/classification/datasets_for_further_analysis/dataset1/mv_filled_mean_dataset1.csv', index=True)
     describe = df.describe(include='all')
-<<<<<<< HEAD
-    dfi.export(describe, 'images/missing_values_imputation/dataset1/describe_mean_fill.png',max_cols=(-1))
-=======
+    #dfi.export(describe, 'images/missing_values_imputation/dataset1/describe_mean_fill.png',max_cols=(-1))
     #dfi.export(describe, 'images/missing_values_imputation/dataset1/describe_constant_fill.png',max_cols=(-1))
->>>>>>> ed51d24eedc1f20588e15b4b07b70484fddaed2f
 
 else:
     tmp_nr, tmp_sb, tmp_bool = None, None, None
@@ -60,10 +57,9 @@ else:
     df.index = data.index
     
     df.drop(['Unnamed: 0'], axis=1, inplace=True)
-    df.to_csv('data/classification/lab2_datasets/dataset1/mv_filled_most_frequent_dataset1.csv', index=True)
+    df.to_csv('data/classification/datasets_for_further_analysis/dataset1/mv_filled_most_frequent_dataset1.csv', index=True)
     describe = df.describe(include='all')
     #dfi.export(describe, 'images/missing_values_imputation//dataset1/describe_most_frequent_fill.png', max_cols=(-1))
-    
     
     
     
