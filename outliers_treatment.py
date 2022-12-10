@@ -11,8 +11,8 @@ def outliers_treatment(filename, file, dataset, index_col, na_values):
         data = read_csv(filename, index_col=index_col, na_values=na_values)
 
     print_summary5(data)
-    #drop_outliers(data, dataset, file)
-    #replacing_outliers(data, dataset, file)
+    drop_outliers(data, dataset, file)
+    replacing_outliers(data, dataset, file)
     truncating_outliers(data, dataset, file)
 
 
@@ -91,4 +91,4 @@ def print_summary5(data):
 
 
 #outliers_treatment('data/classification/drought.csv', 'drought', 'dataset2', 'date', '')
-outliers_treatment('data/classification/diabetic_data.csv', 'diabetic_data', 'dataset1', 'encounter_id', '?')
+outliers_treatment('data/classification/datasets_for_further_analysis/dataset1/mv_filled_mean_dataset1.csv', 'diabetic_data', 'dataset1', 'encounter_id', '?')
