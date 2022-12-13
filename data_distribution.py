@@ -24,9 +24,9 @@ def data_distribution(filename, dataset, index_col, na_values, class_column):
     print_summary5(data_without_class)
     #single_box_plot(data_without_class, dataset)
     #global_boxplot(data_without_class, dataset)
-    #outliers_plot(data_without_class, dataset)
+    outliers_plot(data_without_class, dataset)
     #hist_plot(data_without_class, dataset)
-    best_fit_distribution(data_without_class, dataset)
+    #best_fit_distribution(data_without_class, dataset)
     #hist_symbolic(data_without_class, dataset)
     #class_distribution(data_without_class, dataset)
 
@@ -82,7 +82,7 @@ def outliers_plot(data, dataset):
             data[data[var] < summary5[var]['mean'] - std].count()[var]]
 
     outliers = {'iqr': outliers_iqr, 'stdev': outliers_stdev}
-    figure(figsize=(12, HEIGHT))
+    figure(figsize=(12, 8))
     multiple_bar_chart(numeric_vars, outliers, title='Nr of outliers per variable', xlabel='variables', ylabel='nr outliers', percentage=False)
     image_location = 'images/data_distribution/' + dataset
     savefig(image_location+'/outliers.png')
@@ -192,6 +192,8 @@ def class_distribution(data, dataset, class_column):
 
 
 #data_distribution('data/classification/diabetic_data.csv', 'dataset1', "encounter_id", "?", 'readmitted')
-data_distribution('data/classification/drought.csv', 'dataset2', 'date', '', 'class')
+# data_distribution('data/classification/drought.csv', 'dataset2', 'date', '', 'class')
 
+#Following lines are run over the processed files for further analysis
+data_distribution('data/classification/datasets_for_further_analysis/dataset2/dataset2_variable_enconding.csv', 'dataset2_variable_enconding', 'date', '', 'class')
 
