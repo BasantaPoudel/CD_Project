@@ -35,7 +35,7 @@ intermediate = 2 #">30"
 
 values = {'Original': [len(data[data[target] == negative]), len(data[data[target] == intermediate]), len(data[data[target] == positive])]}
 
-train, test = training_split('diabetes', data, 'readmitted', 'data/classification/datasets_for_further_analysis/dataset1', 'under_balance')
+train, test = training_split('diabetes', data, 'readmitted', 'data/classification/datasets_for_further_analysis/dataset1', 'minmax')
 
 values['train'] = [len(train[train[target] == negative]), len(train[train[target] == intermediate]), len(train[train[target] == positive])] 
 values['test'] =  [len(test[test[target] == negative]), len(test[test[target] == intermediate]), len(test[test[target] == positive])]
