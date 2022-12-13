@@ -192,6 +192,8 @@ def class_distribution(data, dataset, class_column):
 
 
 #data_distribution('data/classification/diabetic_data.csv', 'dataset1', "encounter_id", "?", 'readmitted')
-data_distribution('data/classification/drought.csv', 'dataset2', 'date', '', 'class')
+# data_distribution('data/classification/drought.csv', 'dataset2', 'date', '', 'class')
 
+#Following lines are run over the processed files for further analysis
+data_distribution('data/classification/datasets_for_further_analysis/dataset2/dataset2_variable_enconding.csv', 'dataset2_variable_enconding', 'date', '', 'class')
 

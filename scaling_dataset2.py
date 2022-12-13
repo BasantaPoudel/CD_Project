@@ -10,8 +10,7 @@ import numpy as np
 
 def scaling(data, dataset):
     register_matplotlib_converters()
-
-    data = pd.read_csv(data, index_col='encounter_id')
+    data = pd.read_csv(data, dayfirst=True, parse_dates=['date'], infer_datetime_format=True, index_col='date')
 
     variable_types = get_variable_types(data)
     numeric_vars = variable_types['Numeric']
@@ -44,7 +43,7 @@ def scaling(data, dataset):
     norm_data_minmax.boxplot(ax=axs[0, 2])
     #show()
     image_location = 'images/data_scaling/' + dataset
-    savefig(image_location+'/scaling_comparison_dataset1')
+    savefig(image_location+'/scaling_comparison')
 
-scaling('data/classification/datasets_for_further_analysis/dataset1/diabetic_data_variable_enconding.csv', "dataset1")
-#scaling('data/classification/datasets_for_further_analysis/dataset2/drought_variable_enconding.csv', "dataset2")
+# scaling('data/classification/datasets_for_further_analysis/dataset1/diabetic_data_variable_enconding.csv', "dataset1")
+scaling('data/classification/datasets_for_further_analysis/dataset2/dataset2_truncate_outliers.csv', "dataset2")
