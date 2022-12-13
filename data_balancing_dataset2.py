@@ -6,10 +6,7 @@ from dscharts import bar_chart, multiple_bar_chart
 
 def data_balancing(filename, file, dataset, index_col, class_col, na_values, ):
     # register_matplotlib_converters()
-    if (dataset == "dataset2"):
-        original = read_csv(filename, dayfirst=True, parse_dates=['date'], infer_datetime_format=True, index_col=index_col, na_values=na_values)
-    else:
-        original = read_csv(filename, index_col=index_col, na_values=na_values)
+    original = read_csv(filename, sep=',', decimal='.')
 
     target_count = original[class_col].value_counts()
     positive_class = target_count.idxmin()
@@ -25,9 +22,9 @@ def data_balancing(filename, file, dataset, index_col, class_col, na_values, ):
     savefig(f'images/data_balancing/dataset2/{file}_unbalanced.png')
     show()
 
-    #undersampling(file, dataset, class_col, original, positive_class, negative_class, values)
-    #oversampling(file, dataset, class_col, original, positive_class, negative_class, values)
-    smote(file, dataset, class_col, original, positive_class, negative_class, values)
+    undersampling(file, dataset, class_col, original, positive_class, negative_class, values)
+    # oversampling(file, dataset, class_col, original, positive_class, negative_class, values)
+    # smote(file, dataset, class_col, original, positive_class, negative_class, values)
 
 
 def undersampling(file, dataset, class_col, original, positive_class, negative_class, values):
@@ -80,8 +77,8 @@ def smote(file, dataset, class_col, original, positive_class, negative_class, va
 
     figure()
     multiple_bar_chart([positive_class, negative_class], values, title='Target', xlabel='frequency', ylabel='Class balance')
-    savefig(f'images/data_balancing/dataset2/{file}_smote.png')
+    savefig(f'images/data_balancing/dataset2/{dataset}_smote.png')
     show()
 
-# data_balancing('data/classification/diabetic_data.csv', 'diabetic_data', 'dataset1', "encounter_id", 'readmitted', "?")
-data_balancing('data/classification/drought.csv', 'drought', 'dataset2', 'date', 'class', '')
+# data_balancing('data/classification/datasets_for_further_analysis/dataset2/dataset2_minmax_train.csv', 'dataset2_minmax_train', 'dataset2', 'date', 'class', '')
+data_balancing('data/classification/datasets_for_further_analysis/dataset2/dataset2_zscore_train.csv', 'dataset2_zscore_train', 'dataset2', 'date', 'class', '')

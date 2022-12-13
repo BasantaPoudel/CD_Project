@@ -5,10 +5,7 @@ from dscharts import get_variable_types
 
 def outliers_treatment(filename, file, dataset, index_col, na_values):
     register_matplotlib_converters()
-    if (dataset == "dataset2"):
-        data = read_csv(filename, dayfirst=True, parse_dates=['date'], infer_datetime_format=True, index_col=index_col, na_values=na_values)
-    else:
-        data = read_csv(filename, index_col=index_col, na_values=na_values)
+    data = read_csv(filename, index_col=index_col, na_values=na_values)
 
     print_summary5(data)
     #drop_outliers(data, dataset, file)

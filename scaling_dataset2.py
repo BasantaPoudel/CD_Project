@@ -10,7 +10,7 @@ import numpy as np
 
 def scaling(data, dataset):
     register_matplotlib_converters()
-    data = pd.read_csv(data, dayfirst=True, parse_dates=['date'], infer_datetime_format=True, index_col='date')
+    data = pd.read_csv(data, index_col='date')
 
     variable_types = get_variable_types(data)
     numeric_vars = variable_types['Numeric']
