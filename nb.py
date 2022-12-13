@@ -28,7 +28,7 @@ def nb_variants(file_tag, filename, target, dataset, method):
     plot_evaluation_results(labels, trnY, prd_trn, tstY, prd_tst)
     image_location = 'images/nb/' + dataset
     savefig(image_location+'/'+method+'_'+file_tag+'_nb_best.png')
-    #show()
+    show()
 
     estimators = {'GaussianNB': GaussianNB(),
               #'MultinomialNB': MultinomialNB(),
@@ -50,7 +50,7 @@ def nb_variants(file_tag, filename, target, dataset, method):
     #how()
 
 #Last Paramenter correspond to MVI or scaling (Lab2 --> First part is MVI and Second part --> Scaling)
-#nb_variants('diabetes', 'data/classification/datasets_for_further_analysis/dataset1/minmax_diabetes', 'readmitted', 'dataset1', 'minmax_scaling')
+nb_variants('diabetes', 'data/classification/datasets_for_further_analysis/dataset1/minmax_diabetes', 'readmitted', 'dataset1', 'minmax_scaling')
 #if you are going to run the zscore put comment MultinomialNB line 34
 #nb_variants('diabetes', 'data/classification/datasets_for_further_analysis/dataset1/zscore_diabetes', 'readmitted', 'dataset1', 'zscore_scaling')
 

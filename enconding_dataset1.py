@@ -59,7 +59,7 @@ def variable_encoding(data):
     if 'payer_code' in data:
         encoder= ce.OrdinalEncoder(cols=['payer_code'],return_df=True, mapping=[{'col':'payer_code',
         'mapping':{'MC':0,'MD':1, 'HM':2,'UN':3, 'BC':4,'SP':5, 'CP':6,'SI':7, 'DM': 8, 'CM': 9, 'CH': 10, 'PO': 11,
-            'WC': 12, 'OT': 13, 'OG': 14, 'MP': 15, 'FR': 16}}])
+            'WC': 12, 'OT': 13, 'OG': 14, 'MP': 15, 'FR': 16, 'NN': 20 }}])
         data['payer_code'] = encoder.fit_transform(data["payer_code"]) 
 
     #medical_specialty encoded
@@ -86,102 +86,114 @@ def variable_encoding(data):
             'Hematology': 55, 'Proctology': 56, 'Obstetrics': 57, 'SurgicalSpecialty': 58, 'Radiologist': 59,
             'Pathology': 60, 'Dermatology': 61, 'SportsMedicine': 62, 'Speech': 63, 'Hospitalist': 64,
             'OutreachServices': 65, 'Cardiology-Pediatric': 66, 'Perinatology': 67,
-            'Neurophysiology': 68, 'Endocrinology-Metabolism': 69, 'DCPTEAM': 70, 'Resident': 71}}])
+            'Neurophysiology': 68, 'Endocrinology-Metabolism': 69, 'DCPTEAM': 70, 'Resident': 71, 'NN': 80}}])
         data['medical_specialty'] = encoder.fit_transform(data["medical_specialty"])
 
     #max_glu_serum encoded
     if 'max_glu_serum' in data:
         encoder= ce.OrdinalEncoder(cols=['max_glu_serum'],return_df=True, mapping=[{'col':'max_glu_serum',
-        'mapping':{'>200':0,'Norm':1, '>300':2 }}])
+        'mapping':{'>200':1,'Norm':2, '>300':3, 'None': 0 }}])
         data['max_glu_serum'] = encoder.fit_transform(data["max_glu_serum"])
 
     #A1Cresult encoded
     if 'A1Cresult' in data:
         encoder= ce.OrdinalEncoder(cols=['A1Cresult'],return_df=True, mapping=[{'col':'A1Cresult',
-        'mapping':{'>7':0,'Norm':1, '>8':2 }}])
+        'mapping':{'>7':1,'Norm':2, '>8':3, 'None': 0 }}])
         data['A1Cresult'] = encoder.fit_transform(data["A1Cresult"])
 
     #Variable encoding for Medication
     medication = {'No':0,'Down':1, 'Steady':2, 'Up': 3 }
 
     if 'metformin' in data:
-        encoder= ce.OrdinalEncoder(cols=['metformin'],return_df=True, mapping=[{'col':'metformin','mapping': medication}])
+        encoder= ce.OrdinalEncoder(cols=['metformin'],return_df=True, mapping=[{'col':'metformin','mapping': {'No':0,'Down':1, 'Steady':2, 'Up': 3 }}])
         data['metformin'] = encoder.fit_transform(data["metformin"])
 
     if 'repaglinide' in data:
-        encoder= ce.OrdinalEncoder(cols=['repaglinide'],return_df=True, mapping=[{'col':'repaglinide','mapping': medication}])
+        encoder= ce.OrdinalEncoder(cols=['repaglinide'],return_df=True, mapping=[{'col':'repaglinide','mapping': {'No':0,'Down':1, 'Steady':2, 'Up': 3 }}])
         data['repaglinide'] = encoder.fit_transform(data["repaglinide"])
 
     if 'nateglinide' in data:
-        encoder= ce.OrdinalEncoder(cols=['nateglinide'],return_df=True, mapping=[{'col':'nateglinide','mapping': medication}])
+        encoder= ce.OrdinalEncoder(cols=['nateglinide'],return_df=True, mapping=[{'col':'nateglinide','mapping': {'No':0,'Down':1, 'Steady':2, 'Up': 3 }}])
         data['nateglinide'] = encoder.fit_transform(data["nateglinide"])
 
     if 'chlorpropamide' in data:
-        encoder= ce.OrdinalEncoder(cols=['chlorpropamide'],return_df=True, mapping=[{'col':'chlorpropamide','mapping': medication}])
+        encoder= ce.OrdinalEncoder(cols=['chlorpropamide'],return_df=True, mapping=[{'col':'chlorpropamide','mapping': {'No':0,'Down':1, 'Steady':2, 'Up': 3 }}])
         data['chlorpropamide'] = encoder.fit_transform(data["chlorpropamide"])
 
     if 'glimepiride' in data:
-        encoder= ce.OrdinalEncoder(cols=['glimepiride'],return_df=True, mapping=[{'col':'glimepiride','mapping': medication}])
+        encoder= ce.OrdinalEncoder(cols=['glimepiride'],return_df=True, mapping=[{'col':'glimepiride','mapping': {'No':0,'Down':1, 'Steady':2, 'Up': 3 }}])
         data['glimepiride'] = encoder.fit_transform(data["glimepiride"])
+    
+    if 'acetohexamide' in data:
+        encoder= ce.OrdinalEncoder(cols=['acetohexamide'],return_df=True, mapping=[{'col':'acetohexamide','mapping': {'No':0,'Down':1, 'Steady':2, 'Up': 3 }}])
+        data['acetohexamide'] = encoder.fit_transform(data["acetohexamide"])
 
     if 'glipizide' in data:
-        encoder= ce.OrdinalEncoder(cols=['glipizide'],return_df=True, mapping=[{'col':'glipizide','mapping': medication}])
+        encoder= ce.OrdinalEncoder(cols=['glipizide'],return_df=True, mapping=[{'col':'glipizide','mapping': {'No':0,'Down':1, 'Steady':2, 'Up': 3 }}])
         data['glipizide'] = encoder.fit_transform(data["glipizide"])
 
     if 'glyburide' in data:
-        encoder= ce.OrdinalEncoder(cols=['glyburide'],return_df=True, mapping=[{'col':'glyburide','mapping': medication}])
+        encoder= ce.OrdinalEncoder(cols=['glyburide'],return_df=True, mapping=[{'col':'glyburide','mapping': {'No':0,'Down':1, 'Steady':2, 'Up': 3 }}])
         data['glyburide'] = encoder.fit_transform(data["glyburide"])
+    
+    if 'tolbutamide' in data:
+        encoder= ce.OrdinalEncoder(cols=['tolbutamide'],return_df=True, mapping=[{'col':'tolbutamide','mapping': {'No':0,'Down':1, 'Steady':2, 'Up': 3 }}])
+        data['tolbutamide'] = encoder.fit_transform(data["tolbutamide"])
 
     if 'pioglitazone' in data:
-        encoder= ce.OrdinalEncoder(cols=['pioglitazone'],return_df=True, mapping=[{'col':'pioglitazone','mapping': medication}])
+        encoder= ce.OrdinalEncoder(cols=['pioglitazone'],return_df=True, mapping=[{'col':'pioglitazone','mapping': {'No':0,'Down':1, 'Steady':2, 'Up': 3 }}])
         data['pioglitazone'] = encoder.fit_transform(data["pioglitazone"])
 
     if 'rosiglitazone' in data:
-        encoder= ce.OrdinalEncoder(cols=['rosiglitazone'],return_df=True, mapping=[{'col':'rosiglitazone','mapping': medication}])
+        encoder= ce.OrdinalEncoder(cols=['rosiglitazone'],return_df=True, mapping=[{'col':'rosiglitazone','mapping': {'No':0,'Down':1, 'Steady':2, 'Up': 3 }}])
         data['rosiglitazone'] = encoder.fit_transform(data["rosiglitazone"])
     
     if 'acarbose' in data:
-        encoder= ce.OrdinalEncoder(cols=['acarbose'],return_df=True, mapping=[{'col':'acarbose','mapping': medication}])
+        encoder= ce.OrdinalEncoder(cols=['acarbose'],return_df=True, mapping=[{'col':'acarbose','mapping': {'No':0,'Down':1, 'Steady':2, 'Up': 3 }}])
         data['acarbose'] = encoder.fit_transform(data["acarbose"])
 
     if 'miglitol' in data:
-        encoder= ce.OrdinalEncoder(cols=['miglitol'],return_df=True, mapping=[{'col':'miglitol','mapping': medication}])
+        encoder= ce.OrdinalEncoder(cols=['miglitol'],return_df=True, mapping=[{'col':'miglitol','mapping': {'No':0,'Down':1, 'Steady':2, 'Up': 3 }}])
         data['miglitol'] = encoder.fit_transform(data["miglitol"])
+    
+    if 'troglitazone' in data:
+        encoder= ce.OrdinalEncoder(cols=['troglitazone'],return_df=True, mapping=[{'col':'troglitazone','mapping': {'No':0,'Down':1, 'Steady':2, 'Up': 3 }}])
+        data['troglitazone'] = encoder.fit_transform(data["troglitazone"])
 
     if 'tolazamide' in data:
-        encoder= ce.OrdinalEncoder(cols=['tolazamide'],return_df=True, mapping=[{'col':'tolazamide','mapping': medication}])
+        encoder= ce.OrdinalEncoder(cols=['tolazamide'],return_df=True, mapping=[{'col':'tolazamide','mapping': {'No':0,'Down':1, 'Steady':2, 'Up': 3 }}])
         data['tolazamide'] = encoder.fit_transform(data["tolazamide"])
 
     if 'examide' in data:
-        encoder= ce.OrdinalEncoder(cols=['examide'],return_df=True, mapping=[{'col':'examide','mapping': medication}])
+        encoder= ce.OrdinalEncoder(cols=['examide'],return_df=True, mapping=[{'col':'examide','mapping': {'No':0,'Down':1, 'Steady':2, 'Up': 3 }}])
         data['examide'] = encoder.fit_transform(data["examide"])
 
     if 'citoglipton' in data:
-        encoder = ce.OrdinalEncoder(cols=['citoglipton'],return_df=True, mapping=[{'col':'citoglipton','mapping': medication}])
+        encoder = ce.OrdinalEncoder(cols=['citoglipton'],return_df=True, mapping=[{'col':'citoglipton','mapping': {'No':0,'Down':1, 'Steady':2, 'Up': 3 }}])
         data['citoglipton'] = encoder.fit_transform(data["citoglipton"])
 
     if 'insulin' in data:
-        encoder= ce.OrdinalEncoder(cols=['insulin'],return_df=True, mapping=[{'col':'insulin','mapping': medication}])
+        encoder= ce.OrdinalEncoder(cols=['insulin'],return_df=True, mapping=[{'col':'insulin','mapping': {'No':0,'Down':1, 'Steady':2, 'Up': 3 }}])
         data['insulin'] = encoder.fit_transform(data["insulin"])
 
     if 'glyburide-metformin' in data:
-        encoder= ce.OrdinalEncoder(cols=['glyburide-metformin'],return_df=True, mapping=[{'col':'glyburide-metformin','mapping': medication}])
-        data['glyburide-metformin'] = encoder.fit_transform(data["glyburide-metformin"])
-
-    if 'chlorpropamide' in data:    
-        encoder= ce.OrdinalEncoder(cols=['chlorpropamide'],return_df=True, mapping=[{'col':'chlorpropamide','mapping': medication}])
-        data['chlorpropamide'] = encoder.fit_transform(data["chlorpropamide"])
-
-    if 'tolazamide' in data:    
-        encoder= ce.OrdinalEncoder(cols=['tolazamide'],return_df=True, mapping=[{'col':'tolazamide','mapping': medication}])
-        data['tolazamide'] = encoder.fit_transform(data["tolazamide"])
+        encoder= ce.OrdinalEncoder(cols=['glyburide-metformin'],return_df=True, mapping=[{'col':'glyburide-metformin','mapping': {'No':0,'Down':1, 'Steady':2, 'Up': 3 }}])
+        data['glyburide-metformin'] = encoder.fit_transform(data["glyburide-metformin"])    
 
     if 'glipizide-metformin' in data:
-        encoder= ce.OrdinalEncoder(cols=['glipizide-metformin'],return_df=True, mapping=[{'col':'glipizide-metformin','mapping': medication}])
+        encoder= ce.OrdinalEncoder(cols=['glipizide-metformin'],return_df=True, mapping=[{'col':'glipizide-metformin','mapping': {'No':0,'Down':1, 'Steady':2, 'Up': 3 }}])
         data['glipizide-metformin'] = encoder.fit_transform(data["glipizide-metformin"])
+    
+    if 'glimepiride-pioglitazone' in data:
+        encoder= ce.OrdinalEncoder(cols=['glimepiride-pioglitazone'],return_df=True, mapping=[{'col':'glimepiride-pioglitazone','mapping': {'No':0,'Down':1, 'Steady':2, 'Up': 3 }}])
+        data['glimepiride-pioglitazone'] = encoder.fit_transform(data["glimepiride-pioglitazone"])
+    
+    if 'metformin-rosiglitazone' in data:
+        encoder= ce.OrdinalEncoder(cols=['metformin-rosiglitazone'],return_df=True, mapping=[{'col':'metformin-rosiglitazone','mapping': {'No':0,'Down':1, 'Steady':2, 'Up': 3 }}])
+        data['metformin-rosiglitazone'] = encoder.fit_transform(data["metformin-rosiglitazone"])
 
     if 'metformin-pioglitazone' in data:
-        encoder= ce.OrdinalEncoder(cols=['metformin-pioglitazone'],return_df=True, mapping=[{'col':'metformin-pioglitazone','mapping': medication}])
+        encoder= ce.OrdinalEncoder(cols=['metformin-pioglitazone'],return_df=True, mapping=[{'col':'metformin-pioglitazone','mapping': {'No':0,'Down':1, 'Steady':2, 'Up': 3 }}])
         data['metformin-pioglitazone'] = encoder.fit_transform(data["metformin-pioglitazone"])
 
     change = {'No':0,'Ch':1 }
@@ -194,16 +206,18 @@ def variable_encoding(data):
         encoder= ce.OrdinalEncoder(cols=['diabetesMed'],return_df=True, mapping=[{'col':'diabetesMed','mapping': diabetesMed}])
         data['diabetesMed'] = encoder.fit_transform(data["diabetesMed"])
 
-    if 'acetohexamide' in data:
-        data = data.drop("acetohexamide", axis='columns')
-    if 'tolbutamide' in data:
-        data = data.drop("tolbutamide", axis='columns')
-    if 'troglitazone' in data:    
-        data = data.drop("troglitazone", axis='columns')
-    if 'glimepiride-pioglitazone' in data:
-        data = data.drop("glimepiride-pioglitazone", axis='columns')
-    if 'metformin-rosiglitazone' in data:
-        data = data.drop("metformin-rosiglitazone", axis='columns')
+    #if 'acetohexamide' in data:
+    #    data = data.drop("acetohexamide", axis='columns')
+    #if 'tolbutamide' in data:
+    #    data = data.drop("tolbutamide", axis='columns')
+    #if 'troglitazone' in data:    
+    #    data = data.drop("troglitazone", axis='columns')
+    #if 'glimepiride-pioglitazone' in data:
+    #    data = data.drop("glimepiride-pioglitazone", axis='columns')
+    #if 'metformin-rosiglitazone' in data:
+    #    data = data.drop("metformin-rosiglitazone", axis='columns')
+    #if 'weight' in data:
+    #    data = data.drop("weight", axis='columns')
 
     data["diag_1"] = diagnostic(data['diag_1']).values()
     data["diag_2"] = diagnostic(data['diag_2']).values()
@@ -277,9 +291,9 @@ def readmitted(data_readmitted) -> dict:
         elif "NO" == data_readmitted[n]:
             data_readmitted_encoding[n] = 0
         elif data_readmitted[n] == ">30":
-            data_readmitted_encoding[n] = 1
-        elif data_readmitted[n] == "<30":
             data_readmitted_encoding[n] = 2
+        elif data_readmitted[n] == "<30":
+            data_readmitted_encoding[n] = 1
     return data_readmitted_encoding
 
 def dummify(df, vars_to_dummify):
@@ -295,6 +309,5 @@ def dummify(df, vars_to_dummify):
     final_df = concat([df[other_vars], dummy], axis=1)
     return final_df
 
-#data_encoding('data/classification/datasets_for_further_analysis/dataset1/drop_recs_cols_dataset1.csv', "?")
-#data_encoding('data/classification/datasets_for_further_analysis/dataset1/mv_filled_most_frequent_dataset1.csv', "?")
-data_encoding('data/classification/diabetic_data.csv', "?")
+data_encoding('data/classification/datasets_for_further_analysis/dataset1/diabetic_fill_columns_mv.csv', "?")
+

@@ -42,8 +42,8 @@ def variable_distribution(df, dataset):
 
     image_location = 'images/data_dimensionality/' + dataset
     savefig(image_location+'/variable_types.png')
-    # show()
+    #show()
 
 
-# data_dimensionality('data/classification/diabetic_data.csv', 'dataset1', 'encounter_id', '?')
-data_dimensionality('data/classification/drought.csv', 'dataset2', 'date', '')
+data_dimensionality('data/classification/diabetic_data.csv', 'dataset1', 'encounter_id', '?')
+#data_dimensionality('data/classification/drought.csv', 'dataset2', 'date', '')
