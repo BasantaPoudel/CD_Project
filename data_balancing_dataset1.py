@@ -37,6 +37,8 @@ df_intermediate = original[original[class_var] == intermediate_class]
 print(len(df_positives))
 print(len(df_negatives))
 print(len(df_intermediate))
+
+
 ######### UNDERSAMPLING
 df_neg_sample = DataFrame(df_negatives.sample(len(df_positives)))
 df_inter_sample = DataFrame(df_intermediate.sample(len(df_positives)))

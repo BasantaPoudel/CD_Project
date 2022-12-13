@@ -28,6 +28,7 @@ def scaling(data, dataset):
     tmp = DataFrame(transf.transform(df_nr), index=data.index, columns= numeric_vars)
     norm_data_zscore = concat([tmp, df_sb,  df_bool, array_class], axis=1)    
     norm_data_zscore.to_csv('data/classification/datasets_for_further_analysis/'+dataset+'/'+dataset+'_scaled_zscore.csv', index=False)
+    print(norm_data_zscore.describe())
 
 
     transf = MinMaxScaler(feature_range=(0, 1), copy=True).fit(df_nr)
@@ -43,9 +44,9 @@ def scaling(data, dataset):
     axs[0, 1].set_title('Z-score normalization')
     norm_data_zscore.boxplot(ax=axs[0, 1])
     axs[0, 2].set_title('MinMax normalization')
-    norm_data_minmax.boxplot(ax=axs[0, 2])
-    show()
+    norm_data_minmax.boxplot(ax=axs[0, 2])    
     image_location = 'images/data_scaling/' + dataset
-    savefig(image_location+'/scaling_comparison_dataset1')
+    savefig(image_location+'/scaling_comparison_dataset1.png')
+    show()
 
 scaling('data/classification/datasets_for_further_analysis/dataset1/diabetic_data_variable_enconding.csv', "dataset1")
