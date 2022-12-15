@@ -56,7 +56,7 @@ def knn_variants(file_tag, filename, target, dataset, method):
     #show()
 
     #Overfitting
-    d = 'euclidean'
+    d = best[1] #'euclidean'
     eval_metric = accuracy_score
     y_tst_values = []
     y_trn_values = []

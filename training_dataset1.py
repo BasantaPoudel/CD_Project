@@ -40,7 +40,7 @@ train, test = training_split('diabetes', data, 'readmitted', 'data/classificatio
 values['train'] = [len(train[train[target] == negative]), len(train[train[target] == intermediate]), len(train[train[target] == positive])] 
 values['test'] =  [len(test[test[target] == negative]), len(test[test[target] == intermediate]), len(test[test[target] == positive])]
 
-plt.figure(figsize=(12,4))
+plt.figure(figsize=(8,2))
 ds.multiple_bar_chart([negative, intermediate, positive], values, title='Data distribution per dataset')
 plt.show()
 
