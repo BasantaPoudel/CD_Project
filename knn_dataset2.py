@@ -7,7 +7,11 @@ from sklearn.metrics import accuracy_score
 
 
 def knn_variants(file_tag, filename, target, dataset, method):
-    train: DataFrame = read_csv(f'{filename}_train.csv')
+    #Running over unbalanced
+    # train: DataFrame = read_csv(f'{filename}_train.csv')
+
+    #Running over balanced
+    train: DataFrame = read_csv(f'{filename}_train_oversampling.csv')
     trnY: ndarray = train.pop(target).values
     trnX: ndarray = train.values
     labels = unique(trnY)
@@ -38,7 +42,7 @@ def knn_variants(file_tag, filename, target, dataset, method):
     figure()
     multiple_line_chart(nvalues, values, title='KNN variants', xlabel='n', ylabel=str(accuracy_score), percentage=True)
     image_location = 'images/knn/' + dataset
-    savefig(image_location+'/'+method+'_'+file_tag+'_knn_study.png')
+    savefig(image_location+'/'+file_tag+'_knn_study.png')
     #show()
     print('Best results with %d neighbors and %s'%(best[0], best[1]))
 
@@ -48,7 +52,7 @@ def knn_variants(file_tag, filename, target, dataset, method):
     prd_trn = clf.predict(trnX)
     prd_tst = clf.predict(tstX)
     plot_evaluation_results(labels, trnY, prd_trn, tstY, prd_tst)
-    savefig(image_location+'/'+method+'_'+file_tag+'_knn_best.png')
+    savefig(image_location+'/'+file_tag+'_knn_best.png')
     #show()
 
     #Overfitting
@@ -71,12 +75,16 @@ def plot_overfitting_study(dataset, method, xvalues, prd_trn, prd_tst, name, xla
     figure()
     multiple_line_chart(xvalues, evals, ax = None, title=f'Overfitting {name}', xlabel=xlabel, ylabel=ylabel, percentage=True)
     image_location = 'images/knn/' + dataset
-    savefig(image_location+'/overfitting_'+name+'_'+method+'.png')
+    savefig(image_location+'/'+dataset+'_'+method+'_overfitting_'+name+'.png')
 
 
 #Last Paramenter correspond to MVI or scaling (Lab2 --> First part is MVI and Second part --> Scaling)
 #knn_variants('diabetes', 'data/classification/datasets_for_further_analysis/dataset1/minmax_diabetes', 'readmitted', 'dataset1', 'minmax_scaling')
-knn_variants('diabetes', 'data/classification/datasets_for_further_analysis/dataset1/zscore_diabetes', 'readmitted', 'dataset1', 'zscore_scaling')
+# knn_variants('diabetes', 'data/classification/datasets_for_further_analysis/dataset1/zscore_diabetes', 'readmitted', 'dataset1', 'zscore_scaling')
 
-#knn_variants('drought', 'data/classification/datasets_for_further_analysis/dataset2/minmax_drought', 'class', 'dataset2', 'minmax_scaling')
-#knn_variants('drought', 'data/classification/datasets_for_further_analysis/dataset2/zscore_drought', 'class', 'dataset2', 'zscore_scaling')
+# knn_variants('dataset2_minmax', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_minmax', 'class', 'dataset2', 'minmax')
+knn_variants('dataset2_minmax_balanced', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_minmax', 'class', 'dataset2', 'minmax_balanced')
+
+#Running over balanced
+#knn_variants('dataset2_minmax', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_minmax_train_oversampling', 'class', 'dataset2', 'minmax')
+#knn_variants('dataset2_minmax', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_zscore_train_oversampling', 'class', 'dataset2', 'zscore')
