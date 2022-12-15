@@ -26,7 +26,7 @@ def training_split(file_tag, data, target, urlfiles, scalingtype):
 
     return train, test
 
-data: DataFrame = read_csv('data/classification/datasets_for_further_analysis/dataset1/dataset1_scaled_minmax.csv')
+data: DataFrame = read_csv('data/classification/datasets_for_further_analysis/dataset1/dataset1_scaled_zscore.csv')
 
 target = 'readmitted'
 positive = 1 #"<30" 
@@ -35,7 +35,7 @@ intermediate = 2 #">30"
 
 values = {'Original': [len(data[data[target] == negative]), len(data[data[target] == intermediate]), len(data[data[target] == positive])]}
 
-train, test = training_split('diabetes', data, 'readmitted', 'data/classification/datasets_for_further_analysis/dataset1', 'minmax')
+train, test = training_split('diabetes', data, 'readmitted', 'data/classification/datasets_for_further_analysis/dataset1', 'zscore')
 
 values['train'] = [len(train[train[target] == negative]), len(train[train[target] == intermediate]), len(train[train[target] == positive])] 
 values['test'] =  [len(test[test[target] == negative]), len(test[test[target] == intermediate]), len(test[test[target] == positive])]
@@ -43,3 +43,6 @@ values['test'] =  [len(test[test[target] == negative]), len(test[test[target] ==
 plt.figure(figsize=(12,4))
 ds.multiple_bar_chart([negative, intermediate, positive], values, title='Data distribution per dataset')
 plt.show()
+
+
+
