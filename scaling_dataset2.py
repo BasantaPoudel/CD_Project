@@ -45,5 +45,4 @@ def scaling(data, dataset):
     image_location = 'images/data_scaling/' + dataset
     savefig(image_location+'/scaling_comparison')
 
-# scaling('data/classification/datasets_for_further_analysis/dataset1/diabetic_data_variable_enconding.csv', "dataset1")
 scaling('data/classification/datasets_for_further_analysis/dataset2/dataset2_truncate_outliers.csv', "dataset2")

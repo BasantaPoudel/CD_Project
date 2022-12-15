@@ -8,10 +8,10 @@ from sklearn.metrics import accuracy_score
 
 def knn_variants(file_tag, filename, target, dataset, method):
     #Running over unbalanced
-    # train: DataFrame = read_csv(f'{filename}_train.csv')
+    train: DataFrame = read_csv(f'{filename}_train.csv')
 
     #Running over balanced
-    train: DataFrame = read_csv(f'{filename}_train_oversampling.csv')
+    # train: DataFrame = read_csv(f'{filename}_train_oversampling.csv')
     trnY: ndarray = train.pop(target).values
     trnX: ndarray = train.values
     labels = unique(trnY)
@@ -78,13 +78,14 @@ def plot_overfitting_study(dataset, method, xvalues, prd_trn, prd_tst, name, xla
     savefig(image_location+'/'+dataset+'_'+method+'_overfitting_'+name+'.png')
 
 
-#Last Paramenter correspond to MVI or scaling (Lab2 --> First part is MVI and Second part --> Scaling)
-#knn_variants('diabetes', 'data/classification/datasets_for_further_analysis/dataset1/minmax_diabetes', 'readmitted', 'dataset1', 'minmax_scaling')
-# knn_variants('diabetes', 'data/classification/datasets_for_further_analysis/dataset1/zscore_diabetes', 'readmitted', 'dataset1', 'zscore_scaling')
-
+#Running over balanced - Change the train file in the knn_variants function
 # knn_variants('dataset2_minmax', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_minmax', 'class', 'dataset2', 'minmax')
+
+#Running over balanced - Change the train file in the knn_variants function
 knn_variants('dataset2_minmax_balanced', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_minmax', 'class', 'dataset2', 'minmax_balanced')
 
-#Running over balanced
-#knn_variants('dataset2_minmax', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_minmax_train_oversampling', 'class', 'dataset2', 'minmax')
-#knn_variants('dataset2_minmax', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_zscore_train_oversampling', 'class', 'dataset2', 'zscore')
+#Running over unbalanced - Change the train file in the knn_variants function
+#knn_variants('dataset2_zscore', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_zcore', 'class', 'dataset2', 'zscore')
+
+#Running over balanced - Change the train file in the knn_variants function
+#knn_variants('dataset2_zscore_balanced', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_zscore', 'class', 'dataset2', 'zscore_balanced')

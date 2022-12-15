@@ -23,8 +23,8 @@ def data_balancing(filename, file, dataset, index_col, class_col, na_values, ):
     show()
 
     # undersampling(file, dataset, class_col, original, positive_class, negative_class, values)
-    # oversampling(file, dataset, class_col, original, positive_class, negative_class, values)
-    smote(file, dataset, class_col, original, positive_class, negative_class, values)
+    oversampling(file, dataset, class_col, original, positive_class, negative_class, values)
+    # smote(file, dataset, class_col, original, positive_class, negative_class, values)
 
 
 def undersampling(file, dataset, class_col, original, positive_class, negative_class, values):
@@ -81,6 +81,4 @@ def smote(file, dataset, class_col, original, positive_class, negative_class, va
     show()
 
 # data_balancing('data/classification/datasets_for_further_analysis/dataset2/dataset2_minmax_train.csv', 'dataset2_minmax_train', 'dataset2', 'date', 'class', '')
-data_balancing('data/classification/datasets_for_further_analysis/dataset2/dataset2_minmax_test.csv', 'dataset2_minmax_test', 'dataset2', 'date', 'class', '')
-# data_balancing('data/classification/datasets_for_further_analysis/dataset2/dataset2_zscore_train.csv', 'dataset2_zscore_train', 'dataset2', 'date', 'class', '')
-data_balancing('data/classification/datasets_for_further_analysis/dataset2/dataset2_zscore_test.csv', 'dataset2_zscore_test', 'dataset2', 'date', 'class', '')
+data_balancing('data/classification/datasets_for_further_analysis/dataset2/dataset2_zscore_train.csv', 'dataset2_zscore_train', 'dataset2', 'date', 'class', '')

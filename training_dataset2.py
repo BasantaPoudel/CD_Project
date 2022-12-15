@@ -35,6 +35,6 @@ def training_split(file_tag, data, target, positive, negative, urlfiles, scaling
     plt.savefig(image_location+'/train_test')
 
 training_split('dataset2','data/classification/datasets_for_further_analysis/dataset2/dataset2_scaled_minmax.csv',
-                'class', 1, 0, 'data/classification/datasets_for_further_analysis/dataset2', 'minmax')
+                'class', 0, 1, 'data/classification/datasets_for_further_analysis/dataset2', 'minmax')
 training_split('dataset2','data/classification/datasets_for_further_analysis/dataset2/dataset2_scaled_zscore.csv',
-                  'class', 1, 0, 'data/classification/datasets_for_further_analysis/dataset2', 'zscore')
+                  'class', 0, 1, 'data/classification/datasets_for_further_analysis/dataset2', 'zscore')

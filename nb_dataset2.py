@@ -52,7 +52,7 @@ def nb_variants(file_tag, filename, target, dataset, method):
 
 
 # nb_variants('dataset2_minmax', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_minmax', 'class', 'dataset2', 'minmax')
-# nb_variants('dataset2_minmax_balanced', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_minmax', 'class', 'dataset2', 'minmax_balanced')
+nb_variants('dataset2_minmax_balanced', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_minmax', 'class', 'dataset2', 'minmax_balanced')
 
 # nb_variants('dataset2_zscore', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_zscore', 'class', 'dataset2', 'zscore')
 nb_variants('dataset2_zscore_balanced', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_zscore', 'class', 'dataset2', 'zscore_balanced')
