@@ -10,7 +10,7 @@ from subprocess import call
 from numpy import arange, ndarray, newaxis, set_printoptions
 from pandas import DataFrame, concat
 from matplotlib.pyplot import Axes, gca, figure, savefig, subplots, imshow, imread, axis
-# from matplotlib.dates import _reset_epoch_test_example, set_epoch, AutoDateLocator, AutoDateFormatter
+from matplotlib.dates import _reset_epoch_test_example, set_epoch, AutoDateLocator, AutoDateFormatter
 import matplotlib.font_manager as fm
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.tree import export_graphviz
@@ -23,8 +23,8 @@ import config as cfg
 FONT_TEXT = fm.FontProperties(size=8)
 TEXT_MARGIN = 0.05
 
-# _reset_epoch_test_example()
-# set_epoch('0000-12-31T00:00:00')  # old epoch (pre MPL 3.3)
+_reset_epoch_test_example()
+set_epoch('0000-12-31T00:00:00')  # old epoch (pre MPL 3.3)
 
 simplefilter("ignore")
 NR_COLUMNS: int = 3
@@ -92,7 +92,7 @@ def bar_chart(xvalues: list, yvalues: list, ax: Axes = None, title: str = '', xl
     set_locators(xvalues, ax=ax, rotation=rotation)
     ax.bar(xvalues, yvalues, edgecolor=cfg.LINE_COLOR, color=cfg.FILL_COLOR, tick_label=xvalues)
     for i in range(len(yvalues)):
-        ax.text(i, yvalues[i] + TEXT_MARGIN, f'{yvalues[i]:.2f}', ha='center', fontproperties=FONT_TEXT)
+        ax.text(xvalues[i], yvalues[i] + TEXT_MARGIN, f'{yvalues[i]:.2f}', ha='center', fontproperties=FONT_TEXT)
 
 
 def multiple_bar_chart(xvalues: list, yvalues: dict, ax: Axes = None, title: str = '', xlabel: str = '', ylabel: str = '', percentage: bool = False, unit=1):
