@@ -24,13 +24,13 @@ def scaling(data, dataset):
     transf = StandardScaler(with_mean=True, with_std=True, copy=True).fit(df_nr)
     tmp = DataFrame(transf.transform(df_nr), index=data.index, columns= numeric_vars)
     norm_data_zscore = concat([tmp, df_sb,  df_bool], axis=1)
-    norm_data_zscore.to_csv('data/classification/datasets_for_further_analysis/'+dataset+'/'+dataset+'_scaled_zscore.csv', index=False)
+    norm_data_zscore.to_csv('data/classification/datasets_for_further_analysis/'+dataset+'/'+dataset+'_scaled_zscore.csv', index=True)
 
 
     transf = MinMaxScaler(feature_range=(0, 1), copy=True).fit(df_nr)
     tmp = DataFrame(transf.transform(df_nr), index=data.index, columns= numeric_vars)
     norm_data_minmax = concat([tmp, df_sb,  df_bool], axis=1)
-    norm_data_minmax.to_csv('data/classification/datasets_for_further_analysis/'+dataset+'/'+dataset+'_scaled_minmax.csv', index=False)
+    norm_data_minmax.to_csv('data/classification/datasets_for_further_analysis/'+dataset+'/'+dataset+'_scaled_minmax.csv', index=True)
     print(norm_data_minmax.describe())
 
 
@@ -41,7 +41,7 @@ def scaling(data, dataset):
     norm_data_zscore.boxplot(ax=axs[0, 1])
     axs[0, 2].set_title('MinMax normalization')
     norm_data_minmax.boxplot(ax=axs[0, 2])
-    #show()
+    show()
     image_location = 'images/data_scaling/' + dataset
     savefig(image_location+'/scaling_comparison')
 

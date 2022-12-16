@@ -22,9 +22,9 @@ def data_balancing(filename, file, dataset, index_col, class_col, na_values, ):
     savefig(f'images/data_balancing/dataset2/{file}_unbalanced.png')
     show()
 
-    # undersampling(file, dataset, class_col, original, positive_class, negative_class, values)
+    undersampling(file, dataset, class_col, original, positive_class, negative_class, values)
     oversampling(file, dataset, class_col, original, positive_class, negative_class, values)
-    # smote(file, dataset, class_col, original, positive_class, negative_class, values)
+    smote(file, dataset, class_col, original, positive_class, negative_class, values)
 
 
 def undersampling(file, dataset, class_col, original, positive_class, negative_class, values):

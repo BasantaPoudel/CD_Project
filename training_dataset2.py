@@ -7,8 +7,8 @@ from sklearn.model_selection import train_test_split
 def training_split(file_tag, data, target, positive, negative, urlfiles, scalingtype):
     data: DataFrame = read_csv(data)
     target = target
-    positive = positive #1
-    negative = negative #0
+    positive = positive #0
+    negative = negative #1
     values = {'Original': [len(data[data[target] == positive]), len(data[data[target] == negative])]}
 
     y: np.ndarray = data.pop(target).values
@@ -28,9 +28,9 @@ def training_split(file_tag, data, target, positive, negative, urlfiles, scaling
     values['Train'] = [len(np.delete(trnY, np.argwhere(trnY==negative))), len(np.delete(trnY, np.argwhere(trnY==positive)))]
     values['Test'] = [len(np.delete(tstY, np.argwhere(tstY==negative))), len(np.delete(tstY, np.argwhere(tstY==positive)))]
 
-    plt.figure(figsize=(12,4))
-    ds.multiple_bar_chart([positive, negative], values, title='Data distribution per dataset')
-    # plt.show()
+    plt.figure(figsize=(20, 6))
+    ds.multiple_bar_chart([positive, negative], values, title='Data distribution per dataset', percentage=False)
+    plt.show()
     image_location = 'images/data_splitting/dataset2_scaled_' + scalingtype
     plt.savefig(image_location+'/train_test')
 

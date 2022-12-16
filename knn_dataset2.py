@@ -78,14 +78,14 @@ def plot_overfitting_study(dataset, method, xvalues, prd_trn, prd_tst, name, xla
     savefig(image_location+'/'+dataset+'_'+method+'_overfitting_'+name+'.png')
 
 
-#Running over balanced - Change the train file in the knn_variants function
+#Running over unbalanced - Change the train file in the knn_variants function
 # knn_variants('dataset2_minmax', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_minmax', 'class', 'dataset2', 'minmax')
 
 #Running over balanced - Change the train file in the knn_variants function
-knn_variants('dataset2_minmax_balanced', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_minmax', 'class', 'dataset2', 'minmax_balanced')
+# knn_variants('dataset2_minmax_oversampling', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_minmax', 'class', 'dataset2', 'minmax_oversampling')
 
 #Running over unbalanced - Change the train file in the knn_variants function
-#knn_variants('dataset2_zscore', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_zcore', 'class', 'dataset2', 'zscore')
+knn_variants('dataset2_zscore', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_zscore', 'class', 'dataset2', 'zscore')
 
 #Running over balanced - Change the train file in the knn_variants function
-#knn_variants('dataset2_zscore_balanced', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_zscore', 'class', 'dataset2', 'zscore_balanced')
+# knn_variants('dataset2_zscore_oversampling', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_zscore', 'class', 'dataset2', 'zscore_oversampling')

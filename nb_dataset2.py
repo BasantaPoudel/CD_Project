@@ -11,8 +11,8 @@ def nb_variants(file_tag, filename, target, dataset, method):
     filename = filename
     target = target
 
-    # train: DataFrame = read_csv(f'{filename}_train.csv')
-    train: DataFrame = read_csv(f'{filename}_train_oversampling.csv')
+    train: DataFrame = read_csv(f'{filename}_train.csv')
+    # train: DataFrame = read_csv(f'{filename}_train_oversampling.csv')
     trnY: ndarray = train.pop(target).values
     trnX: ndarray = train.values
     labels = unique(trnY)
@@ -52,7 +52,9 @@ def nb_variants(file_tag, filename, target, dataset, method):
 
 
 # nb_variants('dataset2_minmax', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_minmax', 'class', 'dataset2', 'minmax')
-nb_variants('dataset2_minmax_balanced', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_minmax', 'class', 'dataset2', 'minmax_balanced')
+# nb_variants('dataset2_minmax_oversampling', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_minmax', 'class', 'dataset2', 'minmax_oversampling')
 
+
+#Multinomial doesn't work for zscore as it has negative values
 # nb_variants('dataset2_zscore', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_zscore', 'class', 'dataset2', 'zscore')
-nb_variants('dataset2_zscore_balanced', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_zscore', 'class', 'dataset2', 'zscore_balanced')
+# nb_variants('dataset2_zscore_oversampling', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_zscore', 'class', 'dataset2', 'zscore_oversampling')
