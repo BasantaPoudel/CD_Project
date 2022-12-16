@@ -60,7 +60,7 @@ plot_evaluation_results_Maribel(labels, trnY, prd_trn, tstY, prd_tst)
 savefig('images/knn/dataset1/'+file_tag+'_knn_best.png')
 show()
 
-d = 'euclidean'
+d = best[1] #'euclidean'
 eval_metric = accuracy_score
 y_tst_values = []
 y_trn_values = []
