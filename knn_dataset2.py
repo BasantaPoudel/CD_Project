@@ -8,10 +8,10 @@ from sklearn.metrics import accuracy_score
 
 def knn_variants(file_tag, filename, target, dataset, method):
     #Running over unbalanced
-    train: DataFrame = read_csv(f'{filename}_train.csv')
+    # train: DataFrame = read_csv(f'{filename}_train.csv')
 
     #Running over balanced
-    # train: DataFrame = read_csv(f'{filename}_train_oversampling.csv')
+    train: DataFrame = read_csv(f'{filename}_train_oversampling.csv')
     trnY: ndarray = train.pop(target).values
     trnX: ndarray = train.values
     labels = unique(trnY)
@@ -82,10 +82,10 @@ def plot_overfitting_study(dataset, method, xvalues, prd_trn, prd_tst, name, xla
 # knn_variants('dataset2_minmax', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_minmax', 'class', 'dataset2', 'minmax')
 
 #Running over balanced - Change the train file in the knn_variants function
-# knn_variants('dataset2_minmax_oversampling', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_minmax', 'class', 'dataset2', 'minmax_oversampling')
+knn_variants('dataset2_minmax_oversampling', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_minmax', 'class', 'dataset2', 'minmax_oversampling')
 
 #Running over unbalanced - Change the train file in the knn_variants function
-knn_variants('dataset2_zscore', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_zscore', 'class', 'dataset2', 'zscore')
+# knn_variants('dataset2_zscore', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_zscore', 'class', 'dataset2', 'zscore')
 
 #Running over balanced - Change the train file in the knn_variants function
-# knn_variants('dataset2_zscore_oversampling', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_zscore', 'class', 'dataset2', 'zscore_oversampling')
+knn_variants('dataset2_zscore_oversampling', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_zscore', 'class', 'dataset2', 'zscore_oversampling')
