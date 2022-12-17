@@ -97,7 +97,7 @@ def select_low_variance(data: DataFrame, threshold: float, dataset) -> list:
     lst_variances = []
     for el in data.columns:
         value = data[el].var()
-        if value >= threshold:
+        if value <= threshold:
             lst_variables.append(el)
             lst_variances.append(value)
 
