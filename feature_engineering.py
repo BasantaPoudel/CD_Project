@@ -13,14 +13,22 @@ def feature_engineering(filename, file, dataset, index_col):
     THRESHOLD = 0.9
     drop, corr_mtx = select_redundant(data.corr(), THRESHOLD)
     print(drop.keys())
-    plot_corrmatrix(corr_mtx, dataset, THRESHOLD)
-    df = drop_redundant(data, drop)
+    try:
+        plot_corrmatrix(corr_mtx, dataset, THRESHOLD)
+        df = drop_redundant(data, drop)
+    except:
+        df = data
+    df2 = drop_useless_vars(df, file)
+
+    df2.to_csv('data/classification/datasets_for_further_analysis/'+dataset+'/'+file+'_final_data.csv')
 
     # drop variables based on variance analysis:
-    # treshold_variance = 0.1
-    # numeric = get_variable_types(data)['Numeric']
-    # vars2drop = select_low_variance(data[numeric], treshold_variance, dataset)
-    # print(vars2drop)
+    treshold_variance = 0.1
+    numeric = get_variable_types(df)['Numeric']
+    vars2drop = select_low_variance(data[numeric], treshold_variance, dataset)
+    print(vars2drop)
+
+    # final_df = drop_redundant(df, )
 
 
 def drop_useless_vars(data, dataset):  # drop all variables that have no numeric meaning for modeling
@@ -100,13 +108,7 @@ def select_low_variance(data: DataFrame, threshold: float, dataset) -> list:
     show()
     return lst_variables
 
-
-
-
-
-
-
-# still need to select the right dataset for feature selection, picked this one now:
+# still need to select the right dataset for feature selection, SCALING dataaset should be used!:
 
 # feature_engineering('data/classification/datasets_for_further_analysis/dataset1/diabetic_data_variable_enconding.csv',
 #                                        'dataset1', 'dataset1', 'encounter_id')
