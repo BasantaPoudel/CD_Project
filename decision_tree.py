@@ -2,13 +2,14 @@ from numpy import ndarray
 from pandas import DataFrame, read_csv, unique
 from matplotlib.pyplot import figure, subplots, savefig, show
 from sklearn.tree import DecisionTreeClassifier
-from dscharts import plot_evaluation_results_Maribel, multiple_line_chart
+from dscharts import plot_evaluation_results_Maribel, multiple_line_chart, plot_evaluation_results
 from sklearn.metrics import accuracy_score
 from sklearn import tree
 from numpy import argsort, arange
 from dscharts import horizontal_bar_chart
 from matplotlib.pyplot import Axes
 from dscharts import plot_overfitting_study
+import sklearn
 
 
 
@@ -16,6 +17,7 @@ def decision_tree(filename, file, dataset, clas):
     target = clas
 
     train: DataFrame = read_csv(f'{filename}_train.csv')
+    train=train.head(10)
     trnY: ndarray = train.pop(target).values
     trnX: ndarray = train.values
     labels = unique(trnY)
@@ -23,6 +25,7 @@ def decision_tree(filename, file, dataset, clas):
     print(labels)
 
     test: DataFrame = read_csv(f'{filename}_test.csv')
+    test=test.head(10)
     tstY: ndarray = test.pop(target).values
     tstX: ndarray = test.values
 
@@ -55,13 +58,14 @@ def decision_tree(filename, file, dataset, clas):
         multiple_line_chart(min_impurity_decrease, values, ax=axs[0, k], title=f'Decision Trees with {f} criteria',
                             xlabel='min_impurity_decrease', ylabel='accuracy', percentage=True)
     savefig('images/decision_tree/'+dataset+'/_dt_study.png')
-    show()
-    print('Best results achieved with %s criteria, depth=%d and min_impurity_decrease=%1.2f ==> accuracy=%1.2f' % (
-    best[0], best[1], best[2], last_best))
+    # show()
+    # print('Best results achieved with %s criteria, depth=%d and min_impurity_decrease=%1.2f ==> accuracy=%1.2f' % (
+    # best[0], best[1], best[2], last_best))
 
     # plot the tree
     labels = [str(value) for value in labels]
-    tree.plot_tree(best_model, feature_names=train.columns, class_names=labels)
+    print(labels)
+    sklearn.tree.plot_tree(best_model, feature_names=train.columns, class_names=labels)
     savefig('images/decision_tree/'+dataset+'/_dt_best_tree.png')
 
     # plot evaluation results
@@ -109,11 +113,12 @@ def decision_tree(filename, file, dataset, clas):
         y_trn_values.append(eval_metric(trnY, prd_trn_Y))
     plot_overfitting_study(max_depths, y_trn_values, y_tst_values, name=f'DT=imp{imp}_{f}', xlabel='max_depth',
                            ylabel=str(eval_metric))
+    savefig('images/decision_tree/' + dataset + '/_overfitting_study.png')
 
 
-# decision_tree('data/classification/data_for_DT_RF/minmax_diabetes',
-#               'dataset1', 'dataset1', 'readmitted')
+decision_tree('data/classification/data_for_DT_RF/minmax_diabetes',
+              'dataset1', 'dataset1', 'readmitted')
 
-decision_tree('data/classification/data_for_DT_RF/dataset2_minmax',
-              'dataset2', 'dataset2', 'class')
+# decision_tree('data/classification/data_for_DT_RF/dataset2_minmax',
+#               'dataset2', 'dataset2', 'class')
 
