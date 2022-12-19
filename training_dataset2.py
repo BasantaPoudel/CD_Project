@@ -31,10 +31,17 @@ def training_split(file_tag, data, target, positive, negative, urlfiles, scaling
     plt.figure(figsize=(20, 6))
     ds.multiple_bar_chart([positive, negative], values, title='Data distribution per dataset', percentage=False)
     plt.show()
-    image_location = 'images/data_splitting/dataset2_scaled_' + scalingtype
+    image_location = 'images/data_splitting/dataset2_' + scalingtype
     plt.savefig(image_location+'/train_test')
 
-training_split('dataset2','data/classification/datasets_for_further_analysis/dataset2/dataset2_scaled_minmax.csv',
-                'class', 0, 1, 'data/classification/datasets_for_further_analysis/dataset2', 'minmax')
+
+#splitting for data preparation steps
+# training_split('dataset2','data/classification/datasets_for_further_analysis/dataset2/dataset2_variable_encoding.csv',
+#                 'class', 0, 1, 'data/classification/datasets_for_further_analysis/dataset2', 'variable_encoding')
+
+# training_split('dataset2','data/classification/datasets_for_further_analysis/dataset2/dataset2_scaled_minmax.csv',
+#                 'class', 0, 1, 'data/classification/datasets_for_further_analysis/dataset2', 'scaled_minmax')
+
 training_split('dataset2','data/classification/datasets_for_further_analysis/dataset2/dataset2_scaled_zscore.csv',
-                  'class', 0, 1, 'data/classification/datasets_for_further_analysis/dataset2', 'zscore')
+                  'class', 0, 1, 'data/classification/datasets_for_further_analysis/dataset2', 'scaled_zscore')
+

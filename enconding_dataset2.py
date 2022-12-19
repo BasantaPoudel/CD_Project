@@ -22,7 +22,7 @@ def variable_encoding(data):
         
     data['date'] =  data_datetime_encoding.values()
 
-    data.to_csv('data/classification/datasets_for_further_analysis/dataset2/dataset2_variable_enconding.csv', index=False)
+    data.to_csv('data/classification/datasets_for_further_analysis/dataset2/dataset2_variable_encoding.csv', index=False)
 
 
 data_encoding('data/classification/drought.csv')
