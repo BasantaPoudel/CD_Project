@@ -309,5 +309,7 @@ def dummify(df, vars_to_dummify):
     final_df = concat([df[other_vars], dummy], axis=1)
     return final_df
 
-data_encoding('data/classification/datasets_for_further_analysis/dataset1/diabetic_fill_columns_mv.csv', "?")
+#data_encoding('data/classification/datasets_for_further_analysis/dataset1/diabetic_fill_columns_mv.csv', "?")
+data_encoding('data/classification/diabetic_data.csv', "?")
+
 

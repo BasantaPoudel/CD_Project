@@ -10,8 +10,8 @@ from sklearn.metrics import accuracy_score
 
 
 file_tag = 'diabetes_smote_minmax'
-filenametrain = f'data/classification/datasets_for_further_analysis/dataset1/diatebes_minmax_balanced_smote.csv'
-filenametest = f'data/classification/datasets_for_further_analysis/dataset1/minmax_diabetes_test.csv'
+filenametrain = f'data/classification/datasets_for_further_analysis/dataset1/diatebes_zscore_balanced_over.csv'
+filenametest = f'data/classification/datasets_for_further_analysis/dataset1/zscore_diabetes_test.csv'
 target = 'readmitted'
 
 train: DataFrame = read_csv(filenametrain)

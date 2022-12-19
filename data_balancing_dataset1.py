@@ -64,6 +64,11 @@ print('Proportion:', round(len(df_positives) / len(df_neg_sample), 2), ': 1')
 
 
 ######### SMOTE
+#RANDOM_STATE = 42
+#smote = SMOTE(sampling_strategy='not majority', random_state=RANDOM_STATE)
+#y = original.pop(class_var).values
+#X = original.values
+#smote_X, smote_y = smote.fit_resample(X, y)
 df_neg_sample_smote = DataFrame(df_negatives.sample(len(df_intermediate)))
 df_pos_sample_smote = DataFrame(df_positives.sample(len(df_intermediate), replace=True))
 df_smote = concat([df_pos_sample_smote, df_neg_sample_smote, df_intermediate], axis=0)

@@ -47,6 +47,6 @@ def scaling(data, dataset):
     norm_data_minmax.boxplot(ax=axs[0, 2])    
     image_location = 'images/data_scaling/' + dataset
     savefig(image_location+'/scaling_comparison_dataset1.png')
-    #show()
+    show()
 
-scaling('data/classification/datasets_for_further_analysis/dataset1/diabetic_data_variable_enconding.csv', "dataset1")
+scaling('data/classification/datasets_for_further_analysis/dataset1/diabetic_fill_columns_mv.csv', "dataset1")
