@@ -17,7 +17,7 @@ def decision_tree(filename, file, dataset, clas):
     target = clas
 
     train: DataFrame = read_csv(f'{filename}_train.csv')
-    train=train.head(10)
+    train=train.head(10000)
     trnY: ndarray = train.pop(target).values
     trnX: ndarray = train.values
     labels = unique(trnY)
@@ -25,7 +25,7 @@ def decision_tree(filename, file, dataset, clas):
     print(labels)
 
     test: DataFrame = read_csv(f'{filename}_test.csv')
-    test=test.head(10)
+    test=test.head(10000)
     tstY: ndarray = test.pop(target).values
     tstX: ndarray = test.values
 
