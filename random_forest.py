@@ -11,6 +11,7 @@ def random_forest(filename, file, dataset, clas):
     target = clas
 
     train: DataFrame = read_csv(f'{filename}_train.csv')
+    # train = train.head(500)
     trnY: ndarray = train.pop(target).values
     trnX: ndarray = train.values
     labels = unique(trnY)
@@ -18,6 +19,7 @@ def random_forest(filename, file, dataset, clas):
     print(labels)
 
     test: DataFrame = read_csv(f'{filename}_test.csv')
+    # test=test.head(300)
     tstY: ndarray = test.pop(target).values
     tstX: ndarray = test.values
 
@@ -37,6 +39,7 @@ def random_forest(filename, file, dataset, clas):
         for f in max_features:
             yvalues = []
             for n in n_estimators:
+                print(n)
                 rf = RandomForestClassifier(n_estimators=n, max_depth=d, max_features=f)
                 rf.fit(trnX, trnY)
                 prdY = rf.predict(tstX)
@@ -49,23 +52,22 @@ def random_forest(filename, file, dataset, clas):
             values[f] = yvalues
         multiple_line_chart(n_estimators, values, ax=axs[0, k], title=f'Random Forests with max_depth={d}',
                             xlabel='nr estimators', ylabel='accuracy', percentage=True)
-    savefig('images/random_forest/'+dataset+'/_rf_study.png')
-    show()
+    # savefig('images/random_forest/'+dataset+'/_rf_study.png')
+    # show()
     print('Best results with depth=%d, %1.2f features and %d estimators, with accuracy=%1.2f' % (
     best[0], best[1], best[2], last_best))
 
     prd_trn = best_model.predict(trnX)
     prd_tst = best_model.predict(tstX)
-    if dataset == 'dataset1':
-        plot_evaluation_results_Maribel(labels, trnY, prd_trn, tstY, prd_tst)
-        savefig('images/random_forest/'+dataset+'/_rf_best.png')
-        show()
-    else:
-        plot_evaluation_results(labels, trnY, prd_trn, tstY, prd_tst)
-        savefig('images/random_forest/' + dataset + '/_rf_best.png')
-        show()
-    savefig('images/random_forest/'+dataset+'/_rf_best.png')
-    show()
+    # if dataset == 'dataset1':
+    #     plot_evaluation_results_Maribel(labels, trnY, prd_trn, tstY, prd_tst)
+    #     savefig('images/random_forest/'+dataset+'/_rf_best.png')
+    #     show()
+    # else:
+    #     plot_evaluation_results(labels, trnY, prd_trn, tstY, prd_tst)
+    #     savefig('images/random_forest/' + dataset + '/_rf_best.png')
+    #     show()
+    # show()
 
     variables = train.columns
     importances = best_model.feature_importances_
@@ -81,25 +83,25 @@ def random_forest(filename, file, dataset, clas):
                          xlabel='importance', ylabel='variables')
     savefig('images/random_forest/'+dataset+'/_rf_ranking.png')
 
-    f = 0.7
-    max_depth = 10
-    eval_metric = accuracy_score
-    y_tst_values = []
-    y_trn_values = []
-    for n in n_estimators:
-        rf = RandomForestClassifier(n_estimators=n, max_depth=d, max_features=f)
-        rf.fit(trnX, trnY)
-        prd_tst_Y = rf.predict(tstX)
-        prd_trn_Y = rf.predict(trnX)
-        y_tst_values.append(eval_metric(tstY, prd_tst_Y))
-        y_trn_values.append(eval_metric(trnY, prd_trn_Y))
-    plot_overfitting_study(n_estimators, y_trn_values, y_tst_values, name=f'RF_depth={max_depth}_vars={f}',
-                           xlabel='nr_estimators', ylabel=str(eval_metric))
+    # f = 0.7
+    # max_depth = 10
+    # eval_metric = accuracy_score
+    # y_tst_values = []
+    # y_trn_values = []
+    # for n in n_estimators:
+    #     rf = RandomForestClassifier(n_estimators=n, max_depth=d, max_features=f)
+    #     rf.fit(trnX, trnY)
+    #     prd_tst_Y = rf.predict(tstX)
+    #     prd_trn_Y = rf.predict(trnX)
+    #     y_tst_values.append(eval_metric(tstY, prd_tst_Y))
+    #     y_trn_values.append(eval_metric(trnY, prd_trn_Y))
+    # plot_overfitting_study(n_estimators, y_trn_values, y_tst_values, name=f'RF_depth={max_depth}_vars={f}',
+    #                        xlabel='nr_estimators', ylabel=str(eval_metric))
 
 
 
-# random_forest('data/classification/data_for_DT_RF/minmax_diabetes',
-#               'dataset1', 'dataset1', 'readmitted')
+random_forest('data/classification/data_for_DT_RF/minmax_diabetes',
+              'dataset1', 'dataset1', 'readmitted')
 
-random_forest('data/classification/data_for_DT_RF/dataset2_minmax',
-              'dataset2', 'dataset2', 'class')
+# random_forest('data/classification/data_for_DT_RF/dataset2_minmax',
+#               'dataset2', 'dataset2', 'class')

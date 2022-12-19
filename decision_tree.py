@@ -17,7 +17,7 @@ def decision_tree(filename, file, dataset, clas):
     target = clas
 
     train: DataFrame = read_csv(f'{filename}_train.csv')
-    train=train.head(10000)
+    # train=train.head(10000)
     trnY: ndarray = train.pop(target).values
     trnX: ndarray = train.values
     labels = unique(trnY)
@@ -25,7 +25,7 @@ def decision_tree(filename, file, dataset, clas):
     print(labels)
 
     test: DataFrame = read_csv(f'{filename}_test.csv')
-    test=test.head(10000)
+    # test=test.head(10000)
     tstY: ndarray = test.pop(target).values
     tstX: ndarray = test.values
 
@@ -63,9 +63,9 @@ def decision_tree(filename, file, dataset, clas):
     best[0], best[1], best[2], last_best))
 
     # plot the tree
-    labels = [str(value) for value in labels]
+    labels2 = [str(value) for value in labels]
     print(labels)
-    sklearn.tree.plot_tree(best_model, feature_names=train.columns, class_names=labels)
+    sklearn.tree.plot_tree(best_model, feature_names=train.columns, class_names=labels2)
     savefig('images/decision_tree/'+dataset+'/_dt_best_tree.png')
 
     # plot evaluation results
@@ -98,22 +98,22 @@ def decision_tree(filename, file, dataset, clas):
     savefig('images/decision_tree/'+dataset+'/_dt_ranking.png')
 
     # plot overfitting study
-    imp = 0.0001
-    f = 'entropy'
-    eval_metric = accuracy_score
-    y_tst_values = []
-    y_trn_values = []
-    for d in max_depths:
-        tree = DecisionTreeClassifier(max_depth=d, criterion=f, min_impurity_decrease=imp)
-        tree.fit(trnX, trnY)
-        prdY = tree.predict(tstX)
-        prd_tst_Y = tree.predict(tstX)
-        prd_trn_Y = tree.predict(trnX)
-        y_tst_values.append(eval_metric(tstY, prd_tst_Y))
-        y_trn_values.append(eval_metric(trnY, prd_trn_Y))
-    plot_overfitting_study(max_depths, y_trn_values, y_tst_values, name=f'DT=imp{imp}_{f}', xlabel='max_depth',
-                           ylabel=str(eval_metric))
-    savefig('images/decision_tree/' + dataset + '/_overfitting_study.png')
+    # imp = 0.0001
+    # f = 'entropy'
+    # eval_metric = accuracy_score
+    # y_tst_values = []
+    # y_trn_values = []
+    # for d in max_depths:
+    #     tree = DecisionTreeClassifier(max_depth=d, criterion=f, min_impurity_decrease=imp)
+    #     tree.fit(trnX, trnY)
+    #     prdY = tree.predict(tstX)
+    #     prd_tst_Y = tree.predict(tstX)
+    #     prd_trn_Y = tree.predict(trnX)
+    #     y_tst_values.append(eval_metric(tstY, prd_tst_Y))
+    #     y_trn_values.append(eval_metric(trnY, prd_trn_Y))
+    # plot_overfitting_study(max_depths, y_trn_values, y_tst_values, name=f'DT=imp{imp}_{f}', xlabel='max_depth',
+    #                        ylabel=str(eval_metric))
+    # savefig('images/decision_tree/' + dataset + '/_overfitting_study.png')
 
 
 decision_tree('data/classification/data_for_DT_RF/minmax_diabetes',
