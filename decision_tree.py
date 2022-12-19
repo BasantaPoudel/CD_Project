@@ -59,8 +59,8 @@ def decision_tree(filename, file, dataset, clas):
                             xlabel='min_impurity_decrease', ylabel='accuracy', percentage=True)
     savefig('images/decision_tree/'+dataset+'/_dt_study.png')
     # show()
-    # print('Best results achieved with %s criteria, depth=%d and min_impurity_decrease=%1.2f ==> accuracy=%1.2f' % (
-    # best[0], best[1], best[2], last_best))
+    print('Best results achieved with %s criteria, depth=%d and min_impurity_decrease=%1.2f ==> accuracy=%1.2f' % (
+    best[0], best[1], best[2], last_best))
 
     # plot the tree
     labels = [str(value) for value in labels]
