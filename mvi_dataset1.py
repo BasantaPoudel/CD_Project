@@ -6,7 +6,8 @@ from dscharts import bar_chart
 
 register_matplotlib_converters()
 file = 'diabetic'
-filename = 'data/classification/diabetic_data.csv'
+#filename = 'data/classification/diabetic_data.csv'
+filename = 'data/classification/datasets_for_further_analysis/dataset1/diabetic_data_variable_enconding.csv'
 data = read_csv(filename, index_col='encounter_id', na_values='?', parse_dates=True, infer_datetime_format=True)
 
 # defines the number of records to discard entire columns
@@ -20,6 +21,15 @@ for var in data:
 
 missings = [c for c in mv.keys() if mv[c]>threshold]
 df = data.drop(columns=missings, inplace=False)
+
+if 'weight' in df:
+    df = df.drop("weight", axis='columns')
+
+if 'payer_code' in df:
+    df = df.drop("payer_code", axis='columns')
+
+if 'medical_specialty' in df:
+    df = df.drop("medical_specialty", axis='columns')
 
 if 'examide' in df:
     df = df.drop("examide", axis='columns')
@@ -35,8 +45,8 @@ print('Dropped variables', missings)
 
 filename = f'data/classification/datasets_for_further_analysis/dataset1/{file}_drop_columns_mv.csv'
 data = read_csv(filename, index_col='encounter_id', na_values='?', parse_dates=True, infer_datetime_format=True)
-data["payer_code"] = data["payer_code"].fillna('NN')
-data["medical_specialty"] = data["medical_specialty"].fillna('NN')
+#data["payer_code"] = data["payer_code"].fillna('NN')
+#data["medical_specialty"] = data["medical_specialty"].fillna('NN')
 
 data = data.dropna()
 

@@ -44,7 +44,7 @@ plt.figure(figsize=(9, 11))
 #plt.ylabel(r'$\ln\left(\frac{x_a-x_b}{x_a-x_c}\right)$')
 #plt.xlabel(r'$\ln\left(\frac{x_a-x_d}{x_a-x_e}\right)$', fontsize=50)
 ds.multiple_bar_chart([negative, intermediate, positive], values, title='Data distribution per dataset')
-plt.savefig('images/data_splitting/dataset1/diabetes_split.pdf', bbox_inches = 'tight')
+#plt.savefig('images/data_splitting/dataset1/diabetes_split.pdf', bbox_inches = 'tight')
 plt.show()
 
 
