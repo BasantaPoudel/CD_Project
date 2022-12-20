@@ -5,7 +5,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from dscharts import plot_evaluation_results_Maribel, multiple_line_chart, plot_overfitting_study
 from sklearn.metrics import accuracy_score
 
-file_tag = 'diabetes_under_minmax_9'
+file_tag = 'diabetes_over_noscaled'
 
 def plot_overfitting_study(best_1, xvalues, prd_trn, prd_tst, name, xlabel, ylabel):
     evals = {'Train': prd_trn, 'Test': prd_tst}
@@ -14,8 +14,8 @@ def plot_overfitting_study(best_1, xvalues, prd_trn, prd_tst, name, xlabel, ylab
     savefig('images/knn/dataset1/'+file_tag+'_'+best_1+'_overfitting_'+name+'.png')
 
 
-filenametrain = f'data/classification/datasets_for_further_analysis/dataset1/diatebes_zscore_balanced_over.csv'
-filenametest = f'data/classification/datasets_for_further_analysis/dataset1/zscore_diabetes_test.csv'
+filenametrain = f'data/classification/datasets_for_further_analysis/dataset1/diatebes_noscaling_balanced_over.csv'
+filenametest = f'data/classification/datasets_for_further_analysis/dataset1/noscaling_diabetes_test.csv'
 target = 'readmitted'
 
 train: DataFrame = read_csv(filenametrain)

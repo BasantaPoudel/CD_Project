@@ -5,10 +5,10 @@ from pandas import concat, DataFrame
 from pandas import Series
 from imblearn.over_sampling import SMOTE
 
-filename = 'data/classification/datasets_for_further_analysis/dataset1/zscore_diabetes_train.csv'
+filename = 'data/classification/datasets_for_further_analysis/dataset1/noscaling_diabetes_train.csv'
 
 file = "balanced"
-scaling = "zscore"
+scaling = "noscaling"
 
 original = read_csv(filename, sep=',', decimal='.')
 class_var = 'readmitted'

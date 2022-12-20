@@ -26,7 +26,7 @@ def training_split(file_tag, data, target, urlfiles, scalingtype):
 
     return train, test
 
-data: DataFrame = read_csv('data/classification/datasets_for_further_analysis/dataset1/dataset1_scaled_zscore.csv')
+data: DataFrame = read_csv('data/classification/datasets_for_further_analysis/dataset1/diabetic_fill_columns_mv.csv')
 
 target = 'readmitted'
 positive = 1 #"<30" 
@@ -35,7 +35,7 @@ intermediate = 2 #">30"
 
 values = {'Original': [len(data[data[target] == negative]), len(data[data[target] == intermediate]), len(data[data[target] == positive])]}
 
-train, test = training_split('diabetes', data, 'readmitted', 'data/classification/datasets_for_further_analysis/dataset1', 'zscore')
+train, test = training_split('diabetes', data, 'readmitted', 'data/classification/datasets_for_further_analysis/dataset1', 'noscaling')
 
 values['train'] = [len(train[train[target] == negative]), len(train[train[target] == intermediate]), len(train[train[target] == positive])] 
 values['test'] =  [len(test[test[target] == negative]), len(test[test[target] == intermediate]), len(test[test[target] == positive])]

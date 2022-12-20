@@ -2,7 +2,7 @@ from numpy import ndarray
 from pandas import DataFrame, read_csv, unique
 from matplotlib.pyplot import figure, subplots, savefig, show
 from sklearn.ensemble import RandomForestClassifier
-from dscharts import plot_evaluation_results, multiple_line_chart, horizontal_bar_chart, HEIGHT, plot_evaluation_results_Maribel
+from dscharts import plot_evaluation_results, plot_overfitting_study, multiple_line_chart, horizontal_bar_chart, HEIGHT, plot_evaluation_results_Maribel
 from sklearn.metrics import accuracy_score
 from numpy import std, argsort
 
@@ -52,21 +52,21 @@ def random_forest(filename, file, dataset, clas):
             values[f] = yvalues
         multiple_line_chart(n_estimators, values, ax=axs[0, k], title=f'Random Forests with max_depth={d}',
                             xlabel='nr estimators', ylabel='accuracy', percentage=True)
-    # savefig('images/random_forest/'+dataset+'/_rf_study.png')
+        savefig('images/random_forest/'+dataset+'/_rf_study.png')
     # show()
     print('Best results with depth=%d, %1.2f features and %d estimators, with accuracy=%1.2f' % (
     best[0], best[1], best[2], last_best))
 
     prd_trn = best_model.predict(trnX)
     prd_tst = best_model.predict(tstX)
-    # if dataset == 'dataset1':
-    #     plot_evaluation_results_Maribel(labels, trnY, prd_trn, tstY, prd_tst)
-    #     savefig('images/random_forest/'+dataset+'/_rf_best.png')
-    #     show()
-    # else:
-    #     plot_evaluation_results(labels, trnY, prd_trn, tstY, prd_tst)
-    #     savefig('images/random_forest/' + dataset + '/_rf_best.png')
-    #     show()
+    if dataset == 'dataset1':
+        plot_evaluation_results_Maribel(labels, trnY, prd_trn, tstY, prd_tst)
+        savefig('images/random_forest/'+dataset+'/_rf_best.png')
+        show()
+    else:
+        plot_evaluation_results(labels, trnY, prd_trn, tstY, prd_tst)
+        savefig('images/random_forest/' + dataset + '/_rf_best.png')
+        show()
     # show()
 
     variables = train.columns
@@ -100,8 +100,8 @@ def random_forest(filename, file, dataset, clas):
 
 
 
-random_forest('data/classification/data_for_DT_RF/minmax_diabetes',
-              'dataset1', 'dataset1', 'readmitted')
+#random_forest('data/classification/data_for_DT_RF/minmax_diabetes',
+#              'dataset1', 'dataset1', 'readmitted')
 
-# random_forest('data/classification/data_for_DT_RF/dataset2_minmax',
-#               'dataset2', 'dataset2', 'class')
+random_forest('data/classification/data_for_DT_RF/dataset2_minmax',
+               'dataset2', 'dataset2', 'class')

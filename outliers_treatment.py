@@ -59,7 +59,7 @@ def replacing_outliers(data, dataset, file):
     # print('data after replacing outliers:', df.describe())
     output_location = 'data/classification/datasets_for_further_analysis/'+dataset+'/'+file+'_replacing_outliers.csv'
 
-    df.to_csv(f'{output_location}', index=True)
+    #df.to_csv(f'{output_location}', index=True)
     print('data after replacing outliers:', df.shape)
 
 
@@ -79,7 +79,7 @@ def truncating_outliers(data, dataset, file):
     # print('data after truncating outliers:', df.describe())
     output_location = 'data/classification/datasets_for_further_analysis/'+dataset+'/'+file+'_truncate_outliers.csv'
 
-    df.to_csv(f'{output_location}', index=True)
+    #df.to_csv(f'{output_location}', index=True)
     print('data after truncating outliers:', df.shape)
 
 
