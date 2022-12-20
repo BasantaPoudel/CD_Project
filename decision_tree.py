@@ -116,9 +116,9 @@ def decision_tree(filename, file, dataset, clas):
     # savefig('images/decision_tree/' + dataset + '/_overfitting_study.png')
 
 
-decision_tree('data/classification/data_for_DT_RF/minmax_diabetes',
-              'dataset1', 'dataset1', 'readmitted')
+# decision_tree('data/classification/data_for_DT_RF/minmax_diabetes',
+#               'dataset1', 'dataset1', 'readmitted')
 
-# decision_tree('data/classification/data_for_DT_RF/dataset2_minmax',
-#               'dataset2', 'dataset2', 'class')
+decision_tree('data/classification/data_for_DT_RF/dataset2_minmax',
+              'dataset2', 'dataset2', 'class')
 
