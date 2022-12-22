@@ -13,22 +13,26 @@ def feature_engineering(filename, file, dataset, index_col):
     THRESHOLD = 0.9
     drop, corr_mtx = select_redundant(data.corr(), THRESHOLD)
     print(drop.keys())
+    print(data.shape)
     try:
         plot_corrmatrix(corr_mtx, dataset, THRESHOLD)
         df = drop_redundant(data, drop)
     except:
         df = data
+    print(df.shape)
     df2 = drop_useless_vars(df, file)
+    print(df2.shape)
 
-    df2.to_csv('data/classification/datasets_for_further_analysis/'+dataset+'/'+file+'_final_data.csv')
+    # df2.to_csv('data/classification/datasets_for_further_analysis/'+dataset+'/'+file+'_final_data.csv')
 
     # drop variables based on variance analysis:
     treshold_variance = 0.1
     numeric = get_variable_types(df)['Numeric']
     vars2drop = select_low_variance(data[numeric], treshold_variance, dataset)
-    print(vars2drop)
+    print('vars with low variance:',vars2drop)
 
-    # final_df = drop_redundant(df, )
+    final_df = drop_low_var(df, vars2drop)
+    print(final_df.shape)
 
 
 def drop_useless_vars(data, dataset):  # drop all variables that have no numeric meaning for modeling
@@ -74,7 +78,7 @@ def plot_corrmatrix(corr_mtx, dataset, THRESHOLD):
     heatmap(corr_mtx, xticklabels=corr_mtx.columns, yticklabels=corr_mtx.columns, annot=False, cmap='Blues')
     title('Filtered Correlation Analysis')
     savefig('images/feature_engineering/'+dataset+'/filtered_correlation_analysis_{THRESHOLD}.png')
-    show()
+    # show()
 
 
 def drop_redundant(data: DataFrame, vars_2drop: dict) -> DataFrame:
@@ -105,14 +109,22 @@ def select_low_variance(data: DataFrame, threshold: float, dataset) -> list:
     figure(figsize=[10, 4])
     bar_chart(lst_variables, lst_variances, title='Variance analysis', xlabel='variables', ylabel='variance')
     savefig('images/feature_engineering/'+dataset+'/filtered_variance_analysis.png')
-    show()
+    # show()
     return lst_variables
+
+def drop_low_var(data, vars2drop):
+    for var in vars2drop:
+        if var in data:
+            data.drop([var], inplace=True, axis=1)
+    return data
+
+
 
 # still need to select the right dataset for feature selection, SCALING dataaset should be used!:
 
-# feature_engineering('data/classification/datasets_for_further_analysis/dataset1/diabetic_data_variable_enconding.csv',
-#                                        'dataset1', 'dataset1', 'encounter_id')
+feature_engineering('data/classification/datasets_for_further_analysis/dataset1/dataset1_drop_outliers.csv',
+                                       'dataset1', 'dataset1', 'encounter_id')
 
 
-feature_engineering('data/classification/datasets_for_further_analysis/dataset2/dataset2_variable_enconding.csv',
-                                        'dataset2', 'dataset2', 'date')
+# feature_engineering('data/classification/datasets_for_further_analysis/dataset2/dataset2_variable_enconding.csv',
+#                                         'dataset2', 'dataset2', 'date')
