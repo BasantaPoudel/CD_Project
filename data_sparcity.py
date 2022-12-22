@@ -11,9 +11,9 @@ def data_sparcity(filename, dataset, index_col, na_values):
         data = read_csv(filename, dayfirst=True, parse_dates=['date'], infer_datetime_format=True, index_col=index_col)
     else:
         data = read_csv(filename, index_col=index_col, parse_dates=True, infer_datetime_format=True)
-    scatter_plot_sparcity_Numeric(data, dataset)
+    # scatter_plot_sparcity_Numeric(data, dataset)
     # scatter_plot_sparcity_symbolic(data, dataset)
-    #correlation_analysis(data, dataset)
+    correlation_analysis(data, dataset)
 
 def scatter_plot_sparcity_Numeric(data, dataset):
     numeric_vars = get_variable_types(data)['Numeric']
@@ -56,12 +56,17 @@ def scatter_plot_sparcity_symbolic(data, dataset):
 def correlation_analysis(data, dataset):
     corr_mtx = abs(data.corr())
     print(corr_mtx)
-    fig = figure(figsize=[12, 12])
-    heatmap(abs(corr_mtx), xticklabels=corr_mtx.columns, yticklabels=corr_mtx.columns, annot=True, cmap='Blues')
+    if dataset == 'dataset1':
+        fig = figure(figsize=[12, 12])
+        heatmap(abs(corr_mtx), xticklabels=corr_mtx.columns, yticklabels=corr_mtx.columns, annot=True, cmap='Blues')
+    else:
+        fig = figure(figsize=[51,51])
+        heatmap(abs(corr_mtx), xticklabels=corr_mtx.columns, yticklabels=corr_mtx.columns, annot=True, cmap='Blues',
+                annot_kws={'fontsize':8}, square=True)
     title('Correlation analysis')
     image_location = 'images/data_sparcity/' + dataset
     savefig(image_location+'/correlation_analysis.png')
-    #show()
+    show()
 
 
 def class_sparcity(data, dataset):

@@ -14,8 +14,8 @@ def plot_overfitting_study(best_1, xvalues, prd_trn, prd_tst, name, xlabel, ylab
     savefig('images/knn/dataset1/'+file_tag+'_'+best_1+'_overfitting_'+name+'.png')
 
 
-filenametrain = f'data/classification/datasets_for_further_analysis/dataset1/diatebes_noscaling_balanced_over.csv'
-filenametest = f'data/classification/datasets_for_further_analysis/dataset1/noscaling_diabetes_test.csv'
+filenametrain = f'data/classification/datasets_for_further_analysis/dataset1/minmax_diabetes_train.csv'
+filenametest = f'data/classification/datasets_for_further_analysis/dataset1/minmax_diabetes_test.csv'
 target = 'readmitted'
 
 train: DataFrame = read_csv(filenametrain)
