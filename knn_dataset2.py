@@ -56,18 +56,18 @@ def knn_variants(file_tag, filename, target, dataset, method):
     #show()
 
     # #Overfitting
-    # d = best[1] #'euclidean'
-    # eval_metric = accuracy_score
-    # y_tst_values = []
-    # y_trn_values = []
-    # for n in nvalues:
-    #     knn = KNeighborsClassifier(n_neighbors=n, metric=d)
-    #     knn.fit(trnX, trnY)
-    #     prd_tst_Y = knn.predict(tstX)
-    #     prd_trn_Y = knn.predict(trnX)
-    #     y_tst_values.append(eval_metric(tstY, prd_tst_Y))
-    #     y_trn_values.append(eval_metric(trnY, prd_trn_Y))
-    # plot_overfitting_study(dataset, method, nvalues, y_trn_values, y_tst_values, name=f'KNN_K={n}_{d}', xlabel='K', ylabel=str(eval_metric))
+    d = best[1] #'euclidean'
+    eval_metric = accuracy_score
+    y_tst_values = []
+    y_trn_values = []
+    for n in nvalues:
+        knn = KNeighborsClassifier(n_neighbors=n, metric=d)
+        knn.fit(trnX, trnY)
+        prd_tst_Y = knn.predict(tstX)
+        prd_trn_Y = knn.predict(trnX)
+        y_tst_values.append(eval_metric(tstY, prd_tst_Y))
+        y_trn_values.append(eval_metric(trnY, prd_trn_Y))
+    plot_overfitting_study(dataset, method, nvalues, y_trn_values, y_tst_values, name=f'KNN_K={n}_{d}', xlabel='K', ylabel=str(eval_metric))
 
 
 def plot_overfitting_study(dataset, method, xvalues, prd_trn, prd_tst, name, xlabel, ylabel):
@@ -80,7 +80,7 @@ def plot_overfitting_study(dataset, method, xvalues, prd_trn, prd_tst, name, xla
 
 
 #Running for data preparation steps
-knn_variants('dataset2_scaled_minmax', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_scaled_minmax', 'class', 'dataset2', 'scaled_minmax')
+knn_variants('dataset2_scaled_minmax', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_minmax', 'class', 'dataset2', 'scaled_minmax')
 
 
 #Running over unbalanced - Change the train file in the knn_variants function

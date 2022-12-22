@@ -12,7 +12,7 @@ def random_forest(filename, file, dataset, clas):
     target = clas
 
     train: DataFrame = read_csv(f'{filename}_train.csv')
-    train = train.head(5000)
+    # train = train.head(500)
     trnY: ndarray = train.pop(target).values
     trnX: ndarray = train.values
     labels = unique(trnY)
@@ -20,11 +20,12 @@ def random_forest(filename, file, dataset, clas):
     print(labels)
 
     test: DataFrame = read_csv(f'{filename}_test.csv')
-    test=test.head(3000)
+    # test=test.head(300)
     tstY: ndarray = test.pop(target).values
     tstX: ndarray = test.values
 
-    n_estimators = [5, 10, 25, 50, 75, 100, 200, 300, 400]
+    # n_estimators = [5, 10, 25, 50, 75, 100, 200, 300, 400]
+    n_estimators = [5, 10, 25]
     max_depths = [5, 10, 25]
     max_features = [.3, .5, .7, 1]
     best = ('', 0, 0)
@@ -32,7 +33,7 @@ def random_forest(filename, file, dataset, clas):
     best_model = None
 
     cols = len(max_depths)
-    # figure()
+    figure()
     # fig, axs = subplots(1, cols, figsize=(cols * HEIGHT, HEIGHT), squeeze=False)
     # for k in range(len(max_depths)):
     #     d = max_depths[k]
@@ -57,7 +58,7 @@ def random_forest(filename, file, dataset, clas):
     # # show()
     # print('Best results with depth=%d, %1.2f features and %d estimators, with accuracy=%1.2f' % (
     # best[0], best[1], best[2], last_best))
-
+    #
     # prd_trn = best_model.predict(trnX)
     # prd_tst = best_model.predict(tstX)
     # if dataset == 'dataset1':
@@ -68,8 +69,8 @@ def random_forest(filename, file, dataset, clas):
     #     plot_evaluation_results(labels, trnY, prd_trn, tstY, prd_tst)
     #     savefig('images/random_forest/' + dataset + '/_rf_best.png')
     #     show()
-    # show()
-
+    # # show()
+    #
     # variables = train.columns
     # importances = best_model.feature_importances_
     # stdevs = std([tree.feature_importances_ for tree in best_model.estimators_], axis=0)
@@ -84,7 +85,8 @@ def random_forest(filename, file, dataset, clas):
     #                      xlabel='importance', ylabel='variables')
     # savefig('images/random_forest/'+dataset+'/_rf_ranking.png')
 
-    f = 0.7
+    #plot overfitting
+    f = 0.3
     max_depth = 10
     eval_metric = accuracy_score
     y_tst_values = []
@@ -99,13 +101,10 @@ def random_forest(filename, file, dataset, clas):
     plot_overfitting_study(n_estimators, y_trn_values, y_tst_values, name=f'RF_depth={max_depth}_vars={f}',
                            xlabel='nr_estimators', ylabel=str(eval_metric))
 
-    savefig('images/random_forest/'+dataset+'/_overfit_study.png')
-    show()
 
 
+random_forest('data/classification/data_for_DT_RF/minmax_diabetes',
+             'dataset1', 'dataset1', 'readmitted')
 
-#random_forest('data/classification/data_for_DT_RF/minmax_diabetes',
-#              'dataset1', 'dataset1', 'readmitted')
-
-random_forest('data/classification/data_for_DT_RF/dataset2_minmax',
-               'dataset2', 'dataset2', 'class')
+# random_forest('data/classification/data_for_DT_RF/dataset2_minmax',
+#                'dataset2', 'dataset2', 'class')

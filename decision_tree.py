@@ -17,7 +17,7 @@ def decision_tree(filename, file, dataset, clas):
     target = clas
 
     train: DataFrame = read_csv(f'{filename}_train.csv')
-    train=train.head(10000)
+    # train=train.head(10000)
     trnY: ndarray = train.pop(target).values
     trnX: ndarray = train.values
     labels = unique(trnY)
@@ -25,7 +25,7 @@ def decision_tree(filename, file, dataset, clas):
     print(labels)
 
     test: DataFrame = read_csv(f'{filename}_test.csv')
-    test=test.head(4000)
+    # test=test.head(10000)
     tstY: ndarray = test.pop(target).values
     tstX: ndarray = test.values
 
@@ -37,74 +37,73 @@ def decision_tree(filename, file, dataset, clas):
     best_model = None
 
     figure()
-    # fig, axs = subplots(1, 2, figsize=(16, 4), squeeze=False)
-    # for k in range(len(criteria)):
-    #     f = criteria[k]
-    #     values = {}
-    #     for d in max_depths:
-    #         yvalues = []
-    #         for imp in min_impurity_decrease:
-    #             print(imp)
-    #             tree = DecisionTreeClassifier(max_depth=d, criterion=f, min_impurity_decrease=imp)
-    #             tree.fit(trnX, trnY)
-    #             prdY = tree.predict(tstX)
-    #             yvalues.append(accuracy_score(tstY, prdY))
-    #             if yvalues[-1] > last_best:
-    #                 best = (f, d, imp)
-    #                 last_best = yvalues[-1]
-    #                 best_model = tree
-    #
-    #         values[d] = yvalues
-    #     multiple_line_chart(min_impurity_decrease, values, ax=axs[0, k], title=f'Decision Trees with {f} criteria',
-    #                         xlabel='min_impurity_decrease', ylabel='accuracy', percentage=True)
-    # savefig('images/decision_tree/'+dataset+'/_dt_study.png')
-    # # show()
-    # print('Best results achieved with %s criteria, depth=%d and min_impurity_decrease=%1.2f ==> accuracy=%1.2f' % (
-    # best[0], best[1], best[2], last_best))
+    fig, axs = subplots(1, 2, figsize=(16, 4), squeeze=False)
+    for k in range(len(criteria)):
+        f = criteria[k]
+        values = {}
+        for d in max_depths:
+            yvalues = []
+            for imp in min_impurity_decrease:
+                print(imp)
+                tree = DecisionTreeClassifier(max_depth=d, criterion=f, min_impurity_decrease=imp)
+                tree.fit(trnX, trnY)
+                prdY = tree.predict(tstX)
+                yvalues.append(accuracy_score(tstY, prdY))
+                if yvalues[-1] > last_best:
+                    best = (f, d, imp)
+                    last_best = yvalues[-1]
+                    best_model = tree
+
+            values[d] = yvalues
+        multiple_line_chart(min_impurity_decrease, values, ax=axs[0, k], title=f'Decision Trees with {f} criteria',
+                            xlabel='min_impurity_decrease', ylabel='accuracy', percentage=True)
+    savefig('images/decision_tree/'+dataset+'/_dt_study.png')
+    # show()
+    print('Best results achieved with %s criteria, depth=%d and min_impurity_decrease=%1.5f ==> accuracy=%1.5f' % (
+    best[0], best[1], best[2], last_best))
 
     # plot the tree
-    # labels2 = [str(value) for value in labels]
-    # print(labels)
-    # sklearn.tree.plot_tree(best_model, feature_names=train.columns, class_names=labels2)
-    # savefig('images/decision_tree/'+dataset+'/_dt_best_tree.png')
+    labels2 = [str(value) for value in labels]
+    print(labels)
+    sklearn.tree.plot_tree(best_model, feature_names=train.columns, class_names=labels2)
+    savefig('images/decision_tree/'+dataset+'/_dt_best_tree.png')
 
     # plot evaluation results
-    # prd_trn = best_model.predict(trnX)
-    # prd_tst = best_model.predict(tstX)
-    # if dataset == 'dataset1':
-    #     plot_evaluation_results_Maribel(labels, trnY, prd_trn, tstY, prd_tst)
-    #     savefig('images/decision_tree/'+dataset+'/_dt_best.png')
-    #     show()
-    # else:
-    #     plot_evaluation_results(labels, trnY, prd_trn, tstY, prd_tst)
-    #     savefig('images/decision_tree/' + dataset + '/_dt_best.png')
-    #     show()
+    prd_trn = best_model.predict(trnX)
+    prd_tst = best_model.predict(tstX)
+    if dataset == 'dataset1':
+        plot_evaluation_results_Maribel(labels, trnY, prd_trn, tstY, prd_tst)
+        savefig('images/decision_tree/'+dataset+'/_dt_best.png')
+        show()
+    else:
+        plot_evaluation_results(labels, trnY, prd_trn, tstY, prd_tst)
+        savefig('images/decision_tree/' + dataset + '/_dt_best.png')
+        show()
 
 
     # plot feature importances
-    # variables = train.columns
-    # importances = best_model.feature_importances_
-    # indices = argsort(importances)[::-1]
-    # elems = []
-    # imp_values = []
-    # for f in range(len(variables)):
-    #     elems += [variables[indices[f]]]
-    #     imp_values += [importances[indices[f]]]
-    #     print(f'{f + 1}. feature {elems[f]} ({importances[indices[f]]})')
-    #
-    # figure()
-    # horizontal_bar_chart(elems, imp_values, error=None, title='Decision Tree Features importance', xlabel='importance',
-    #                      ylabel='variables')
-    # savefig('images/decision_tree/'+dataset+'/_dt_ranking.png')
+    variables = train.columns
+    importances = best_model.feature_importances_
+    indices = argsort(importances)[::-1]
+    elems = []
+    imp_values = []
+    for f in range(len(variables)):
+        elems += [variables[indices[f]]]
+        imp_values += [importances[indices[f]]]
+        print(f'{f + 1}. feature {elems[f]} ({importances[indices[f]]})')
+
+    figure()
+    horizontal_bar_chart(elems, imp_values, error=None, title='Decision Tree Features importance', xlabel='importance',
+                         ylabel='variables')
+    savefig('images/decision_tree/'+dataset+'/_dt_ranking.png')
 
     # plot overfitting study
-    imp = 0.0001
-    f = 'entropy'
+    imp = best[2]#0.0001
+    f = best[0] #'entropy'
     eval_metric = accuracy_score
     y_tst_values = []
     y_trn_values = []
-    for d in max_depths:
-        print(d)
+    for d in max_depths: #best[1]=25 for dataset2
         tree = DecisionTreeClassifier(max_depth=d, criterion=f, min_impurity_decrease=imp)
         tree.fit(trnX, trnY)
         prdY = tree.predict(tstX)
@@ -114,11 +113,9 @@ def decision_tree(filename, file, dataset, clas):
         y_trn_values.append(eval_metric(trnY, prd_trn_Y))
     plot_overfitting_study(max_depths, y_trn_values, y_tst_values, name=f'DT=imp{imp}_{f}', xlabel='max_depth',
                            ylabel=str(eval_metric))
-
     savefig('images/decision_tree/' + dataset + '/_overfitting_study.png')
-    show()
 
-
+#
 decision_tree('data/classification/data_for_DT_RF/minmax_diabetes',
               'dataset1', 'dataset1', 'readmitted')
 
