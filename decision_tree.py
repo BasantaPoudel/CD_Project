@@ -59,7 +59,7 @@ def decision_tree(filename, file, dataset, clas):
                             xlabel='min_impurity_decrease', ylabel='accuracy', percentage=True)
     savefig('images/decision_tree/'+dataset+'/_dt_study.png')
     # show()
-    print('Best results achieved with %s criteria, depth=%d and min_impurity_decrease=%1.2f ==> accuracy=%1.2f' % (
+    print('Best results achieved with %s criteria, depth=%d and min_impurity_decrease=%1.5f ==> accuracy=%1.5f' % (
     best[0], best[1], best[2], last_best))
 
     # plot the tree
@@ -98,24 +98,24 @@ def decision_tree(filename, file, dataset, clas):
     savefig('images/decision_tree/'+dataset+'/_dt_ranking.png')
 
     # plot overfitting study
-    # imp = 0.0001
-    # f = 'entropy'
-    # eval_metric = accuracy_score
-    # y_tst_values = []
-    # y_trn_values = []
-    # for d in max_depths:
-    #     tree = DecisionTreeClassifier(max_depth=d, criterion=f, min_impurity_decrease=imp)
-    #     tree.fit(trnX, trnY)
-    #     prdY = tree.predict(tstX)
-    #     prd_tst_Y = tree.predict(tstX)
-    #     prd_trn_Y = tree.predict(trnX)
-    #     y_tst_values.append(eval_metric(tstY, prd_tst_Y))
-    #     y_trn_values.append(eval_metric(trnY, prd_trn_Y))
-    # plot_overfitting_study(max_depths, y_trn_values, y_tst_values, name=f'DT=imp{imp}_{f}', xlabel='max_depth',
-    #                        ylabel=str(eval_metric))
-    # savefig('images/decision_tree/' + dataset + '/_overfitting_study.png')
+    imp = best[2]#0.0001
+    f = best[0] #'entropy'
+    eval_metric = accuracy_score
+    y_tst_values = []
+    y_trn_values = []
+    for d in max_depths: #best[1]=25 for dataset2
+        tree = DecisionTreeClassifier(max_depth=d, criterion=f, min_impurity_decrease=imp)
+        tree.fit(trnX, trnY)
+        prdY = tree.predict(tstX)
+        prd_tst_Y = tree.predict(tstX)
+        prd_trn_Y = tree.predict(trnX)
+        y_tst_values.append(eval_metric(tstY, prd_tst_Y))
+        y_trn_values.append(eval_metric(trnY, prd_trn_Y))
+    plot_overfitting_study(max_depths, y_trn_values, y_tst_values, name=f'DT=imp{imp}_{f}', xlabel='max_depth',
+                           ylabel=str(eval_metric))
+    savefig('images/decision_tree/' + dataset + '/_overfitting_study.png')
 
-
+#
 decision_tree('data/classification/data_for_DT_RF/minmax_diabetes',
               'dataset1', 'dataset1', 'readmitted')
 
