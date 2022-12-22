@@ -25,8 +25,8 @@ df = data.drop(columns=missings, inplace=False)
 if 'weight' in df:
     df = df.drop("weight", axis='columns')
 
-if 'payer_code' in df:
-    df = df.drop("payer_code", axis='columns')
+#if 'payer_code' in df:
+#    df = df.drop("payer_code", axis='columns')
 
 if 'medical_specialty' in df:
     df = df.drop("medical_specialty", axis='columns')
