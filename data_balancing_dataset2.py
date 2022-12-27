@@ -81,4 +81,4 @@ def smote(file, dataset, class_col, original, positive_class, negative_class, va
     show()
 
 # data_balancing('data/classification/datasets_for_further_analysis/dataset2/dataset2_minmax_train.csv', 'dataset2_minmax_train', 'dataset2', 'date', 'class', '')
-data_balancing('data/classification/datasets_for_further_analysis/dataset2/dataset2_zscore_train.csv', 'dataset2_zscore_train', 'dataset2', 'date', 'class', '')
+# data_balancing('data/classification/datasets_for_further_analysis/dataset2/dataset2_zscore_train.csv', 'dataset2_zscore_train', 'dataset2', 'date', 'class', '')

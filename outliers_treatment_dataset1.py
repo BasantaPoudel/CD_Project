@@ -95,6 +95,6 @@ def print_summary5(data):
 outliers_treatment('data/classification/datasets_for_further_analysis/dataset1/diabetic_fill_columns_mv.csv', 'dataset1', 'dataset1', 'encounter_id', '')
 
 # outliers_treatment('data/classification/diabetic_data.csv', 'diabetic_data', 'dataset1', 'encounter_id', '')
-#outliers_treatment('data/classification/datasets_for_further_analysis/dataset2/dataset2_variable_enconding.csv', 'dataset2', 'dataset2', 'date', '')
+#outliers_treatment('data/classification/datasets_for_further_analysis/dataset2/dataset2_variable_encoding.csv', 'dataset2', 'dataset2', 'date', '')
 
 

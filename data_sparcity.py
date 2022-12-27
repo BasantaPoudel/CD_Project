@@ -15,7 +15,8 @@ def data_sparcity(filename, dataset, index_col, na_values):
     # scatter_plot_sparcity_symbolic(data, dataset)
     correlation_analysis(data, dataset)
 
-def scatter_plot_sparcity_Numeric(data, dataset):
+
+def scatter_plot_sparcity_numeric(data, dataset):
     numeric_vars = get_variable_types(data)['Numeric']
     print(len(numeric_vars))
     if [] == numeric_vars:
@@ -60,13 +61,13 @@ def correlation_analysis(data, dataset):
         fig = figure(figsize=[12, 12])
         heatmap(abs(corr_mtx), xticklabels=corr_mtx.columns, yticklabels=corr_mtx.columns, annot=True, cmap='Blues')
     else:
-        fig = figure(figsize=[51,51])
+        fig = figure(figsize=[51, 51])
         heatmap(abs(corr_mtx), xticklabels=corr_mtx.columns, yticklabels=corr_mtx.columns, annot=True, cmap='Blues',
                 annot_kws={'fontsize':8}, square=True)
     title('Correlation analysis')
     image_location = 'images/data_sparcity/' + dataset
     savefig(image_location+'/correlation_analysis.png')
-    show()
+    # show()
 
 
 def class_sparcity(data, dataset):

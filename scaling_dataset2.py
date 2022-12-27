@@ -41,8 +41,6 @@ def scaling(data, dataset):
     norm_data_zscore.boxplot(ax=axs[0, 1])
     axs[0, 2].set_title('MinMax normalization')
     norm_data_minmax.boxplot(ax=axs[0, 2])
-    show()
+    # show()
     image_location = 'images/data_scaling/' + dataset
     savefig(image_location+'/scaling_comparison')
-
-scaling('data/classification/datasets_for_further_analysis/dataset2/dataset2_variable_encoding.csv', "dataset2")

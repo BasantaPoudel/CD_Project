@@ -2,7 +2,7 @@ from numpy import ndarray
 from pandas import DataFrame, read_csv, unique
 from matplotlib.pyplot import figure, savefig, show
 from sklearn.naive_bayes import GaussianNB
-from dscharts import plot_evaluation_results_Maribel, bar_chart
+from dscharts import plot_evaluation_results_dataset1, bar_chart
 from sklearn.naive_bayes import GaussianNB, MultinomialNB, BernoulliNB, CategoricalNB
 from sklearn.metrics import accuracy_score
 from sklearn.naive_bayes import GaussianNB, MultinomialNB, BernoulliNB, CategoricalNB
@@ -28,7 +28,7 @@ clf = GaussianNB()
 clf.fit(trnX, trnY)
 prd_trn = clf.predict(trnX)
 prd_tst = clf.predict(tstX)
-plot_evaluation_results_Maribel(labels, trnY, prd_trn, tstY, prd_tst)
+plot_evaluation_results_dataset1(labels, trnY, prd_trn, tstY, prd_tst)
 savefig('images/nb/dataset1/'+file_tag+'_nb_best.png')
 show()
 

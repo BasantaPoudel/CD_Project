@@ -6,13 +6,17 @@ from dscharts import plot_evaluation_results, bar_chart
 from sklearn.naive_bayes import GaussianNB, MultinomialNB, BernoulliNB, CategoricalNB
 from sklearn.metrics import accuracy_score
 
+
 def nb_variants(file_tag, filename, target, dataset, method):
     file_tag = file_tag
     filename = filename
     target = target
+    if method == '':
+        train: DataFrame = read_csv(f'{filename}_train.csv')
+    else:
+        #Running over balanced
+        train: DataFrame = read_csv(f'{filename}'+'_'+method+'.csv')
 
-    train: DataFrame = read_csv(f'{filename}_train.csv')
-    # train: DataFrame = read_csv(f'{filename}_train_oversampling.csv')
     trnY: ndarray = train.pop(target).values
     trnX: ndarray = train.values
     labels = unique(trnY)
@@ -22,20 +26,12 @@ def nb_variants(file_tag, filename, target, dataset, method):
     tstY: ndarray = test.pop(target).values
     tstX: ndarray = test.values
 
-    clf = GaussianNB()
-    clf.fit(trnX, trnY)
-    prd_trn = clf.predict(trnX)
-    prd_tst = clf.predict(tstX)
-    plot_evaluation_results(labels, trnY, prd_trn, tstY, prd_tst)
-    image_location = 'images/nb/' + dataset
-    savefig(image_location+'/'+file_tag+'_nb_best.png')
-    show()
 
     estimators = {'GaussianNB': GaussianNB(),
-              # 'MultinomialNB': MultinomialNB(),
-              'BernoulliNB': BernoulliNB()
-              #'CategoricalNB': CategoricalNB
-              }
+                  # 'MultinomialNB': MultinomialNB(),
+                  'BernoulliNB': BernoulliNB()
+                  #'CategoricalNB': CategoricalNB
+                  }
 
     xvalues = []
     yvalues = []
@@ -47,9 +43,30 @@ def nb_variants(file_tag, filename, target, dataset, method):
 
     figure()
     bar_chart(xvalues, yvalues, title='Comparison of Naive Bayes Models', ylabel='accuracy', percentage=True)
-    savefig(image_location+'/'+file_tag+'_nb_study.png')
-    #how()
+    image_location = 'images/nb/' + dataset
+    if method == '':
+        savefig(image_location+'/'+file_tag+'_nb_study.png')
+    else:
+        #Running over balanced
+        savefig(image_location+'/'+file_tag+'_'+method+'_nb_study.png')
 
+    nb_best(dataset, file_tag, labels, trnX, trnY, tstX, tstY, method)
+    #show()
+
+
+def nb_best(dataset, file_tag, labels, trnX, trnY, tstX, tstY, method):
+    clf = GaussianNB()
+    print(f'Best Classifier from the study: {clf}')
+    clf.fit(trnX, trnY)
+    prd_trn = clf.predict(trnX)
+    prd_tst = clf.predict(tstX)
+    plot_evaluation_results(labels, trnY, prd_trn, tstY, prd_tst)
+    image_location = 'images/nb/' + dataset
+    if method == '':
+        savefig(image_location+'/'+file_tag+'_nb_best.png')
+    else:
+        #Running over balanced
+        savefig(image_location+'/'+file_tag+'_'+method+'_nb_best.png')    # show()
 
 # nb_variants('dataset2_minmax', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_minmax', 'class', 'dataset2', 'minmax')
 # nb_variants('dataset2_minmax_oversampling', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_minmax', 'class', 'dataset2', 'minmax_oversampling')
