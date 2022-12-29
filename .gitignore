@@ -130,12 +130,3 @@ dmypy.json
 
 # IDE
 .idea
-data/classification/datasets_for_further_analysis/dataset1/dataset1_scaled_minmax.csv
-data/classification/datasets_for_further_analysis/dataset1/dataset1_scaled_zscore.csv
-data/classification/datasets_for_further_analysis/dataset1/diabetic_data_variable_enconding.csv
-data/classification/datasets_for_further_analysis/dataset1/minmax_diabetes_test.csv
-data/classification/datasets_for_further_analysis/dataset1/minmax_diabetes_train.csv
-data/classification/datasets_for_further_analysis/dataset1/mv_filled_mean_dataset1.csv
-data/classification/datasets_for_further_analysis/dataset1/zscore_diabetes_test.csv
-images/nb/dataset2/minmax_scaling_drought_nb_study.png
-data/classification/datasets_for_further_analysis/dataset1/dataset1_scaled_zscore.csv

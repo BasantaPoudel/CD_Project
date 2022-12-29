@@ -2,7 +2,7 @@ from numpy import ndarray
 from pandas import DataFrame, read_csv, unique
 from matplotlib.pyplot import figure, savefig, show
 from sklearn.neighbors import KNeighborsClassifier
-from dscharts import plot_evaluation_results_Maribel, multiple_line_chart, plot_overfitting_study
+from dscharts import plot_evaluation_results_dataset1, multiple_line_chart, plot_overfitting_study
 from sklearn.metrics import accuracy_score
 
 file_tag = 'diabetes_over_noscaled'
@@ -60,7 +60,7 @@ def knn_best(best_0,best_1):
     clf.fit(trnX, trnY)
     prd_trn = clf.predict(trnX)
     prd_tst = clf.predict(tstX)
-    plot_evaluation_results_Maribel(labels, trnY, prd_trn, tstY, prd_tst)
+    plot_evaluation_results_dataset1(labels, trnY, prd_trn, tstY, prd_tst)
     savefig('images/knn/dataset1/'+file_tag+'_'+best_1+'_knn_best.png')
     show()
 

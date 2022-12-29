@@ -8,10 +8,12 @@ from sklearn.metrics import accuracy_score
 
 def knn_variants(file_tag, filename, target, dataset, method):
     #Running over unbalanced
-    train: DataFrame = read_csv(f'{filename}_train.csv')
+    if method == '':
+        train: DataFrame = read_csv(f'{filename}_train.csv')
+    else:
+        #Running over balanced
+        train: DataFrame = read_csv(f'{filename}'+'_'+method+'.csv')
 
-    #Running over balanced
-    # train: DataFrame = read_csv(f'{filename}_train_oversampling.csv')
     trnY: ndarray = train.pop(target).values
     trnX: ndarray = train.values
     labels = unique(trnY)
@@ -42,21 +44,38 @@ def knn_variants(file_tag, filename, target, dataset, method):
     figure()
     multiple_line_chart(nvalues, values, title='KNN variants', xlabel='n', ylabel=str(accuracy_score), percentage=True)
     image_location = 'images/knn/' + dataset
-    savefig(image_location+'/'+file_tag+'_knn_study.png')
+    if method == '':
+        savefig(image_location+'/'+file_tag+'_knn_study.png')
+    else:
+        #Running over balanced
+        savefig(image_location+'/'+file_tag+'_'+method+'_knn_study.png')
+
     #show()
     print('Best results with %d neighbors and %s'%(best[0], best[1]))
 
-    #Knn Best
+    knn_best(best, file_tag, image_location, labels, trnX, trnY, tstX, tstY, method)
+
+    # overfitting_study(best, dataset, method, n, nvalues, trnX, trnY, tstX, tstY)
+
+
+def knn_best(best, file_tag, image_location, labels, trnX, trnY, tstX, tstY, method):
+    # Knn Best
     clf = knn = KNeighborsClassifier(n_neighbors=best[0], metric=best[1])
     clf.fit(trnX, trnY)
     prd_trn = clf.predict(trnX)
     prd_tst = clf.predict(tstX)
     plot_evaluation_results(labels, trnY, prd_trn, tstY, prd_tst)
-    savefig(image_location+'/'+file_tag+'_knn_best.png')
-    #show()
+    if method == '':
+        savefig(image_location+'/'+file_tag+'_knn_best.png')
+    else:
+        #Running over balanced
+        savefig(image_location+'/'+file_tag+'_'+method+'_knn_best.png')
+    # show()
 
+
+def overfitting_study(best, dataset, method, n, nvalues, trnX, trnY, tstX, tstY):
     # #Overfitting
-    d = best[1] #'euclidean'
+    d = best[1]  # 'euclidean'
     eval_metric = accuracy_score
     y_tst_values = []
     y_trn_values = []
@@ -67,7 +86,8 @@ def knn_variants(file_tag, filename, target, dataset, method):
         prd_trn_Y = knn.predict(trnX)
         y_tst_values.append(eval_metric(tstY, prd_tst_Y))
         y_trn_values.append(eval_metric(trnY, prd_trn_Y))
-    plot_overfitting_study(dataset, method, nvalues, y_trn_values, y_tst_values, name=f'KNN_K={n}_{d}', xlabel='K', ylabel=str(eval_metric))
+    plot_overfitting_study(dataset, method, nvalues, y_trn_values, y_tst_values, name=f'KNN_K={n}_{d}', xlabel='K',
+                           ylabel=str(eval_metric))
 
 
 def plot_overfitting_study(dataset, method, xvalues, prd_trn, prd_tst, name, xlabel, ylabel):
@@ -79,10 +99,14 @@ def plot_overfitting_study(dataset, method, xvalues, prd_trn, prd_tst, name, xla
 
 
 
-#Running for data preparation steps
-knn_variants('dataset2_scaled_minmax', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_minmax', 'class', 'dataset2', 'scaled_minmax')
+# (file_tag, filename, target, dataset, method)
+#Running for data preparation step - outliers treatment
+# knn_variants('dataset2_drop_outliers', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_drop_outliers', 'class', 'dataset2', 'drop_outliers')
 
+#Running for data preparation step - scaling
+# knn_variants('dataset2_scaled_minmax', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_minmax', 'class', 'dataset2', 'scaled_minmax')
 
+#Running for classification steps
 #Running over unbalanced - Change the train file in the knn_variants function
 # knn_variants('dataset2_minmax', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_minmax', 'class', 'dataset2', 'minmax')
 

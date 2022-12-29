@@ -126,5 +126,5 @@ feature_engineering('data/classification/datasets_for_further_analysis/dataset1/
                                        'dataset1', 'dataset1', 'encounter_id')
 
 
-# feature_engineering('data/classification/datasets_for_further_analysis/dataset2/dataset2_variable_enconding.csv',
+# feature_engineering('data/classification/datasets_for_further_analysis/dataset2/dataset2_variable_encoding.csv',
 #                                         'dataset2', 'dataset2', 'date')

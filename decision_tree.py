@@ -2,7 +2,7 @@ from numpy import ndarray
 from pandas import DataFrame, read_csv, unique
 from matplotlib.pyplot import figure, subplots, savefig, show
 from sklearn.tree import DecisionTreeClassifier
-from dscharts import plot_evaluation_results_Maribel, multiple_line_chart, plot_evaluation_results
+from dscharts import plot_evaluation_results_dataset1, multiple_line_chart, plot_evaluation_results
 from sklearn.metrics import accuracy_score
 from sklearn import tree
 from numpy import argsort, arange
@@ -62,18 +62,25 @@ def decision_tree(filename, file, dataset, clas):
     print('Best results achieved with %s criteria, depth=%d and min_impurity_decrease=%1.5f ==> accuracy=%1.5f' % (
     best[0], best[1], best[2], last_best))
 
+    plot_best(best_model, dataset, labels, train, trnX, trnY, tstX, tstY)
+
+    plot_importance_ranking(best_model, dataset, train)
+
+    overfitting_study(best, dataset, max_depths, trnX, trnY, tstX, tstY)
+
+
+def plot_best(best_model, dataset, labels, train, trnX, trnY, tstX, tstY):
     # plot the tree
     labels2 = [str(value) for value in labels]
     print(labels)
     sklearn.tree.plot_tree(best_model, feature_names=train.columns, class_names=labels2)
-    savefig('images/decision_tree/'+dataset+'/_dt_best_tree.png')
-
+    savefig('images/decision_tree/' + dataset + '/_dt_best_tree.png')
     # plot evaluation results
     prd_trn = best_model.predict(trnX)
     prd_tst = best_model.predict(tstX)
     if dataset == 'dataset1':
-        plot_evaluation_results_Maribel(labels, trnY, prd_trn, tstY, prd_tst)
-        savefig('images/decision_tree/'+dataset+'/_dt_best.png')
+        plot_evaluation_results_dataset1(labels, trnY, prd_trn, tstY, prd_tst)
+        savefig('images/decision_tree/' + dataset + '/_dt_best.png')
         show()
     else:
         plot_evaluation_results(labels, trnY, prd_trn, tstY, prd_tst)
@@ -81,6 +88,7 @@ def decision_tree(filename, file, dataset, clas):
         show()
 
 
+def plot_importance_ranking(best_model, dataset, train):
     # plot feature importances
     variables = train.columns
     importances = best_model.feature_importances_
@@ -91,19 +99,20 @@ def decision_tree(filename, file, dataset, clas):
         elems += [variables[indices[f]]]
         imp_values += [importances[indices[f]]]
         print(f'{f + 1}. feature {elems[f]} ({importances[indices[f]]})')
-
     figure()
     horizontal_bar_chart(elems, imp_values, error=None, title='Decision Tree Features importance', xlabel='importance',
                          ylabel='variables')
-    savefig('images/decision_tree/'+dataset+'/_dt_ranking.png')
+    savefig('images/decision_tree/' + dataset + '/_dt_ranking.png')
 
+
+def overfitting_study(best, dataset, max_depths, trnX, trnY, tstX, tstY):
     # plot overfitting study
-    imp = best[2]#0.0001
-    f = best[0] #'entropy'
+    imp = best[2]  # 0.0001
+    f = best[0]  # 'entropy'
     eval_metric = accuracy_score
     y_tst_values = []
     y_trn_values = []
-    for d in max_depths: #best[1]=25 for dataset2
+    for d in max_depths:  # best[1]=25 for dataset2
         tree = DecisionTreeClassifier(max_depth=d, criterion=f, min_impurity_decrease=imp)
         tree.fit(trnX, trnY)
         prdY = tree.predict(tstX)
@@ -116,8 +125,8 @@ def decision_tree(filename, file, dataset, clas):
     savefig('images/decision_tree/' + dataset + '/_overfitting_study.png')
 
 #
-decision_tree('data/classification/data_for_DT_RF/minmax_diabetes',
-              'dataset1', 'dataset1', 'readmitted')
+# decision_tree('data/classification/data_for_DT_RF/minmax_diabetes',
+#               'dataset1', 'dataset1', 'readmitted')
 
 # decision_tree('data/classification/data_for_DT_RF/dataset2_minmax',
 #               'dataset2', 'dataset2', 'class')

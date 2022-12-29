@@ -143,7 +143,7 @@ def compute_eval(real, prediction, pos_value, average_param):
     }
     return evaluation
 
-def plot_evaluation_results_Maribel(labels: ndarray, trn_y, prd_trn, tst_y, prd_tst, pos_value: int = 1, average_param: str = 'weighted'):
+def plot_evaluation_results_dataset1(labels: ndarray, trn_y, prd_trn, tst_y, prd_tst, pos_value: int = 1, average_param: str = 'weighted'):
     eval_trn = compute_eval(trn_y, prd_trn, pos_value, average_param)
     eval_tst = compute_eval(tst_y, prd_tst, pos_value, average_param)
     evaluation = {}

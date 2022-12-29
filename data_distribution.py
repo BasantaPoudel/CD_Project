@@ -21,12 +21,12 @@ def data_distribution(filename, dataset, index_col, na_values, class_column):
     else:
         data_without_class = data
     # print(data_without_class)
-    # print_summary5(data_without_class)
+    print_summary5(data_without_class)
     # single_box_plot(data_without_class, dataset)
     # global_boxplot(data_without_class, dataset)
     # outliers_plot(data_without_class, dataset)
-    hist_plot(data_without_class, dataset)
-    # best_fit_distribution(data_without_class, dataset)
+    # hist_plot(data_without_class, dataset)
+    best_fit_distribution(data_without_class, dataset)
     # hist_symbolic(data_without_class, dataset)
     # class_distribution(data, dataset, class_column)
 
@@ -150,10 +150,10 @@ def best_fit_distribution(data, dataset):
     numeric_vars = get_variable_types(data)['Numeric']
     if [] == numeric_vars:
         raise ValueError('There are no numeric variables.')
-    rows, cols = choose_grid(2) #len(numeric_vars))
+    rows, cols = choose_grid(len(numeric_vars)) #len(numeric_vars))
     fig, axs = subplots(rows, cols, figsize=(cols*HEIGHT, rows*HEIGHT), squeeze=False)
     i, j = 0, 0
-    for n in range(2): #len(numeric_vars)):
+    for n in range(len(numeric_vars)): #len(numeric_vars)):
         histogram_with_distributions(axs[i, j], data[numeric_vars[n]].dropna(), numeric_vars[n])
         i, j = (i + 1, 0) if (n+1) % cols == 0 else (i, j + 1)
     image_location = 'images/data_distribution/' + dataset
@@ -188,11 +188,13 @@ def class_distribution(data, dataset, class_column):
     i, j = (i + 1, 0) if (1) % cols == 0 else (i, j + 1)
     image_location = 'images/data_distribution/' + dataset
     savefig(image_location+'/class_distribution.png')
-    show()
+    # show()
 
-data_distribution('data/classification/diabetic_data.csv', 'dataset1', "encounter_id", "?", 'readmitted')
-# data_distribution('data/classification/drought.csv', 'dataset2', 'date', '', 'class')
+
+# data_distribution('data/classification/diabetic_data.csv', 'dataset1', "encounter_id", "?", 'readmitted')
+data_distribution('data/classification/drought.csv', 'dataset2', 'date', '', 'class')
+
 
 #Following lines are run over the processed files for further analysis
-# data_distribution('data/classification/datasets_for_further_analysis/dataset2/dataset2_variable_enconding.csv', 'dataset2_variable_encoding', 'date', '', 'class')
+# data_distribution('data/classification/datasets_for_further_analysis/dataset2/dataset2_variable_encoding.csv', 'dataset2_variable_encoding', 'date', '', 'class')
 

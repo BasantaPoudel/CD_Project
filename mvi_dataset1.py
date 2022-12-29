@@ -7,7 +7,7 @@ from dscharts import bar_chart
 register_matplotlib_converters()
 file = 'diabetic'
 #filename = 'data/classification/diabetic_data.csv'
-filename = 'data/classification/datasets_for_further_analysis/dataset1/diabetic_data_variable_enconding.csv'
+filename = 'data/classification/datasets_for_further_analysis/dataset1/diabetic_data_variable_encoding.csv'
 data = read_csv(filename, index_col='encounter_id', na_values='?', parse_dates=True, infer_datetime_format=True)
 
 # defines the number of records to discard entire columns
