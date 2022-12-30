@@ -6,7 +6,9 @@ from dscharts import bar_chart, get_variable_types
 
 def feature_engineering(filename, file, dataset, index_col):
     data = read_csv(filename,index_col=index_col)
+    print('shape of original data:', data.shape)
     drop_useless_vars(data, file)
+
 
     # for dataset1: there are no variables with correlation > 0.55
     # drop variables based on correlation
@@ -27,11 +29,14 @@ def feature_engineering(filename, file, dataset, index_col):
 
     # drop variables based on variance analysis:
     treshold_variance = 0.1
-    numeric = get_variable_types(df)['Numeric']
-    vars2drop = select_low_variance(data[numeric], treshold_variance, dataset)
+    if 'Unnamed: 0' in df2:
+        df.drop(['Unnamed: 0'], inplace=True, axis=1)
+    numeric = get_variable_types(df2)['Numeric']
+    print('numeric variables are:', numeric)
+    vars2drop = select_low_variance(df2[numeric], treshold_variance, dataset)
     print('vars with low variance:',vars2drop)
 
-    final_df = drop_low_var(df, vars2drop)
+    final_df = drop_low_var(df2, vars2drop)
     print(final_df.shape)
 
 
@@ -107,8 +112,8 @@ def select_low_variance(data: DataFrame, threshold: float, dataset) -> list:
 
     print(len(lst_variables), lst_variables)
     figure(figsize=[10, 4])
-    bar_chart(lst_variables, lst_variances, title='Variance analysis', xlabel='variables', ylabel='variance')
-    savefig('images/feature_engineering/'+dataset+'/filtered_variance_analysis.png')
+    # bar_chart(lst_variables, lst_variances, title='Variance analysis', xlabel='variables', ylabel='variance')
+    # savefig('images/feature_engineering/'+dataset+'/filtered_variance_analysis.png')
     # show()
     return lst_variables
 
@@ -122,9 +127,9 @@ def drop_low_var(data, vars2drop):
 
 # still need to select the right dataset for feature selection, SCALING dataaset should be used!:
 
-feature_engineering('data/classification/datasets_for_further_analysis/dataset1/dataset1_drop_outliers.csv',
-                                       'dataset1', 'dataset1', 'encounter_id')
+# feature_engineering('data/classification/datasets_for_further_analysis/dataset1/dataset1_drop_outliers.csv',
+#                                        'dataset1', 'dataset1', 'encounter_id')
 
 
-# feature_engineering('data/classification/datasets_for_further_analysis/dataset2/dataset2_variable_encoding.csv',
-#                                         'dataset2', 'dataset2', 'date')
+feature_engineering('data/classification/datasets_for_further_analysis/dataset2/dataset2_scaled_zscore.csv',
+                                        'dataset2', 'dataset2', 'date')

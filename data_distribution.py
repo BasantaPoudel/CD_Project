@@ -21,14 +21,14 @@ def data_distribution(filename, dataset, index_col, na_values, class_column):
     else:
         data_without_class = data
     # print(data_without_class)
-    print_summary5(data_without_class)
+    # print_summary5(data_without_class)
     # single_box_plot(data_without_class, dataset)
     # global_boxplot(data_without_class, dataset)
     # outliers_plot(data_without_class, dataset)
     # hist_plot(data_without_class, dataset)
-    best_fit_distribution(data_without_class, dataset)
+    # best_fit_distribution(data_without_class, dataset)
     # hist_symbolic(data_without_class, dataset)
-    # class_distribution(data, dataset, class_column)
+    class_distribution(data, dataset, class_column)
 
 
 def print_summary5(data):
@@ -188,10 +188,10 @@ def class_distribution(data, dataset, class_column):
     i, j = (i + 1, 0) if (1) % cols == 0 else (i, j + 1)
     image_location = 'images/data_distribution/' + dataset
     savefig(image_location+'/class_distribution.png')
-    # show()
+    show()
 
 
-# data_distribution('data/classification/diabetic_data.csv', 'dataset1', "encounter_id", "?", 'readmitted')
+data_distribution('data/classification/diabetic_data.csv', 'dataset1', "encounter_id", "?", 'readmitted')
 data_distribution('data/classification/drought.csv', 'dataset2', 'date', '', 'class')
 
 
