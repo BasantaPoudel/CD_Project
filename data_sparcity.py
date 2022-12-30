@@ -1,8 +1,10 @@
+import numpy as np
 from pandas import read_csv
 from pandas.plotting import register_matplotlib_converters
 from matplotlib.pyplot import subplots, savefig, show, figure, title
 from dscharts import get_variable_types, HEIGHT
 from seaborn import heatmap
+import matplotlib.pyplot as plt
 
 
 def data_sparcity(filename, dataset, index_col, na_values, clas):
@@ -15,9 +17,10 @@ def data_sparcity(filename, dataset, index_col, na_values, clas):
     # scatter_plot_sparcity_symbolic(data, dataset)
 
     # scatter_plot_sparcity_numeric_class(data, dataset, clas)
-    scatter_plot_sparcity_symbolic_class(data, dataset, clas)
+    # scatter_plot_sparcity_symbolic_class(data, dataset, clas)
 
     # correlation_analysis(data, dataset)
+    correlation_analysis_class(data, dataset, clas)
 
 
 def scatter_plot_sparcity_numeric(data, dataset):
@@ -114,24 +117,36 @@ def correlation_analysis(data, dataset):
     savefig(image_location+'/correlation_analysis.png')
     # show()
 
-def correlation_analysis_class(data, dataset):
-    corr_mtx = abs(data.corr())
-    print(corr_mtx)
-    if dataset == 'dataset1':
-        fig = figure(figsize=[12, 12])
-        heatmap(abs(corr_mtx), xticklabels=corr_mtx.columns, yticklabels=corr_mtx.columns, annot=True, cmap='Blues')
-    else:
-        fig = figure(figsize=[51, 51])
-        heatmap(abs(corr_mtx), xticklabels=corr_mtx.columns, yticklabels=corr_mtx.columns, annot=True, cmap='Blues',
-                annot_kws={'fontsize':8}, square=True)
-    title('Correlation analysis')
+def correlation_analysis_class(data, dataset, clas):
+    corr = []
+    vars = []
+
+    numeric_vars = get_variable_types(data)['Numeric']
+    numeric_vars = numeric_vars[:-1]
+    print(numeric_vars)
+    for var in numeric_vars:
+
+        corr.append(np.corrcoef(data[var], data[clas])[0][1])
+        vars.append(var)
+
+
+    # print(, corr)
+    plt.bar(vars, corr)
+    plt.xticks(rotation=90)
+    plt.title('corrlation of numeric variables against the class')
+
     image_location = 'images/data_sparcity/' + dataset
-    savefig(image_location+'/correlation_analysis.png')
-    # show()
+    plt.savefig(image_location + '/correlation_analysis_CLASS.png')
+    plt.show()
+
+
+
 
 def class_sparcity(data, dataset):
     # TODO
     return True
 
 # data_sparcity('data/classification/diabetic_data.csv', 'dataset1', "encounter_id", "?", 'readmitted')
-data_sparcity('data/classification/drought.csv', 'dataset2', "date", '', 'class')
+data_sparcity('data/classification/datasets_for_further_analysis/dataset1/diabetic_data_variable_enconding.csv',
+              'dataset1', "encounter_id", "?", 'readmitted')
+# data_sparcity('data/classification/drought.csv', 'dataset2', "date", '', 'class')
