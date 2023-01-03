@@ -68,10 +68,5 @@ def nb_best(dataset, file_tag, labels, trnX, trnY, tstX, tstY, method):
         #Running over balanced
         savefig(image_location+'/'+file_tag+'_'+method+'_nb_best.png')    # show()
 
-# nb_variants('dataset2_minmax', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_minmax', 'class', 'dataset2', 'minmax')
-# nb_variants('dataset2_minmax_oversampling', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_minmax', 'class', 'dataset2', 'minmax_oversampling')
 
-
-#Multinomial doesn't work for zscore as it has negative values
-# nb_variants('dataset2_zscore', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_zscore', 'class', 'dataset2', 'zscore')
-# nb_variants('dataset2_zscore_oversampling', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_zscore', 'class', 'dataset2', 'zscore_oversampling')
+nb_variants('dataset2_scaled_zscore_model', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_scaled_zscore', 'class', 'dataset2', 'undersampling')

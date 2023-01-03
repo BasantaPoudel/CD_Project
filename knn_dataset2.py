@@ -73,7 +73,7 @@ def knn_best(best, file_tag, image_location, labels, trnX, trnY, tstX, tstY, met
     # show()
 
 
-def overfitting_study(best, dataset, method, n, nvalues, trnX, trnY, tstX, tstY):
+def overfitting_study(best, file_tag, dataset, method, n, nvalues, trnX, trnY, tstX, tstY):
     # #Overfitting
     d = best[1]  # 'euclidean'
     eval_metric = accuracy_score
@@ -86,35 +86,19 @@ def overfitting_study(best, dataset, method, n, nvalues, trnX, trnY, tstX, tstY)
         prd_trn_Y = knn.predict(trnX)
         y_tst_values.append(eval_metric(tstY, prd_tst_Y))
         y_trn_values.append(eval_metric(trnY, prd_trn_Y))
-    plot_overfitting_study(dataset, method, nvalues, y_trn_values, y_tst_values, name=f'KNN_K={n}_{d}', xlabel='K',
+    plot_overfitting_study(file_tag, dataset, method, nvalues, y_trn_values, y_tst_values, name=f'KNN_K={n}_{d}', xlabel='K',
                            ylabel=str(eval_metric))
 
 
-def plot_overfitting_study(dataset, method, xvalues, prd_trn, prd_tst, name, xlabel, ylabel):
+def plot_overfitting_study(file_tag, dataset, method, xvalues, prd_trn, prd_tst, name, xlabel, ylabel):
     evals = {'Train': prd_trn, 'Test': prd_tst}
     figure()
     multiple_line_chart(xvalues, evals, ax = None, title=f'Overfitting {name}', xlabel=xlabel, ylabel=ylabel, percentage=True)
     image_location = 'images/knn/' + dataset
-    savefig(image_location+'/'+dataset+'_'+method+'_overfitting_'+name+'.png')
+    savefig(image_location+'/'+file_tag+'_'+method+'_overfitting_'+name+'.png')
 
 
 
 # (file_tag, filename, target, dataset, method)
-#Running for data preparation step - outliers treatment
-# knn_variants('dataset2_drop_outliers', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_drop_outliers', 'class', 'dataset2', 'drop_outliers')
-
-#Running for data preparation step - scaling
-# knn_variants('dataset2_scaled_minmax', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_minmax', 'class', 'dataset2', 'scaled_minmax')
-
 #Running for classification steps
-#Running over unbalanced - Change the train file in the knn_variants function
-# knn_variants('dataset2_minmax', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_minmax', 'class', 'dataset2', 'minmax')
-
-#Running over balanced - Change the train file in the knn_variants function
-# knn_variants('dataset2_minmax_oversampling', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_minmax', 'class', 'dataset2', 'minmax_oversampling')
-
-#Running over unbalanced - Change the train file in the knn_variants function
-# knn_variants('dataset2_zscore', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_zscore', 'class', 'dataset2', 'zscore')
-
-#Running over balanced - Change the train file in the knn_variants function
-# knn_variants('dataset2_zscore_oversampling', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_zscore', 'class', 'dataset2', 'zscore_oversampling')
+knn_variants('dataset2_scaled_zscore_model', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_scaled_zscore', 'class', 'dataset2', 'undersampling')
