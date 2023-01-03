@@ -3,7 +3,7 @@ import matplotlib.dates as mdates
 import config as cfg
 from pandas import concat, Series
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
-from ds_charts import multiple_bar_chart
+from dscharts import multiple_bar_chart
 from math import sqrt
 from statsmodels.tsa.seasonal import seasonal_decompose
 from numpy import ndarray, array
