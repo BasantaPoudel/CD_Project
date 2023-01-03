@@ -1,0 +1,3 @@
+Nr. Records =  596
+First timestamp 1991-01-03 08:00:00
+Last timestamp 1991-07-27 22:00:00

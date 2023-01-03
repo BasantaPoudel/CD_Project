@@ -1,50 +1,28 @@
-import pandas as pd
-from matplotlib.pyplot import figure, savefig
-from pandas.plotting import register_matplotlib_converters
-register_matplotlib_converters()
-from dscharts import get_variable_types, bar_chart
-
+from pandas import read_csv
+from matplotlib.pyplot import figure, xticks, show, savefig
+from ts_functions import plot_series, HEIGHT
+import sys
 
 def data_dimensionality(filename, dataset, index_col, na_values):
-    if (dataset == "dataset2"):
-        df = pd.read_csv(filename, dayfirst=True, parse_dates=['date'], infer_datetime_format=True)
-    else:
-        df = pd.read_csv(filename)
-    x = df.describe()
-    print(df.dtypes)
-    records_variables(df, dataset)
-    variable_distribution(df, dataset)
+    data = read_csv(filename, index_col=index_col, sep=',', decimal='.', parse_dates=True, infer_datetime_format=True)
 
+    original_stdout = sys.stdout
+    file_location = 'images/data_dimensionality/' + dataset
+    with open(file_location+'/data_dimensionality_'+dataset+'.txt', 'w') as f:
+        sys.stdout = f
+        print("Nr. Records = ", data.shape[0])
+        print("First timestamp", data.index[0])
+        print("Last timestamp", data.index[-1])
+        sys.stdout = original_stdout # Reset the standard output
 
-def records_variables(df, dataset):
-    '''_________________________Data dimensionality______________________________'''
+    figure(figsize=(3*HEIGHT, HEIGHT))
+    plot_series(data, x_label='timestamp', y_label='consumption', title='ASHRAE')
+    xticks(rotation = 45)
 
-    '''records vs variables'''
-    figure(figsize=(4,2))
-    values = {'nr records': df.shape[0], 'nr variables': df.shape[1]}
-    bar_chart(list(values.keys()), list(values.values()), title='Nr of records vs nr variables')
     image_location = 'images/data_dimensionality/' + dataset
     savefig(image_location+'/records_variables.png')
-    # show()
+    show()
 
 
-def variable_distribution(df, dataset):
-    cat_vars = df.select_dtypes(include='object')
-    df[cat_vars.columns] = df.select_dtypes(['object']).apply(lambda x: x.astype('category'))
-    ''' number of variables per category'''
-    variable_types = get_variable_types(df)
-    print(variable_types)
-    counts = {}
-    for tp in variable_types.keys():
-        counts[tp] = len(variable_types[tp])
-    figure(figsize=(4,2))
-    bar_chart(list(counts.keys()), list(counts.values()), title='Nr of variables per type')
-
-    image_location = 'images/data_dimensionality/' + dataset
-    savefig(image_location+'/variable_types.png')
-    #show()
-
-
-data_dimensionality('forecasting/data/classification/diabetic_data.csv', 'dataset1', 'encounter_id', '?')
-# data_dimensionality('data/classification/drought.csv', 'dataset2', 'date', '')
-# data_dimensionality('data/classification/data_for_DT_RF/dataset2_minmax_test.csv', 'dataset2_minmax_test', 'date', '')
+data_dimensionality('data/forecasting/glucose.csv', 'dataset1', 'Date', '')
+data_dimensionality('data/forecasting/drought.forecasting_dataset.csv', 'dataset2', 'date', '')

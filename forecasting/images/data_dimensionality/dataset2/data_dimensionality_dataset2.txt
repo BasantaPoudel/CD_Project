@@ -1,0 +1,3 @@
+Nr. Records =  7671
+First timestamp 2000-01-01 00:00:00
+Last timestamp 2020-12-31 00:00:00
