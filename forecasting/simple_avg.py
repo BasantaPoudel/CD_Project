@@ -4,12 +4,23 @@ from ts_functions import HEIGHT, split_dataframe
 from sklearn.base import RegressorMixin
 from ts_functions import PREDICTION_MEASURES, plot_evaluation_results, plot_forecasting_series
 
-file_tag = 'drought'
-index_col='date'
-target='QV2M'
-data = read_csv('data/forecasting/drought.forecasting_dataset.csv', index_col=index_col, sep=',', decimal='.', parse_dates=True, infer_datetime_format=True)
+#dataset1 - drop the insulin col
+dataset = 'dataset1'
+file_tag = 'glucose'
+index_col = "Date"
+target = 'glucose'
+data = read_csv('data/forecasting/glucose.csv', index_col=index_col, sep=',', decimal='.', parse_dates=True, infer_datetime_format=True)
+data = data.drop("Insulin", axis='columns')
 
-#print(data.head())
+
+#dataset2
+# dataset = 'dataset2'
+# file_tag = 'drought'
+# index_col = 'date'
+# target = 'QV2M'
+# data = read_csv('data/forecasting/drought.forecasting_dataset.csv', index_col=index_col, sep=',', decimal='.', parse_dates=True, infer_datetime_format=True)
+
+print(data.head())
 
 #train & test spliting
 def split_dataframe(data, trn_pct=0.70):
@@ -26,7 +37,6 @@ flag_pct = False
 eval_results = {}
 
 #simpleAvg
-
 class SimpleAvgRegressor (RegressorMixin):
     def __init__(self):
         super().__init__()
@@ -49,9 +59,10 @@ print(eval_results)
 
 figure(figsize=(3*HEIGHT, HEIGHT/2))
 plot_evaluation_results(train.values, prd_trn, test.values, prd_tst, f'images/simpleAvg/dataset2/{file_tag}_simpleAvg_eval.png')
-savefig(f'images/time_series/simpleAvg/dataset2/{file_tag}_simpleAvg_eval.png')
-show()
+savefig(f'images/time_series/simpleAvg/{dataset}/{file_tag}_simpleAvg_eval.png')
+# show()
+
 figure(figsize=(3*HEIGHT, HEIGHT/2))
 plot_forecasting_series(train, test, prd_trn, prd_tst, f'images/simpleAvg/dataset2/{file_tag}_simpleAvg_plots.png', x_label=index_col, y_label=target)
-savefig(f'images/time_series/simpleAvg/dataset2/{file_tag}_simpleAvg_plots.png')
-show()
+savefig(f'images/time_series/simpleAvg/{dataset}/{file_tag}_simpleAvg_plots.png')
+# show()
