@@ -57,4 +57,4 @@ eval_results['Persistence'] = PREDICTION_MEASURES[measure](test.values, prd_tst)
 print(eval_results)
 
 
-main(data, 'dataset2', 'smoothing_100_daily', train, test, prd_trn, prd_tst, 'timestamp', 'Glucose')
+main(data, 'dataset2', 'smoothing_100_daily', train, test, prd_trn, prd_tst, 'timestamp', 'QV2M')
