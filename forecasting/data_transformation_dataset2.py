@@ -28,7 +28,7 @@ def smothing_win_size_10(data, dataset, target, granularity):
     WIN_SIZE = 10
     rolling = data.rolling(window=WIN_SIZE)
     smooth_df = rolling.mean()
-    smooth_df.to_csv('data/forecasting/aggregation/'+dataset+'/smothing_100_'+granularity+'.csv', index=True)
+    smooth_df.to_csv('data/forecasting/aggregation/'+dataset+'/smothing_10_'+granularity+'.csv', index=True)
     figure(figsize=(3*HEIGHT, HEIGHT/2))
     plot_series(smooth_df[target], title=f'Smoothing (win_size={WIN_SIZE})', x_label='timestamp', y_label='QV2M')
     xticks(rotation = 45)
@@ -129,10 +129,10 @@ differentiation(data, dataset) '''
 
 
 index_col = 'timestamp'
-dataMostAtomic = read_csv('data/forecasting/aggregation/dataset1/aggregate_daily.csv',  index_col=index_col, sep=',', decimal='.', parse_dates=True,dayfirst=True,  infer_datetime_format=True)
+dataMostAtomic = read_csv('data/forecasting/aggregation/dataset2/aggregate_daily.csv',  index_col=index_col, sep=',', decimal='.', parse_dates=True,dayfirst=True,  infer_datetime_format=True)
 smothing_win_size_10(dataMostAtomic, dataset, target, "daily")
-#smothing_win_size_100(dataMostAtomic, dataset, target, "daily")
-#differentiation(dataMostAtomic, dataset, "daily")
+smothing_win_size_100(dataMostAtomic, dataset, target, "daily")
+differentiation(dataMostAtomic, dataset, "daily")
 
 
 
