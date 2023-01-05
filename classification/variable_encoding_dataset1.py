@@ -50,16 +50,16 @@ def variable_encoding(data):
 
     #Weight encoded
     if 'weight' in data:
-        encoder= ce.OrdinalEncoder(cols=['weight'],return_df=True, mapping=[{'col':'weight',
+        encoder= ce.OrdinalEncoder(cols=['weight'], return_df=True, mapping=[{'col':'weight',
         'mapping':{'[0-25)':0,'[25-50)':1, '[50-75)':2,'[75-100)':3, '[100-125)':4,'[125-150)':5, '[150-175)':6,'[175-200)':7,
                 '>200': 8}}])
         data['weight'] = encoder.fit_transform(data["weight"])   
 
     #payer_code encoded
     if 'payer_code' in data:
-        encoder= ce.OrdinalEncoder(cols=['payer_code'],return_df=True, mapping=[{'col':'payer_code',
+        encoder= ce.OrdinalEncoder(cols=['payer_code'], return_df=True, mapping=[{'col':'payer_code',
         'mapping':{'MC':0,'MD':1, 'HM':2,'UN':3, 'BC':4,'SP':5, 'CP':6,'SI':7, 'DM': 8, 'CM': 9, 'CH': 10, 'PO': 11,
-            'WC': 12, 'OT': 13, 'OG': 14, 'MP': 15, 'FR': 16, 'NN': 20 }}])
+            'WC': 12, 'OT': 13, 'OG': 14, 'MP': 15, 'FR': 16, 'NN': 20}}])
         data['payer_code'] = encoder.fit_transform(data["payer_code"]) 
 
     #medical_specialty encoded
@@ -237,7 +237,7 @@ def diagnostic(data_Diagnostic) -> dict:
         #print(data_Diagnostic[n])
 
         if pd.isna(data_Diagnostic[n]):
-            data_diag_encoding[n] = -1
+            data_diag_encoding[n] = 'NaN' #-1
         elif "V" in data_Diagnostic[n]:
             data_diag_encoding[n] = 17
         elif "E" in data_Diagnostic[n]:
