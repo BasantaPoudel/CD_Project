@@ -66,39 +66,37 @@ def variables_distribution_plot(data, dataset, target):
     bins = (10, 25, 50)
     _, axs = subplots(1, len(bins), figsize=(len(bins) * HEIGHT, HEIGHT))
 
-    # Daily data histogram
+    # # Daily data histogram
     for j in range(len(bins)):
         axs[j].set_title('Histogram for daily records %d bins' % bins[j])
         axs[j].set_xlabel('QV2M')
-        axs[j].set_ylabel('g/kg')
+        axs[j].set_ylabel('N Records')
         axs[j].hist(data[target].values, bins=bins[j])
     image_location = 'images/data_distribution/' + dataset
     savefig(image_location+'/histogram_daily_'+dataset+'.png')
+    #
+    # # Weekly data histogram
+    # index = data.index.to_period('W')
+    # weekly_df = data.copy().groupby(index).mean().round(2)
+    # for j in range(len(bins)):
+    #     axs[j].set_title('Histogram for weekly records %d bins' % bins[j])
+    #     axs[j].set_xlabel('QV2M')
+    #     axs[j].set_ylabel('N Records')
+    #     axs[j].hist(weekly_df[target].values, bins=bins[j])
+    # image_location = 'images/data_distribution/' + dataset
+    # savefig(image_location+'/histogram_weekly_'+dataset+'.png')
 
-    bins = (5, 10, 15)
-    # Weekly data histogram
-    index = data.index.to_period('W')
-    weekly_df = data.copy().groupby(index).sum()
-    for j in range(len(bins)):
-        axs[j].set_title('Histogram for weekly records %d bins' % bins[j])
-        axs[j].set_xlabel('QV2M')
-        axs[j].set_ylabel('g/kg')
-        axs[j].hist(weekly_df[target].values, bins=bins[j])
-    image_location = 'images/data_distribution/' + dataset
-    savefig(image_location+'/histogram_weekly_'+dataset+'.png')
-
-    bins = (5, 10, 15)
-    # Monthly data histogram
-    index = data.index.to_period('M')
-    monthly_df = data.copy().groupby(index).sum()
-    for j in range(len(bins)):
-        axs[j].set_title('Histogram for monthly records %d bins' % bins[j])
-        axs[j].set_xlabel('QV2M')
-        axs[j].set_ylabel('g/kg')
-        axs[j].hist(monthly_df[target].values, bins=bins[j])
-
-    image_location = 'images/data_distribution/' + dataset
-    savefig(image_location+'/histogram_monthly_'+dataset+'.png')
+    # # Monthly data histogram
+    # index = data.index.to_period('M')
+    # monthly_df = data.copy().groupby(index).mean().round(2)
+    # for j in range(len(bins)):
+    #     axs[j].set_title('Histogram for monthly records %d bins' % bins[j])
+    #     axs[j].set_xlabel('QV2M')
+    #     axs[j].set_ylabel('N Records')
+    #     axs[j].hist(monthly_df[target].values, bins=bins[j])
+    #
+    # image_location = 'images/data_distribution/' + dataset
+    # savefig(image_location+'/histogram_monthly_'+dataset+'.png')
     # show()
 
 
