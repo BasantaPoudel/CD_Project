@@ -47,29 +47,32 @@ def variables_distribution_plot(data, dataset, index_col):
 
     bins = (10, 25, 50)
     _, axs = subplots(1, len(bins), figsize=(len(bins) * HEIGHT, HEIGHT))
-
-    # hourly data histogram
-    for j in range(len(bins)):
-        axs[j].set_title('Histogram for hourly values %d bins' % bins[j])
-        axs[j].set_xlabel('consumption')
-        axs[j].set_ylabel('Nr records')
-        axs[j].hist(data.values, bins=bins[j])
-    image_location = 'images/data_distribution/' + dataset
-    savefig(image_location+'/histogram_hourly_'+dataset+'.png')    
+    #
+    # # hourly data histogram
+    # for j in range(len(bins)):
+    #     axs[j].set_title('Histogram for hourly values %d bins' % bins[j])
+    #     axs[j].set_xlabel('Glucose Level')
+    #     axs[j].set_ylabel('Nr records')
+    #     axs[j].hist(data.values, bins=bins[j])
+    # image_location = 'images/data_distribution/' + dataset
+    # savefig(image_location+'/histogram_hourly_'+dataset+'.png')
 
     # Daily data histogram
-    index = data.index.to_period('D')
-    period_df = data.copy().groupby(index).mean().round(2)
-    period_df[index_col] = index.drop_duplicates().to_timestamp()
-    period_df.set_index(index_col, drop=True, inplace=True)
-
-    for j in range(len(bins)):
-        axs[j].set_title('Histogram for daily values %d bins' % bins[j])
-        axs[j].set_xlabel('consumption')
-        axs[j].set_ylabel('Nr records')
-        axs[j].hist(period_df.values, bins=bins[j])
-    image_location = 'images/data_distribution/' + dataset
-    savefig(image_location+'/histogram_daily_'+dataset+'.png')
+    # index = data.index.to_period('D')
+    # period_df = data.copy().groupby(index).mean().round(2)
+    # period_df[index_col] = index.drop_duplicates().to_timestamp()
+    # period_df.set_index(index_col, drop=True, inplace=True)
+    # file = "glucose_daily_df.csv"
+    # output_location = 'data/forecasting/datasets_for_further_analysis/'+dataset+'/'+file
+    # period_df.to_csv(f'{output_location}', index=True)
+    #
+    # for j in range(len(bins)):
+    #     axs[j].set_title('Histogram for daily values %d bins' % bins[j])
+    #     axs[j].set_xlabel('Glucose Level')
+    #     axs[j].set_ylabel('Nr records')
+    #     axs[j].hist(period_df.values, bins=bins[j])
+    # image_location = 'images/data_distribution/' + dataset
+    # savefig(image_location+'/histogram_daily_'+dataset+'.png')
 
     # Weekly data histogram
     index = data.index.to_period('W')
@@ -78,7 +81,7 @@ def variables_distribution_plot(data, dataset, index_col):
     period_df.set_index(index_col, drop=True, inplace=True)
     for j in range(len(bins)):
         axs[j].set_title('Histogram for weekly values %d bins' % bins[j])
-        axs[j].set_xlabel('consumption')
+        axs[j].set_xlabel('Glucose Level')
         axs[j].set_ylabel('Nr records')
         axs[j].hist(period_df.values, bins=bins[j])
     image_location = 'images/data_distribution/' + dataset
