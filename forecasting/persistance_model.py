@@ -43,8 +43,8 @@ eval_results = {}
 measure = 'R2'
 
 
-data = read_csv('data/forecasting/glucose.csv', index_col='Date', sep=',', decimal='.', parse_dates=True, dayfirst=True, infer_datetime_format=True)
-data.drop(['Insulin'], axis=1, inplace=True)
+data = read_csv('data/forecasting/aggregation/dataset1/aggregate_daily.csv', index_col='timestamp', sep=',', decimal='.', parse_dates=True, dayfirst=True, infer_datetime_format=True)
+# data.drop(['Insulin'], axis=1, inplace=True)
 train, test = split_dataframe(data, trn_pct = 0.7)
 
 fr_mod = PersistenceRegressor()
@@ -56,7 +56,4 @@ eval_results['Persistence'] = PREDICTION_MEASURES[measure](test.values, prd_tst)
 print(eval_results)
 
 
-
-
-
-main(data, 'dataset1','Daily', train, test, prd_trn, prd_tst, 'Date', 'Glucose')
+main(data, 'dataset1', 'daily', train, test, prd_trn, prd_tst, 'timestamp', 'Glucose')
