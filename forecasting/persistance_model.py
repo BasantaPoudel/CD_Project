@@ -43,9 +43,9 @@ eval_results = {}
 measure = 'R2'
 
 
-data = read_csv('data/forecasting/aggregation/dataset2/smothing_100_daily.csv', index_col='timestamp', sep=',', decimal='.', parse_dates=True, dayfirst=True, infer_datetime_format=True)
+data = read_csv('data/forecasting/aggregation/dataset1/differentiation_secondDerivate_daily.csv', index_col='timestamp', sep=',', decimal='.', parse_dates=True, dayfirst=True, infer_datetime_format=True)
 # data.drop(['Insulin'], axis=1, inplace=True)
-data = data.iloc[100:,:]
+data = data.iloc[2:,:]
 train, test = split_dataframe(data, trn_pct = 0.7)
 
 fr_mod = PersistenceRegressor()
@@ -57,4 +57,4 @@ eval_results['Persistence'] = PREDICTION_MEASURES[measure](test.values, prd_tst)
 print(eval_results)
 
 
-main(data, 'dataset2', 'smoothing_100_daily', train, test, prd_trn, prd_tst, 'timestamp', 'QV2M')
+main(data, 'dataset1', 'differentiation_daily_seconddiff', train, test, prd_trn, prd_tst, 'timestamp', 'Glucose')
