@@ -136,12 +136,18 @@ def differentiation_dataset(data, dataset, granularity):
     diff_df = data.diff()
     diff_df.to_csv('data/forecasting/aggregation/'+dataset+'/differentiation_'+granularity+'.csv', index=True)
 
+def differentiation_secondDerivative_dataset(data, dataset, granularity):
+    diff_df = data.diff()
+    diff_df_2 = diff_df.diff()
+    diff_df_2.to_csv('data/forecasting/aggregation/'+dataset+'/differentiation_secondDerivate_'+granularity+'.csv', index=True)
+
 
 index_col = 'timestamp'
 dataMostAtomic = read_csv('data/forecasting/aggregation/dataset1/aggregate_hourly.csv',  index_col=index_col, sep=',', decimal='.', parse_dates=True,dayfirst=True,  infer_datetime_format=True)
 smothing_win_size_10_dataset(dataMostAtomic, dataset, target, "hourly")
 smothing_win_size_100_dataset(dataMostAtomic, dataset, target, "hourly")
 differentiation_dataset(dataMostAtomic, dataset, "hourly")
+differentiation_secondDerivative_dataset(dataMostAtomic, dataset, "hourly")
 
 
 
