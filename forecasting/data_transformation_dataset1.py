@@ -19,10 +19,11 @@ def data_transofrmation_original_multivariant(data, index_col,  dataset, target)
     savefig(image_location+'/original_multivariant.png')
     #show()
 
-def smothing_win_size_10(data, dataset, target):
+def smothing_win_size_10(data, dataset, target, granularity):
     WIN_SIZE = 10
     rolling = data.rolling(window=WIN_SIZE)
     smooth_df = rolling.mean()
+    smooth_df.to_csv('data/forecasting/aggregation/'+dataset+'/smothing_10_'+granularity+'.csv', index=True)
     figure(figsize=(3*HEIGHT, HEIGHT/2))
     plot_series(smooth_df, title=f'Smoothing (win_size={WIN_SIZE})', x_label='timestamp', y_label='glucose')
     xticks(rotation = 45)
@@ -30,10 +31,11 @@ def smothing_win_size_10(data, dataset, target):
     savefig(image_location+'/smothing_win_size_10.png')
     #show()
 
-def smothing_win_size_100(data, dataset, target):
+def smothing_win_size_100(data, dataset, target, granularity):
     WIN_SIZE = 100
     rolling = data.rolling(window=WIN_SIZE)
     smooth_df = rolling.mean()
+    smooth_df.to_csv('data/forecasting/aggregation/'+dataset+'/smothing_100_'+granularity+'.csv', index=True)
     figure(figsize=(3*HEIGHT, HEIGHT/2))
     plot_series(smooth_df, title=f'Smoothing (win_size={WIN_SIZE})', x_label='timestamp', y_label='glucose')
     xticks(rotation = 45)
@@ -92,8 +94,9 @@ def aggregate_monthly(data, dataset, target):
     savefig(image_location+'/aggregation_monthly.png')
     #show()
 
-def differentiation(data, dataset):
+def differentiation(data, dataset, granularity):
     diff_df = data.diff()
+    diff_df.to_csv('data/forecasting/aggregation/'+dataset+'/differentiation_'+granularity+'.csv', index=True)
     figure(figsize=(3*HEIGHT, HEIGHT))
     plot_series(diff_df, title='Differentiation', x_label='timestamp', y_label='glucose')
     xticks(rotation = 45)
@@ -106,19 +109,24 @@ def differentiation(data, dataset):
 index_col = 'Date'
 dataset = 'dataset1'
 target = 'Glucose'
-data = read_csv('data/forecasting/glucose.csv',  index_col=index_col, sep=',', decimal='.', parse_dates=True,dayfirst=True,  infer_datetime_format=True)
+# data = read_csv('data/forecasting/glucose.csv',  index_col=index_col, sep=',', decimal='.', parse_dates=True,dayfirst=True,  infer_datetime_format=True)
+
+# data_transofrmation_original(data, dataset, target)
+# data_transofrmation_original_multivariant(data, index_col,  dataset, target)
+# smothing_win_size_10(data, dataset, target, "general")
+# smothing_win_size_100(data, dataset, target, "general")
+# aggregate_hourly(data, dataset, target)
+# aggregate_daily(data, dataset, target)
+# aggregate_weekly(data, dataset, target)
+# aggregate_monthly(data, dataset, target)
+# differentiation(data, dataset, "general")
 
 
-
-data_transofrmation_original(data, dataset, target)
-data_transofrmation_original_multivariant(data, index_col,  dataset, target)
-smothing_win_size_10(data, dataset, target)
-smothing_win_size_100(data, dataset, target)
-aggregate_hourly(data, dataset, target)
-aggregate_daily(data, dataset, target)
-aggregate_weekly(data, dataset, target)
-aggregate_monthly(data, dataset, target)
-differentiation(data, dataset)
+index_col = 'timestamp'
+dataMostAtomic = read_csv('data/forecasting/aggregation/dataset1/aggregate_hourly.csv',  index_col=index_col, sep=',', decimal='.', parse_dates=True,dayfirst=True,  infer_datetime_format=True)
+smothing_win_size_10(dataMostAtomic, dataset, target, "hourly")
+smothing_win_size_100(dataMostAtomic, dataset, target, "hourly")
+differentiation(dataMostAtomic, dataset, "hourly")
 
 
 

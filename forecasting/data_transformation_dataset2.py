@@ -24,10 +24,11 @@ def data_transofrmation_original_multivariant(data, index_col,  dataset, target)
     savefig(image_location+'/original_multivariant.png')
     #show()
 
-def smothing_win_size_10(data, dataset, target):
+def smothing_win_size_10(data, dataset, target, granularity):
     WIN_SIZE = 10
     rolling = data.rolling(window=WIN_SIZE)
     smooth_df = rolling.mean()
+    smooth_df.to_csv('data/forecasting/aggregation/'+dataset+'/smothing_100_'+granularity+'.csv', index=True)
     figure(figsize=(3*HEIGHT, HEIGHT/2))
     plot_series(smooth_df[target], title=f'Smoothing (win_size={WIN_SIZE})', x_label='timestamp', y_label='QV2M')
     xticks(rotation = 45)
@@ -35,10 +36,11 @@ def smothing_win_size_10(data, dataset, target):
     savefig(image_location+'/smothing_win_size_10.png')
     #show()
 
-def smothing_win_size_100(data, dataset, target):
+def smothing_win_size_100(data, dataset, target, granularity):
     WIN_SIZE = 100
     rolling = data.rolling(window=WIN_SIZE)
     smooth_df = rolling.mean()
+    smooth_df.to_csv('data/forecasting/aggregation/'+dataset+'/smothing_100_'+granularity+'.csv', index=True)
     figure(figsize=(3*HEIGHT, HEIGHT/2))
     plot_series(smooth_df[target], title=f'Smoothing (win_size={WIN_SIZE})', x_label='timestamp', y_label='QV2M')
     xticks(rotation = 45)
@@ -97,8 +99,9 @@ def aggregate_monthly(data, dataset, target):
     savefig(image_location+'/aggregation_monthly.png')
     #show()
 
-def differentiation(data, dataset):
+def differentiation(data, dataset, granularity):
     diff_df = data.diff()
+    diff_df.to_csv('data/forecasting/aggregation/'+dataset+'/differentiation_'+granularity+'.csv', index=True)
     figure(figsize=(3*HEIGHT, HEIGHT))
     plot_series(diff_df[target], title='Differentiation', x_label='timestamp', y_label='QV2M')
     xticks(rotation = 45)
@@ -112,19 +115,25 @@ def differentiation(data, dataset):
 index_col = 'date'
 dataset = 'dataset2'
 target = 'QV2M'
-data = read_csv('data/forecasting/drought.forecasting_dataset.csv',  index_col=index_col, sep=',', decimal='.', parse_dates=True,dayfirst=True,  infer_datetime_format=True)
-
-
+''' data = read_csv('data/forecasting/drought.forecasting_dataset.csv',  index_col=index_col, sep=',', decimal='.', parse_dates=True,dayfirst=True,  infer_datetime_format=True)
 
 data_transofrmation_original(data, dataset, target)
 data_transofrmation_original_multivariant(data, index_col,  dataset, target)
-smothing_win_size_10(data, dataset, target)
-smothing_win_size_100(data, dataset, target)
+smothing_win_size_10(data, dataset, target, "general")
+smothing_win_size_100(data, dataset, target, "general")
 aggregate_hourly(data, dataset, target)
 aggregate_daily(data, dataset, target)
 aggregate_weekly(data, dataset, target)
 aggregate_monthly(data, dataset, target)
-differentiation(data, dataset)
+differentiation(data, dataset) '''
+
+
+index_col = 'timestamp'
+dataMostAtomic = read_csv('data/forecasting/aggregation/dataset1/aggregate_daily.csv',  index_col=index_col, sep=',', decimal='.', parse_dates=True,dayfirst=True,  infer_datetime_format=True)
+smothing_win_size_10(dataMostAtomic, dataset, target, "daily")
+#smothing_win_size_100(dataMostAtomic, dataset, target, "daily")
+#differentiation(dataMostAtomic, dataset, "daily")
+
 
 
 
