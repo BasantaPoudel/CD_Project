@@ -8,7 +8,7 @@ def data_transofrmation_original(data, dataset, target):
     xticks(rotation = 45)
     image_location = 'images/data_transformation/' + dataset
     savefig(image_location+'/original.png')
-    show()
+    #show()
 
 def data_transofrmation_original_multivariant(data, index_col,  dataset, target):    
     figure(figsize=(3*HEIGHT, HEIGHT/2))
@@ -22,7 +22,7 @@ def data_transofrmation_original_multivariant(data, index_col,  dataset, target)
     xticks(rotation = 45)
     image_location = 'images/data_transformation/' + dataset
     savefig(image_location+'/original_multivariant.png')
-    show()
+    #show()
 
 def smothing_win_size_10(data, dataset, target):
     WIN_SIZE = 10
@@ -33,7 +33,7 @@ def smothing_win_size_10(data, dataset, target):
     xticks(rotation = 45)
     image_location = 'images/data_transformation/' + dataset
     savefig(image_location+'/smothing_win_size_10.png')
-    show()
+    #show()
 
 def smothing_win_size_100(data, dataset, target):
     WIN_SIZE = 100
@@ -44,7 +44,7 @@ def smothing_win_size_100(data, dataset, target):
     xticks(rotation = 45)
     image_location = 'images/data_transformation/' + dataset
     savefig(image_location+'/smothing_win_size_100.png')
-    show()
+    #show()
 
 def aggregate_by(data: Series, index_var: str, period: str):
     index = data.index.to_period(period)
@@ -53,41 +53,49 @@ def aggregate_by(data: Series, index_var: str, period: str):
     agg_df.set_index(index_var, drop=True, inplace=True)
     return agg_df
 
-def aggregate_hourly(data, dataset):
+def aggregate_hourly(data, dataset, target):
     figure(figsize=(3*HEIGHT, HEIGHT))
     agg_df = aggregate_by(data, 'timestamp', 'h')
+    datasetAggregateHourly = agg_df[target]
+    datasetAggregateHourly.to_csv('data/forecasting/aggregation/'+dataset+'/aggregate_hourly.csv', index=True)
     plot_series(agg_df[target], title='Hourly drought', x_label='timestamp', y_label='QV2M')
     xticks(rotation = 45)
     image_location = 'images/data_transformation/' + dataset
     savefig(image_location+'/aggregation_hourly.png')
-    show()
+    #show()
 
-def aggregate_daily(data, dataset):
+def aggregate_daily(data, dataset, target):
     figure(figsize=(3*HEIGHT, HEIGHT))
     agg_df = aggregate_by(data, 'timestamp', 'D')
+    datasetAggregateDaily = agg_df[target]
+    datasetAggregateDaily.to_csv('data/forecasting/aggregation/'+dataset+'/aggregate_daily.csv', index=True)
     plot_series(agg_df[target], title='Daily drought', x_label='timestamp', y_label='QV2M')
     xticks(rotation = 45)
     image_location = 'images/data_transformation/' + dataset
     savefig(image_location+'/aggregation_daily.png')
-    show()
+    #show()
 
-def aggregate_weekly(data, dataset):
+def aggregate_weekly(data, dataset, target):
     figure(figsize=(3*HEIGHT, HEIGHT))
     agg_df = aggregate_by(data, 'timestamp', 'W')
+    datasetAggregateWeekly = agg_df[target]
+    datasetAggregateWeekly.to_csv('data/forecasting/aggregation/'+dataset+'/aggregate_weekly.csv', index=True)
     plot_series(agg_df[target], title='Weekly drought', x_label='timestamp', y_label='QV2M')
     xticks(rotation = 45)
     image_location = 'images/data_transformation/' + dataset
     savefig(image_location+'/aggregation_weekly.png')
-    show()
+    #show()
 
-def aggregate_monthly(data, dataset):
+def aggregate_monthly(data, dataset, target):
     figure(figsize=(3*HEIGHT, HEIGHT))
     agg_df = aggregate_by(data, 'timestamp', 'M')
+    datasetAggregateMonthly = agg_df[target]
+    datasetAggregateMonthly.to_csv('data/forecasting/aggregation/'+dataset+'/aggregate_monthly.csv', index=True)
     plot_series(agg_df[target], title='Monthly drought', x_label='timestamp', y_label='QV2M')
     xticks(rotation = 45)
     image_location = 'images/data_transformation/' + dataset
     savefig(image_location+'/aggregation_monthly.png')
-    show()
+    #show()
 
 def differentiation(data, dataset):
     diff_df = data.diff()
@@ -96,7 +104,10 @@ def differentiation(data, dataset):
     xticks(rotation = 45)
     image_location = 'images/data_transformation/' + dataset
     savefig(image_location+'/differentiation.png')
-    show()
+    #show()
+
+
+
 
 index_col = 'date'
 dataset = 'dataset2'
@@ -109,10 +120,10 @@ data_transofrmation_original(data, dataset, target)
 data_transofrmation_original_multivariant(data, index_col,  dataset, target)
 smothing_win_size_10(data, dataset, target)
 smothing_win_size_100(data, dataset, target)
-aggregate_hourly(data, dataset)
-aggregate_daily(data, dataset)
-aggregate_weekly(data, dataset)
-aggregate_monthly(data, dataset)
+aggregate_hourly(data, dataset, target)
+aggregate_daily(data, dataset, target)
+aggregate_weekly(data, dataset, target)
+aggregate_monthly(data, dataset, target)
 differentiation(data, dataset)
 
 

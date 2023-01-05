@@ -55,7 +55,7 @@ def variables_distribution_plot(data, dataset, index_col):
         axs[j].set_ylabel('Nr records')
         axs[j].hist(data.values, bins=bins[j])
     image_location = 'images/data_distribution/' + dataset
-    savefig(image_location+'/histogram_hourly_'+dataset+'.png')
+    savefig(image_location+'/histogram_hourly_'+dataset+'.png')    
 
     # Daily data histogram
     index = data.index.to_period('D')
