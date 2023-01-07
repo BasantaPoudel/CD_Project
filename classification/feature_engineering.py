@@ -4,11 +4,11 @@ from matplotlib.pyplot import figure, title, savefig, show
 from seaborn import heatmap
 from dscharts import bar_chart, get_variable_types
 
+
 def feature_engineering(filename, file, dataset, index_col):
     data = read_csv(filename,index_col=index_col)
     print('shape of original data:', data.shape)
     drop_useless_vars(data, file)
-
 
     # for dataset1: there are no variables with correlation > 0.55
     # drop variables based on correlation
@@ -25,19 +25,20 @@ def feature_engineering(filename, file, dataset, index_col):
     df2 = drop_useless_vars(df, file)
     print(df2.shape)
 
-    # df2.to_csv('data/classification/datasets_for_further_analysis/'+dataset+'/'+file+'_final_data.csv')
 
     # drop variables based on variance analysis:
-    treshold_variance = 0.1
+    threshold_variance = 0.1
     if 'Unnamed: 0' in df2:
-        df.drop(['Unnamed: 0'], inplace=True, axis=1)
+        df2.drop(['Unnamed: 0'], inplace=True, axis=1)
     numeric = get_variable_types(df2)['Numeric']
     print('numeric variables are:', numeric)
-    vars2drop = select_low_variance(df2[numeric], treshold_variance, dataset)
-    print('vars with low variance:',vars2drop)
+    print(df2.var())
+    vars2drop = select_low_variance(df2[numeric], threshold_variance, dataset)
+    print('vars with low variance:', vars2drop)
 
     final_df = drop_low_var(df2, vars2drop)
     print(final_df.shape)
+    final_df.to_csv('data/classification/datasets_for_further_analysis/'+dataset+'/'+dataset+f'_{THRESHOLD}_{threshold_variance}_feature_engineering.csv')
 
 
 def drop_useless_vars(data, dataset):  # drop all variables that have no numeric meaning for modeling
@@ -48,13 +49,12 @@ def drop_useless_vars(data, dataset):  # drop all variables that have no numeric
             if variable in data:
                 data.drop([variable], inplace=True, axis=1)
     else:  # data = dataset2
-        useless_vars2 = []
+        useless_vars2 = ['fips']
         for variable in useless_vars2:
             if variable in data:
                 data.drop([variable], inplace=True, axis=1)
 
     return data
-
 
 
 def select_redundant(corr_mtx, threshold: float) -> tuple[dict, DataFrame]:
@@ -74,6 +74,7 @@ def select_redundant(corr_mtx, threshold: float) -> tuple[dict, DataFrame]:
 
     return vars_2drop, corr_mtx
 
+
 def plot_corrmatrix(corr_mtx, dataset, THRESHOLD):
     if corr_mtx.empty:
         raise ValueError('Matrix is empty.')
@@ -82,7 +83,7 @@ def plot_corrmatrix(corr_mtx, dataset, THRESHOLD):
     figure(figsize=[10, 10])
     heatmap(corr_mtx, xticklabels=corr_mtx.columns, yticklabels=corr_mtx.columns, annot=False, cmap='Blues')
     title('Filtered Correlation Analysis')
-    savefig('images/feature_engineering/'+dataset+'/filtered_correlation_analysis_{THRESHOLD}.png')
+    savefig('images/feature_engineering/'+dataset+f'/filtered_correlation_analysis_{THRESHOLD}.png')
     # show()
 
 
@@ -112,10 +113,12 @@ def select_low_variance(data: DataFrame, threshold: float, dataset) -> list:
 
     print(len(lst_variables), lst_variables)
     figure(figsize=[10, 4])
-    # bar_chart(lst_variables, lst_variances, title='Variance analysis', xlabel='variables', ylabel='variance')
-    # savefig('images/feature_engineering/'+dataset+'/filtered_variance_analysis.png')
-    # show()
+    if len(lst_variables) != 0:
+        bar_chart(lst_variables, lst_variances, title='Variance analysis', xlabel='variables', ylabel='variance')
+        savefig('images/feature_engineering/'+dataset+'/filtered_variance_analysis.png')
+        # show()
     return lst_variables
+
 
 def drop_low_var(data, vars2drop):
     for var in vars2drop:
@@ -130,6 +133,5 @@ def drop_low_var(data, vars2drop):
 # feature_engineering('data/classification/datasets_for_further_analysis/dataset1/dataset1_drop_outliers.csv',
 #                                        'dataset1', 'dataset1', 'encounter_id')
 
-
-feature_engineering('forecasting/data/classification/datasets_for_further_analysis/dataset2/dataset2_scaled_zscore.csv',
-                                        'dataset2', 'dataset2', 'date')
+# feature_engineering('forecasting/data/classification/datasets_for_further_analysis/dataset2/dataset2_scaled_zscore.csv',
+#                                         'dataset2', 'dataset2', 'date')

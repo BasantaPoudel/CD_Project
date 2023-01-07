@@ -5,6 +5,7 @@ import knn_dataset2 as knn
 import nb_dataset2 as nb
 import scaling_dataset2 as sc
 import data_balancing_dataset2 as db
+import feature_engineering as fe
 
 # # #Variable Encoding
 # ve.data_encoding('data/classification/drought.csv')
@@ -22,6 +23,7 @@ import data_balancing_dataset2 as db
 # knn.knn_variants('dataset2_drop_outliers', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_drop_outliers', 'class', 'dataset2', '')
 # knn.knn_variants('dataset2_replace_outliers', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_replace_outliers', 'class', 'dataset2', '')
 # knn.knn_variants('dataset2_truncate_outliers', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_truncate_outliers', 'class', 'dataset2', '')
+
 #
 # nb.nb_variants('dataset2_drop_outliers', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_drop_outliers', 'class', 'dataset2', '')
 # nb.nb_variants('dataset2_replace_outliers', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_replace_outliers', 'class', 'dataset2', '')
@@ -45,6 +47,7 @@ import data_balancing_dataset2 as db
 # nb.nb_variants('dataset2_scaled_minmax', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_scaled_minmax', 'class', 'dataset2', '')
 # nb.nb_variants('dataset2_scaled_zscore', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_scaled_zscore', 'class', 'dataset2', '')
 
+fe.feature_engineering('data/classification/datasets_for_further_analysis/dataset2/dataset2_scaled_zscore.csv', 'dataset2', 'dataset2', 'date')
 # Balancing dataset
 # file_location = 'data/classification/datasets_for_further_analysis/dataset2/'
 # best_approach_file = 'dataset2_scaled_zscore'

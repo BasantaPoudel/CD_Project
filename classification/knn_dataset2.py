@@ -25,6 +25,8 @@ def knn_variants(file_tag, filename, target, dataset, method):
 
     eval_metric = accuracy_score
     nvalues = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19]
+    #knn study with higher values
+    # nvalues = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29]
     dist = ['manhattan', 'euclidean', 'chebyshev']
     values = {}
     best = (0, '')
@@ -43,7 +45,10 @@ def knn_variants(file_tag, filename, target, dataset, method):
 
     figure()
     multiple_line_chart(nvalues, values, title='KNN variants', xlabel='n', ylabel=str(accuracy_score), percentage=True)
-    image_location = 'images/knn/' + dataset
+    #preparation steps
+    image_location = 'images/knn/preparation_steps/' + dataset
+    #knn study steps
+    # image_location = 'images/knn/knn_study' + dataset
     if method == '':
         savefig(image_location+'/'+file_tag+'_knn_study.png')
     else:
@@ -99,7 +104,8 @@ def plot_overfitting_study(file_tag, dataset, method, xvalues, prd_trn, prd_tst,
 
 
 
+# TODO - Change the image_location variable and other parameters
 # (file_tag, filename, target, dataset, method)
 #Running for classification steps
-knn_variants('dataset2_scaled_zscore_model',
-             'forecasting/data/classification/datasets_for_further_analysis/dataset2/dataset2_scaled_zscore', 'class', 'dataset2', 'undersampling')
+# knn_variants('dataset2_scaled_zscore_model',
+#              'forecasting/data/classification/datasets_for_further_analysis/dataset2/dataset2_scaled_zscore', 'class', 'dataset2', 'undersampling')
