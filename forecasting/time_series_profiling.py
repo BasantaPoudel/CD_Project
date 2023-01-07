@@ -9,12 +9,13 @@ import pandas
 
 
 def main(data, dataset):
-    gran_hourly(data, dataset)
-    gran_daily(data, dataset)
-    gran_weekly(data, dataset)
-    gran_monthly(data, dataset)
-    gran_quarterly(data, dataset)
+    # gran_hourly(data, dataset)
+    # gran_daily(data, dataset)
+    # gran_weekly(data, dataset)
+    # gran_monthly(data, dataset)
+    # gran_quarterly(data, dataset)
     stationarity_study_1(data, dataset)
+    stationary_study_2(data, dataset)
     pass
 
 # #granularity
@@ -80,18 +81,33 @@ def stationarity_study_1(data, dataset):
         savefig('images/time_series/data_profiling/' + dataset + '/stationarity_study_1'+var+'.png')
         # show()
 
+def stationary_study_2(data, dataset):
+    BINS = 10
+    line = []
+    dt_series = Series(data.iloc[:, 0])
+    n = len(dt_series)
+    for i in range(BINS):
+        b = dt_series[i * n // BINS:(i + 1) * n // BINS]
+        mean = [b.mean()] * (n // BINS)
+        line += mean
+    line += [line[-1]] * (n - len(line))
+    mean_line = Series(line, index=dt_series.index)
+    series = {'target': dt_series, 'mean': mean_line}
+    figure(figsize=(3 * HEIGHT, HEIGHT))
+    plot_series(series, x_label='time', y_label='consumptions', title='Stationary study', show_std=True)
+    savefig('images/time_series/data_profiling/' + dataset + '/stationarity_study_2.png')
+    show()
 
 
 
 
-# data = read_csv('data/forecasting/glucose.csv', index_col='Date', sep=',', decimal='.', parse_dates=True, dayfirst=True, infer_datetime_format=True)
-# onlytarget_1 = data.drop(['Insulin'], axis=1)
-#
-# main(onlytarget_1, 'dataset1')
+data = read_csv('data/forecasting/glucose.csv', index_col='Date', sep=',', decimal='.', parse_dates=True, dayfirst=True, infer_datetime_format=True)
+onlytarget_1 = data.drop(['Insulin'], axis=1)
+main(onlytarget_1, 'dataset1')
 
-data = read_csv('data/forecasting/drought.forecasting_dataset.csv', index_col='date', sep=',', decimal='.', parse_dates=True, dayfirst=True, infer_datetime_format=True)
-onlytarget_2 = pandas.DataFrame(data['QV2M'])
-main(onlytarget_2, 'dataset2')
+# data = read_csv('data/forecasting/drought.forecasting_dataset.csv', index_col='date', sep=',', decimal='.', parse_dates=True, dayfirst=True, infer_datetime_format=True)
+# onlytarget_2 = pandas.DataFrame(data['QV2M'])
+# main(onlytarget_2, 'dataset2')
 
 
 print('nr of records:', data.shape[0])
