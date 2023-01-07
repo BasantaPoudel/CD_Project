@@ -8,7 +8,7 @@ from ts_functions import PREDICTION_MEASURES, plot_evaluation_results, plot_fore
 dataset = 'dataset1'
 file_tag = 'glucose'
 index_col = "Date"
-target = 'glucose'
+target = 'Glucose'
 data = read_csv('data/forecasting/glucose.csv', index_col=index_col, sep=',', decimal='.', parse_dates=True, infer_datetime_format=True)
 data = data.drop("Insulin", axis='columns')
 
