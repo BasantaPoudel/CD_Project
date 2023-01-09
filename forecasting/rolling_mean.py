@@ -1,19 +1,18 @@
 from pandas import read_csv, DataFrame
-from matplotlib.pyplot import figure, subplots
+from matplotlib.pyplot import savefig
 from ts_functions import HEIGHT, split_dataframe
 from sklearn.base import RegressorMixin
 from ts_functions import PREDICTION_MEASURES, plot_evaluation_results, plot_forecasting_series
-from matplotlib.pyplot import show, savefig
 
 
 def main(data, dataset, granularity, train, test, prd_trn, prd_tst, index_col, target):
     plot_evaluation_results(train.values, prd_trn, test.values, prd_tst, 'rolling_mean_eval_'+granularity)
-    savefig(f'images/time_series/rolling_mean/'+dataset+'/rolling_mean_eval'+granularity+'.png')
+    savefig(f'images/time_series/rolling_mean/'+dataset+'/rolling_mean_eval_'+granularity+'.png')
 
-    plot_forecasting_series(train, test, prd_trn, prd_tst, 'rolling_mean_plots+'+granularity,
+    plot_forecasting_series(train, test, prd_trn, prd_tst, 'rolling_mean_plots_+'+granularity,
                             x_label=index_col,
                             y_label=target)
-    savefig(f'images/time_series/rolling_mean/'+dataset+'/rolling_mean_plots'+granularity+'.png')
+    savefig(f'images/time_series/rolling_mean/'+dataset+'/rolling_mean_plots_'+granularity+'.png')
 
 class RollingMeanRegressor (RegressorMixin):
     def __init__(self, win: int = 3):
@@ -42,9 +41,12 @@ eval_results = {}
 measure = 'R2'
 
 
-data = read_csv('data/forecasting/aggregation/dataset1/differentiation_secondDerivate_daily.csv', index_col='timestamp', sep=',', decimal='.', parse_dates=True, dayfirst=True, infer_datetime_format=True)
+data = read_csv('data/forecasting/drought.forecasting_dataset.csv', index_col='date', sep=',', decimal='.', parse_dates=True, dayfirst=True, infer_datetime_format=True)
+# target = 'Glucose'
+target = 'QV2M'
 # data.drop(['Insulin'], axis=1, inplace=True)
-data = data.iloc[2:,:]
+data.drop(["PRECTOT", "PS", "T2M", "T2MDEW", "T2MWET", "TS"], axis=1, inplace=True)
+# data = data.iloc[2:,:]
 train, test = split_dataframe(data, trn_pct = 0.7)
 
 fr_mod = RollingMeanRegressor()
@@ -56,4 +58,4 @@ eval_results['RollingMean'] = PREDICTION_MEASURES[measure](test.values, prd_tst)
 print(eval_results)
 
 
-main(data, 'dataset1', 'differentiation_daily_seconddiff', train, test, prd_trn, prd_tst, 'timestamp', 'Glucose')
+main(data, 'dataset2', 'standart', train, test, prd_trn, prd_tst, 'date', target)

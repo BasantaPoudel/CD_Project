@@ -6,10 +6,6 @@ from ts_functions import HEIGHT, PREDICTION_MEASURES, plot_evaluation_results, p
 from statsmodels.tsa.arima.model import ARIMA
 from ts_functions import PREDICTION_MEASURES, plot_evaluation_results, plot_forecasting_series
 
-# file_tag = 'ashrae'
-# index='timestamp'
-# target='meter_reading'
-
 #define dataframe
 dataset = 'dataset1'
 granularity = 'differentiation_daily_seconddiff'
