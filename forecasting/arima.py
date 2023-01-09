@@ -6,25 +6,24 @@ from ts_functions import HEIGHT, PREDICTION_MEASURES, plot_evaluation_results, p
 from statsmodels.tsa.arima.model import ARIMA
 from ts_functions import PREDICTION_MEASURES, plot_evaluation_results, plot_forecasting_series
 
-#define dataframe
-# dataset = 'dataset1'
-# granularity = 'standard'
-# index = 'Date'
-# target = 'Glucose'
-# data = read_csv('data/forecasting/glucose.csv', index_col=index, sep=',', decimal='.', parse_dates=True, dayfirst=True, infer_datetime_format=True)
-# data.drop(['Insulin'], axis=1, inplace=True)
-# print(data.head())
+#DEFINE dataframe
 
-dataset = 'dataset2'
+dataset = 'dataset1'
 granularity = '_standard'
-index = 'date'
-target = 'QV2M'
-data = read_csv('data/forecasting/drought.forecasting_dataset.csv', index_col=index, sep=',', decimal='.', parse_dates=True, dayfirst=True, infer_datetime_format=True)
-data.drop(["PRECTOT", "PS", "T2M", "T2MDEW", "T2MWET", "TS"], axis=1, inplace=True)
-data.index.freq = 'D'
+index = 'Date'
+target = 'Glucose'
+data = read_csv('data/forecasting/glucose.csv', index_col=index, sep=',', decimal='.', parse_dates=True, dayfirst=True, infer_datetime_format=True)
+data.drop(['Insulin'], axis=1, inplace=True)
 print(data.head())
 
+# dataset = 'dataset2'
+# granularity = '_standard'
+# index = 'date'
+# target = 'QV2M'
+# data = read_csv('data/forecasting/drought.forecasting_dataset.csv', index_col=index, sep=',', decimal='.', parse_dates=True, dayfirst=True, infer_datetime_format=True)
+# data.drop(["PRECTOT", "PS", "T2M", "T2MDEW", "T2MWET", "TS"], axis=1, inplace=True)
 # data.index.freq = 'D'
+# print(data.head())
 
 train, test = split_dataframe(data, trn_pct=0.75)
 
