@@ -40,12 +40,13 @@ def split_dataframe(data, trn_pct=0.70):
 eval_results = {}
 measure = 'R2'
 
-data = read_csv('data/forecasting/glucose.csv', index_col='Date', sep=',', decimal='.', parse_dates=True, dayfirst=True, infer_datetime_format=True)
-# data = read_csv('data/forecasting/drought.forecasting_dataset.csv', index_col='date', sep=',', decimal='.', parse_dates=True, dayfirst=True, infer_datetime_format=True)
-target = 'Glucose'
-# target = 'QV2M'
-data.drop(['Insulin'], axis=1, inplace=True)
-# data.drop(["PRECTOT", "PS", "T2M", "T2MDEW", "T2MWET", "TS"], axis=1, inplace=True)
+# data = read_csv('data/forecasting/glucose.csv', index_col='Date', sep=',', decimal='.', parse_dates=True, dayfirst=True, infer_datetime_format=True)
+# target = 'Glucose'
+# data.drop(['Insulin'], axis=1, inplace=True)
+data = read_csv('data/forecasting/drought.forecasting_dataset.csv', index_col='date', sep=',', decimal='.', parse_dates=True, dayfirst=True, infer_datetime_format=True)
+target = 'QV2M'
+data.drop(["PRECTOT", "PS", "T2M", "T2MDEW", "T2MWET", "TS"], axis=1, inplace=True)
+
 train, test = split_dataframe(data, trn_pct = 0.7)
 
 fr_mod = RollingMeanRegressor()
@@ -57,5 +58,5 @@ eval_results['RollingMean'] = PREDICTION_MEASURES[measure](test.values, prd_tst)
 print(eval_results)
 
 
-main(data, 'dataset1', 'standart', train, test, prd_trn, prd_tst, 'Date', target)
-# main(data, 'dataset2', 'standart', train, test, prd_trn, prd_tst, 'date', target)
+# main(data, 'dataset1', 'standard', train, test, prd_trn, prd_tst, 'Date', target)
+main(data, 'dataset2', 'standard', train, test, prd_trn, prd_tst, 'date', target)
