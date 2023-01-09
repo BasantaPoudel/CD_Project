@@ -8,12 +8,12 @@ from matplotlib.pyplot import show, savefig
 
 def main(data, dataset, granularity, train, test, prd_trn, prd_tst, index_col, target):
     plot_evaluation_results(train.values, prd_trn, test.values, prd_tst, 'persistence_eval_'+granularity)
-    savefig(f'images/time_series/persistance_model/'+dataset+'/persistence_eval'+granularity+'.png')
+    savefig(f'images/persistance_model/'+dataset+'/persistence_eval'+granularity+'.png')
 
     plot_forecasting_series(train, test, prd_trn, prd_tst, 'persistence_plots+'+granularity,
                             x_label=index_col,
                             y_label=target)
-    savefig(f'images/time_series/persistance_model/'+dataset+'/persistence_plots'+granularity+'.png')
+    savefig(f'images/persistance_model/'+dataset+'/persistence_plots'+granularity+'.png')
     show()
 
 class PersistenceRegressor (RegressorMixin):

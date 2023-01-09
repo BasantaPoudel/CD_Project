@@ -30,7 +30,7 @@ train, test = split_dataframe(data, trn_pct=0.75)
 pred = ARIMA(train, order=(2, 0, 2))
 model = pred.fit(method_kwargs={'warn_convergence': False})
 model.plot_diagnostics(figsize=(2*HEIGHT, 2*HEIGHT))
-savefig(f'images/time_series/arima/'+dataset+'/arima_diagnostics'+granularity+'.png')
+savefig(f'images/arima/'+dataset+'/arima_diagnostics'+granularity+'.png')
 
 measure = 'R2'
 flag_pct = False
@@ -61,7 +61,7 @@ for der in range(len(d_values)):
         values[q] = yvalues
     multiple_line_chart(
         params, values, ax=axs[0, der], title=f'ARIMA d={d}', xlabel='p', ylabel=measure, percentage=flag_pct)
-savefig(f'images/time_series/arima/'+dataset+'/arima_bests_parameters'+granularity+'.png')
+savefig(f'images/arima/'+dataset+'/arima_bests_parameters'+granularity+'.png')
 print(f'Best results achieved with (p,d,q)=({best[0]}, {best[1]}, {best[2]}) ==> measure={last_best:.2f}')
 
 
@@ -70,6 +70,6 @@ prd_tst = best_model.forecast(steps=len(test))
 print(f'\t{measure}={PREDICTION_MEASURES[measure](test, prd_tst)}')
 
 plot_evaluation_results(train.values, prd_trn, test.values, prd_tst, 'arima_eval_'+granularity)
-savefig(f'images/time_series/arima/'+dataset+'/arima_eval'+granularity+'.png')
+savefig(f'images/arima/'+dataset+'/arima_eval'+granularity+'.png')
 plot_forecasting_series(train, test, prd_trn, prd_tst, 'arima_plots_'+granularity, x_label= str(index), y_label=str(target))
-savefig(f'images/time_series/arima/'+dataset+'/arima_plots'+granularity+'.png')
+savefig(f'images/arima/'+dataset+'/arima_plots'+granularity+'.png')

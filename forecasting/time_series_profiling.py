@@ -24,7 +24,7 @@ def gran_daily(data, dataset):
     figure(figsize=(3 * HEIGHT, HEIGHT))
     plot_series(day_df, title='Daily granularity '+dataset, x_label='timestamp', y_label='consumption')
     xticks(rotation=45)
-    savefig('images/time_series/data_profiling/'+dataset+'/daily granularity.png')
+    savefig('images/data_profiling/'+dataset+'/daily granularity.png')
     # show()
 
 def gran_hourly(data, dataset):
@@ -35,7 +35,7 @@ def gran_hourly(data, dataset):
     figure(figsize=(3 * HEIGHT, HEIGHT))
     plot_series(hour_df, title='Hourly granularity '+dataset, x_label='timestamp', y_label='consumption')
     xticks(rotation=45)
-    savefig('images/time_series/data_profiling/' + dataset + '/Hourly granularity.png')
+    savefig('images/data_profiling/' + dataset + '/Hourly granularity.png')
 def gran_weekly(data, dataset):
     index = data.index.to_period('W')
     week_df = data.copy().groupby(index).mean()
@@ -44,7 +44,7 @@ def gran_weekly(data, dataset):
     figure(figsize=(3 * HEIGHT, HEIGHT))
     plot_series(week_df, title='Weekly granularity '+dataset, x_label='timestamp', y_label='consumption')
     xticks(rotation=45)
-    savefig('images/time_series/data_profiling/' + dataset + '/weekly granularity.png')
+    savefig('images/data_profiling/' + dataset + '/weekly granularity.png')
     # show()
 
 def gran_monthly(data, dataset):
@@ -54,7 +54,7 @@ def gran_monthly(data, dataset):
     month_df.set_index('timestamp', drop=True, inplace=True)
     figure(figsize=(3 * HEIGHT, HEIGHT))
     plot_series(month_df, title='Monthly granularity '+dataset, x_label='timestamp', y_label='consumption')
-    savefig('images/time_series/data_profiling/' + dataset + '/monthly granularity.png')
+    savefig('images/data_profiling/' + dataset + '/monthly granularity.png')
     # show()
 
 def gran_quarterly(data, dataset):
@@ -64,7 +64,7 @@ def gran_quarterly(data, dataset):
     quarter_df.set_index('timestamp', drop=True, inplace=True)
     figure(figsize=(3 * HEIGHT, HEIGHT))
     plot_series(quarter_df, title='Quarterly granularity '+dataset, x_label='timestamp', y_label='consumption')
-    savefig('images/time_series/data_profiling/' + dataset + '/quarterly granularity.png')
+    savefig('images/data_profiling/' + dataset + '/quarterly granularity.png')
     # show()
 
 
@@ -78,7 +78,7 @@ def stationarity_study_1(data, dataset):
         series = {var: dt_series, 'mean': mean_line}
         figure(figsize=(3 * HEIGHT, HEIGHT))
         plot_series(series, x_label='timestamp', y_label='value', title='Stationary study', show_std=True)
-        savefig('images/time_series/data_profiling/' + dataset + '/stationarity_study_1'+var+'.png')
+        savefig('images/data_profiling/' + dataset + '/stationarity_study_1'+var+'.png')
         # show()
 
 def stationary_study_2(data, dataset):
@@ -95,7 +95,7 @@ def stationary_study_2(data, dataset):
     series = {'target': dt_series, 'mean': mean_line}
     figure(figsize=(3 * HEIGHT, HEIGHT))
     plot_series(series, x_label='time', y_label='consumptions', title='Stationary study', show_std=True)
-    savefig('images/time_series/data_profiling/' + dataset + '/stationarity_study_2.png')
+    savefig('images/data_profiling/' + dataset + '/stationarity_study_2.png')
     show()
 
 

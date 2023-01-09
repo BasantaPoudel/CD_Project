@@ -59,10 +59,10 @@ print(eval_results)
 
 figure(figsize=(3*HEIGHT, HEIGHT/2))
 plot_evaluation_results(train.values, prd_trn, test.values, prd_tst, f'images/simpleAvg/dataset2/{file_tag}_simpleAvg_eval.png')
-savefig(f'images/time_series/simpleAvg/{dataset}/{file_tag}_simpleAvg_eval.png')
+savefig(f'images/simpleAvg/{dataset}/{file_tag}_simpleAvg_eval.png')
 # show()
 
 figure(figsize=(3*HEIGHT, HEIGHT/2))
 plot_forecasting_series(train, test, prd_trn, prd_tst, f'images/simpleAvg/dataset2/{file_tag}_simpleAvg_plots.png', x_label=index_col, y_label=target)
-savefig(f'images/time_series/simpleAvg/{dataset}/{file_tag}_simpleAvg_plots.png')
+savefig(f'images/simpleAvg/{dataset}/{file_tag}_simpleAvg_plots.png')
 # show()

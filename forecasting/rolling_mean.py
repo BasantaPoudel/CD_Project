@@ -7,12 +7,12 @@ from ts_functions import PREDICTION_MEASURES, plot_evaluation_results, plot_fore
 
 def main(data, dataset, granularity, train, test, prd_trn, prd_tst, index_col, target):
     plot_evaluation_results(train.values, prd_trn, test.values, prd_tst, 'rolling_mean_eval_'+granularity)
-    savefig(f'images/time_series/rolling_mean/'+dataset+'/rolling_mean_eval_'+granularity+'.png')
+    savefig(f'images/rolling_mean/'+dataset+'/rolling_mean_eval_'+granularity+'.png')
 
     plot_forecasting_series(train, test, prd_trn, prd_tst, 'rolling_mean_plots_+'+granularity,
                             x_label=index_col,
                             y_label=target)
-    savefig(f'images/time_series/rolling_mean/'+dataset+'/rolling_mean_plots_'+granularity+'.png')
+    savefig(f'images/rolling_mean/'+dataset+'/rolling_mean_plots_'+granularity+'.png')
 
 class RollingMeanRegressor (RegressorMixin):
     def __init__(self, win: int = 3):
