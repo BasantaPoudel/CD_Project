@@ -4,9 +4,26 @@ from dscharts import multiple_line_chart, HEIGHT
 from ts_functions import split_temporal_data, PREDICTION_MEASURES, plot_evaluation_results
 from sklearn.neural_network import MLPRegressor
 from dscharts import plot_overfitting_study
+import numpy
+from numpy import ndarray
 
-def mlp(data, file, dataset, clas):
-    trnX, tstX, trnY, tstY = split_temporal_data(data, clas, trn_pct=0.7)
+def mlp(filename, file, dataset, clas):
+    target = clas
+
+    if dataset == 'dataset2':
+         train: DataFrame = read_csv(f'{filename}_undersampling.csv')
+    # train=train.head(10000)
+    trnY: ndarray = train.pop(target).values
+    trnX: ndarray = train.values
+    labels = numpy.unique(trnY)
+    labels.sort()
+    print(labels)
+
+    test: DataFrame = read_csv(f'{filename}_test.csv')
+    # test=test.head(10000)
+    tstY: ndarray = test.pop(target).values
+    tstX: ndarray = test.values
+    # trnX, tstX, trnY, tstY = split_temporal_data(data, clas, trn_pct=0.7)
 
     lr_type = ['constant']  # , 'invscaling', 'adaptive'] - only used if optimizer='sgd'
     learning_rate = [.9, .6, .3, .1]
@@ -30,7 +47,7 @@ def mlp(data, file, dataset, clas):
             yvalues = []
             warm_start = False
             for n in max_iter:
-                # print(f'MLP - lr type={tp} learning rate={lr} and nr_episodes={n}')
+                print(f'MLP - lr type={tp} learning rate={lr} and nr_episodes={n}')
                 pred = MLPRegressor(
                     learning_rate=tp, learning_rate_init=lr, max_iter=n,
                     activation='relu', warm_start=warm_start, verbose=False)
@@ -78,5 +95,5 @@ def mlp(data, file, dataset, clas):
 # data = read_csv('data/classification/datasets_for_further_analysis/dataset1/diabetic_data_variable_enconding.csv')
 # mlp(data, 'dataset1', 'dataset1', 'readmitted')
 
-# data = read_csv('data/classification/datasets_for_further_analysis/dataset2/dataset2_variable_encoding.csv')
-# mlp(data, 'dataset2', 'dataset2', 'class')
+
+mlp('data/classification/datasets_for_further_analysis/dataset2/dataset2_feature_engineering', 'dataset2', 'dataset2', 'class')

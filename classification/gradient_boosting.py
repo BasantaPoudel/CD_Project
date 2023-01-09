@@ -5,12 +5,27 @@ from ts_functions import split_temporal_data, PREDICTION_MEASURES, plot_evaluati
 from sklearn.ensemble import GradientBoostingRegressor
 from ts_functions import plot_evaluation_results
 from dscharts import plot_overfitting_study
+from numpy import ndarray
 
-def gradient_boosting(data, file, dataset, clas):
-    trnX, tstX, trnY, tstY = split_temporal_data(data, clas, trn_pct=0.7)
+def gradient_boosting(filename, file, dataset, target):
+    if dataset == 'dataset2':
+         train: DataFrame = read_csv(f'{filename}_undersampling.csv')
+
+    print(len(train))
+    train = train.head(20000)
+    trnY: ndarray = train.pop(target).values
+    trnX: ndarray = train.values
+
+    test: DataFrame = read_csv(f'{filename}_test.csv')
+    test=test.head(10000)
+    tstY: ndarray = test.pop(target).values
+    tstX: ndarray = test.values
+
+
+    # trnX, tstX, trnY, tstY = split_temporal_data(data, clas, trn_pct=0.7)
     learning_rate = [.1, .5, .9]
-    max_depths = [5, 10, 15, 25]
-    n_estimators = [5, 10, 25, 50, 75, 100, 200, 300, 400]
+    max_depths = [5, 10, 25]
+    n_estimators = [5, 10, 25, 100]
 
     measure = 'R2'
     flag_pct = False
@@ -41,7 +56,7 @@ def gradient_boosting(data, file, dataset, clas):
         multiple_line_chart(
             n_estimators, values, ax=axs[0, nr_lr], title=f'Gradient Boosting with {lr} learning rate',
             xlabel='nr estimators', ylabel=measure, percentage=flag_pct)
-    savefig('images/gradient_boosting/'+dataset+'_ts_gb_study.png')
+    savefig('images/gradient_boosting/'+dataset+'/_ts_gb_study.png')
     show()
     print(
         f'Best results achieved with {best[0]} learning rate, depth={best[1]} and nr estimators={best[2]} ==> measure={last_best:.2f}')
@@ -50,7 +65,7 @@ def gradient_boosting(data, file, dataset, clas):
     prd_tst = best_model.predict(tstX)
 
     plot_evaluation_results(trnY, prd_trn, tstY, prd_tst, 'ts_gb_best.png')
-    savefig('images/gradient_boosting/' + dataset + '_ts_gb_best.png')
+    savefig('images/gradient_boosting/' + dataset + '/_ts_gb_best.png')
 
     y_tst_values = []
     y_trn_values = []
@@ -63,12 +78,12 @@ def gradient_boosting(data, file, dataset, clas):
         y_trn_values.append(PREDICTION_MEASURES[measure](trnY, prd_trn_Y))
     plot_overfitting_study(n_estimators, y_trn_values, y_tst_values, name=f'ts_rf_{best[0]}_{best[1]}',
                            xlabel='nr estimators', ylabel=measure, pct=flag_pct)
-    savefig('images/gradient_boosting/' + dataset + 'overfitting_study.png')
+    savefig('images/gradient_boosting/' + dataset + '/overfitting_study.png')
 
 ''''Still need to select the final dataset'''
 # data = read_csv('data/classification/datasets_for_further_analysis/dataset1/diabetic_data_variable_enconding.csv')
 # gradient_boosting(data, 'dataset1', 'dataset1', 'readmitted')
 
 
-data = read_csv('data/classification/datasets_for_further_analysis/dataset2/dataset2_variable_encoding.csv')
-gradient_boosting(data, 'dataset2', 'dataset2', 'class')
+filename = 'data/classification/datasets_for_further_analysis/dataset2/dataset2_feature_engineering'
+gradient_boosting(filename, 'dataset2', 'dataset2', 'class')

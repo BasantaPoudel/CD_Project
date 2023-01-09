@@ -16,7 +16,8 @@ import sklearn
 def decision_tree(filename, file, dataset, clas):
     target = clas
 
-    train: DataFrame = read_csv(f'{filename}_train.csv')
+    if dataset == 'dataset2':
+         train: DataFrame = read_csv(f'{filename}_undersampling.csv')
     # train=train.head(10000)
     trnY: ndarray = train.pop(target).values
     trnX: ndarray = train.values
@@ -128,6 +129,6 @@ def overfitting_study(best, dataset, max_depths, trnX, trnY, tstX, tstY):
 # decision_tree('data/classification/data_for_DT_RF/minmax_diabetes',
 #               'dataset1', 'dataset1', 'readmitted')
 
-# decision_tree('data/classification/data_for_DT_RF/dataset2_minmax',
-#               'dataset2', 'dataset2', 'class')
+decision_tree('data/classification/datasets_for_further_analysis/dataset2/dataset2_feature_engineering',
+              'dataset2', 'dataset2', 'class')
 
