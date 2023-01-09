@@ -62,9 +62,9 @@ best_approach_file = 'dataset2_feature_engineering'
 
 #
 # #Evaluate the balancing approaches
-# knn.knn_variants(best_approach_file, file_location+best_approach_file, 'class', 'dataset2', 'oversampling')
-# knn.knn_variants(best_approach_file, file_location+best_approach_file, 'class', 'dataset2', 'undersampling')
-# knn.knn_variants(best_approach_file, file_location+best_approach_file, 'class', 'dataset2', 'smote')
+knn.knn_variants(best_approach_file, file_location+best_approach_file, 'class', 'dataset2', 'oversampling')
+knn.knn_variants(best_approach_file, file_location+best_approach_file, 'class', 'dataset2', 'undersampling')
+knn.knn_variants(best_approach_file, file_location+best_approach_file, 'class', 'dataset2', 'smote')
 
 # nb.nb_variants(best_approach_file, file_location+best_approach_file, 'class', 'dataset2', 'oversampling')
 # nb.nb_variants(best_approach_file, file_location+best_approach_file, 'class', 'dataset2', 'undersampling')
