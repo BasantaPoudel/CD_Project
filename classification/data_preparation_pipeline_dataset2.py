@@ -51,20 +51,36 @@ import feature_engineering as fe
 # fe.feature_engineering('data/classification/datasets_for_further_analysis/dataset2/dataset2_scaled_zscore.csv', 'dataset2', 'dataset2', 'date')
 
 # #Train Test Splitting
-# tr.training_split('dataset2', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_0.9_0.1_feature_engineering.csv', 'class', 0, 1, 'data/classification/datasets_for_further_analysis/dataset2', 'feature_engineering')
+# tr.training_split('dataset2', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_drop_redundant_vars_0.7_feature_engineering.csv', 'class', 0, 1, 'data/classification/datasets_for_further_analysis/dataset2', 'drop_redundant_vars_0.7_feature_engineering')
+# tr.training_split('dataset2', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_drop_redundant_vars_0.8_feature_engineering.csv', 'class', 0, 1, 'data/classification/datasets_for_further_analysis/dataset2', 'drop_redundant_vars_0.8_feature_engineering')
+# tr.training_split('dataset2', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_drop_redundant_vars_0.9_feature_engineering.csv', 'class', 0, 1, 'data/classification/datasets_for_further_analysis/dataset2', 'drop_redundant_vars_0.9_feature_engineering')
+# tr.training_split('dataset2', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_drop_redundant_vars_0.95_feature_engineering.csv', 'class', 0, 1, 'data/classification/datasets_for_further_analysis/dataset2', 'drop_redundant_vars_0.95_feature_engineering')
+
+#Evaluate the feature engineering approaches
+knn.knn_variants('dataset2_drop_redundant_vars_0.7_feature_engineering', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_drop_redundant_vars_0.7_feature_engineering', 'class', 'dataset2', '')
+knn.knn_variants('dataset2_drop_redundant_vars_0.8_feature_engineering', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_drop_redundant_vars_0.8_feature_engineering', 'class', 'dataset2', '')
+knn.knn_variants('dataset2_drop_redundant_vars_0.9_feature_engineering', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_drop_redundant_vars_0.9_feature_engineering', 'class', 'dataset2', '')
+knn.knn_variants('dataset2_drop_redundant_vars_0.95_feature_engineering', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_drop_redundant_vars_0.95_feature_engineering', 'class', 'dataset2', '')
+
+
+nb.nb_variants('dataset2_drop_redundant_vars_0.7_feature_engineering', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_drop_redundant_vars_0.7_feature_engineering', 'class', 'dataset2', '')
+nb.nb_variants('dataset2_drop_redundant_vars_0.8_feature_engineering', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_drop_redundant_vars_0.8_feature_engineering', 'class', 'dataset2', '')
+nb.nb_variants('dataset2_drop_redundant_vars_0.9_feature_engineering', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_drop_redundant_vars_0.9_feature_engineering', 'class', 'dataset2', '')
+nb.nb_variants('dataset2_drop_redundant_vars_0.95_feature_engineering', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_drop_redundant_vars_0.95_feature_engineering', 'class', 'dataset2', '')
+
 
 # Balancing dataset
-file_location = 'data/classification/datasets_for_further_analysis/dataset2/'
+# file_location = 'data/classification/datasets_for_further_analysis/dataset2/'
 # # # best_approach_file = 'dataset2_scaled_zscore'
-best_approach_file = 'dataset2_feature_engineering'
+# best_approach_file = 'dataset2_feature_engineering'
 # db.data_balancing(file_location + f'{best_approach_file}_train.csv', best_approach_file, 'dataset2', 'date', 'class', '')
 
 
 #
 # #Evaluate the balancing approaches
-knn.knn_variants(best_approach_file, file_location+best_approach_file, 'class', 'dataset2', 'oversampling')
-knn.knn_variants(best_approach_file, file_location+best_approach_file, 'class', 'dataset2', 'undersampling')
-knn.knn_variants(best_approach_file, file_location+best_approach_file, 'class', 'dataset2', 'smote')
+# knn.knn_variants(best_approach_file, file_location+best_approach_file, 'class', 'dataset2', 'oversampling')
+# knn.knn_variants(best_approach_file, file_location+best_approach_file, 'class', 'dataset2', 'undersampling')
+# knn.knn_variants(best_approach_file, file_location+best_approach_file, 'class', 'dataset2', 'smote')
 
 # nb.nb_variants(best_approach_file, file_location+best_approach_file, 'class', 'dataset2', 'oversampling')
 # nb.nb_variants(best_approach_file, file_location+best_approach_file, 'class', 'dataset2', 'undersampling')

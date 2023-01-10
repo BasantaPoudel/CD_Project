@@ -44,9 +44,9 @@ def nb_variants(file_tag, filename, target, dataset, method):
     figure()
     bar_chart(xvalues, yvalues, title='Comparison of Naive Bayes Models', ylabel='accuracy', percentage=True)
     #preparation steps
-    # image_location = 'images/nb/preparation_steps/' + dataset
+    image_location = 'images/nb/preparation_steps/' + dataset
     #nb_study
-    image_location = 'images/nb/nb_study/' + dataset
+    # image_location = 'images/nb/nb_study/' + dataset
     if method == '':
         savefig(image_location+'/'+file_tag+'_nb_study.png')
     else:

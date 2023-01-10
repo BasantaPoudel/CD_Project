@@ -24,46 +24,46 @@ def knn_variants(file_tag, filename, target, dataset, method):
     tstX: ndarray = test.values
 
     eval_metric = accuracy_score
-    # nvalues = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19]
+    nvalues = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19]
     #knn study with higher values
-    nvalues = [1, 3, 5, 7, 9] #best k conclusion
-    n = 9
-    # dist = ['manhattan', 'euclidean', 'chebyshev']
-    dist = ['manhattan'] #best distance conclusion
+    # nvalues = [1, 3, 5, 7, 9] #best k conclusion
+    # n = 9
+    dist = ['manhattan', 'euclidean', 'chebyshev']
+    # dist = ['manhattan'] #best distance conclusion
     values = {}
-    best = (9, 'manhattan')
-    # best = (0, '')
-    # last_best = 0
-    # for d in dist:
-    #     y_tst_values = []
-    #     for n in nvalues:
-    #         knn = KNeighborsClassifier(n_neighbors=n, metric=d)
-    #         knn.fit(trnX, trnY)
-    #         prd_tst_Y = knn.predict(tstX)
-    #         y_tst_values.append(eval_metric(tstY, prd_tst_Y))
-    #         if y_tst_values[-1] > last_best:
-    #             best = (n, d)
-    #             last_best = y_tst_values[-1]
-    #     values[d] = y_tst_values
-    #
-    # figure()
-    # multiple_line_chart(nvalues, values, title='KNN variants', xlabel='n', ylabel=str(accuracy_score), percentage=True)
-    #preparation steps
-    # image_location = 'images/knn/preparation_steps/' + dataset
+    # best = (9, 'manhattan')
+    best = (0, '')
+    last_best = 0
+    for d in dist:
+        y_tst_values = []
+        for n in nvalues:
+            knn = KNeighborsClassifier(n_neighbors=n, metric=d)
+            knn.fit(trnX, trnY)
+            prd_tst_Y = knn.predict(tstX)
+            y_tst_values.append(eval_metric(tstY, prd_tst_Y))
+            if y_tst_values[-1] > last_best:
+                best = (n, d)
+                last_best = y_tst_values[-1]
+        values[d] = y_tst_values
+
+    figure()
+    multiple_line_chart(nvalues, values, title='KNN variants', xlabel='n', ylabel=str(accuracy_score), percentage=True)
+    # preparation steps
+    image_location = 'images/knn/preparation_steps/' + dataset
     #knn study steps
-    image_location = 'images/knn/knn_study/' + dataset
-    # if method == '':
-    #     savefig(image_location+'/'+file_tag+'_knn_study.png')
-    # else:
-    #     #Running over balanced
-    #     savefig(image_location+'/'+file_tag+'_'+method+'_knn_study.png')
+    # image_location = 'images/knn/knn_study/' + dataset
+    if method == '':
+        savefig(image_location+'/'+file_tag+'_knn_study.png')
+    else:
+        #Running over balanced
+        savefig(image_location+'/'+file_tag+'_'+method+'_knn_study.png')
 
     #show()
     print('Best results with %d neighbors and %s'%(best[0], best[1]))
 
     knn_best(best, file_tag, image_location, labels, trnX, trnY, tstX, tstY, method)
 
-    overfitting_study(best, file_tag, dataset, method, image_location, n, nvalues, trnX, trnY, tstX, tstY)
+    # overfitting_study(best, file_tag, dataset, method, image_location, n, nvalues, trnX, trnY, tstX, tstY)
 
 
 def knn_best(best, file_tag, image_location, labels, trnX, trnY, tstX, tstY, method):
@@ -109,4 +109,4 @@ def plot_overfitting_study(file_tag, dataset, method, image_location, xvalues, p
 # TODO - Change the image_location variable and other parameters
 # (file_tag, filename, target, dataset, method)
 #Running for classification steps
-knn_variants('dataset2_feature_engineering', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_feature_engineering', 'class', 'dataset2', 'undersampling')
+# knn_variants('dataset2_feature_engineering', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_feature_engineering', 'class', 'dataset2', 'undersampling')
