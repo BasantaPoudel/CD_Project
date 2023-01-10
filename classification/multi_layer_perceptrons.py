@@ -5,6 +5,7 @@ from ts_functions import split_temporal_data, PREDICTION_MEASURES, plot_evaluati
 from sklearn.neural_network import MLPRegressor
 from dscharts import plot_overfitting_study
 import numpy
+import pandas
 from numpy import ndarray
 
 def mlp(filename, file, dataset, clas):
@@ -25,7 +26,7 @@ def mlp(filename, file, dataset, clas):
     tstX: ndarray = test.values
     # trnX, tstX, trnY, tstY = split_temporal_data(data, clas, trn_pct=0.7)
 
-    lr_type = ['constant']  # , 'invscaling', 'adaptive'] - only used if optimizer='sgd'
+    lr_type = ['constant', 'invscaling', 'adaptive']# - only used if optimizer='sgd'
     learning_rate = [.9, .6, .3, .1]
     max_iter = [100, 150, 250, 500, 1000]
     max_iter_warm_start = [max_iter[0]]
@@ -50,7 +51,7 @@ def mlp(filename, file, dataset, clas):
                 print(f'MLP - lr type={tp} learning rate={lr} and nr_episodes={n}')
                 pred = MLPRegressor(
                     learning_rate=tp, learning_rate_init=lr, max_iter=n,
-                    activation='relu', warm_start=warm_start, verbose=False)
+                    activation='relu', warm_start=warm_start, verbose=False, solver='sgd')
                 pred.fit(trnX, trnY)
                 prdY = pred.predict(tstX)
                 yvalues.append(PREDICTION_MEASURES[measure](tstY, prdY))
@@ -64,24 +65,38 @@ def mlp(filename, file, dataset, clas):
         multiple_line_chart(
             max_iter_warm_start, values, ax=axs[0, k], title=f'MLP with lr_type={tp}', xlabel='mx iter', ylabel=measure,
             percentage=flag_pct)
-    savefig('images/mlp/'+dataset+'_ts_mlp_study.png')
+    savefig('images/mlp/'+dataset+'/_ts_mlp_study.png')
     show()
     print(
         f'Best results with lr_type={best[0]}, learning rate={best[1]} and {best[2]} max iter ==> measure={last_best:.2f}')
 
+    # print the loss curve with the best model:
+    # pred = MLPRegressor(
+    #     learning_rate=best[0], learning_rate_init=lr, max_iter=n,
+    #     activation='logistic', warm_start=True, verbose=False, solver='sgd')
+    # pred.fit(trnX, trnY)
+    # prdY = pred.predict(tstX)
+
+
+
+
     prd_trn = best_model.predict(trnX)
     prd_tst = best_model.predict(tstX)
     plot_evaluation_results(trnY, prd_trn, tstY, prd_tst, 'ts_mlp_best')
-    savefig('images/mlp/'+dataset+'_ts_mlp_best.png')
+    savefig('images/mlp/'+dataset+'/_ts_mlp_best.png')
+
+    pandas.DataFrame(best_model.loss_curve_).plot(xlabel='epoch', ylabel='model loss')
+    show()
+    savefig('images/mlp/' + dataset + '/model_loss.png')
 
     y_tst_values = []
     y_trn_values = []
     warm_start = False
     for n in max_iter:
-        # print(f'MLP - lr type={best[1]} learning rate={best[0]} and nr_episodes={n}')
+        print(f'MLP - lr type={best[1]} learning rate={best[0]} and nr_episodes={n}')
         MLPRegressor(
             learning_rate=best[0], learning_rate_init=best[1], max_iter=n,
-            activation='relu', warm_start=warm_start, verbose=False)
+            activation='relu', warm_start=warm_start, verbose=False, solver='sgd')
         pred.fit(trnX, trnY)
         prd_tst_Y = pred.predict(tstX)
         prd_trn_Y = pred.predict(trnX)
@@ -90,10 +105,11 @@ def mlp(filename, file, dataset, clas):
         warm_start = True
     plot_overfitting_study(max_iter, y_trn_values, y_tst_values, name=f'ts_NN_{best[0]}_{best[1]}',
                            xlabel='nr episodes', ylabel=measure, pct=flag_pct)
-    savefig('images/mlp/' + dataset + 'mlp_overfitting.png')
+    savefig('images/mlp/' + dataset + '/mlp_overfitting.png')
 
 # data = read_csv('data/classification/datasets_for_further_analysis/dataset1/diabetic_data_variable_enconding.csv')
 # mlp(data, 'dataset1', 'dataset1', 'readmitted')
 
 
-mlp('data/classification/datasets_for_further_analysis/dataset2/dataset2_feature_engineering', 'dataset2', 'dataset2', 'class')
+mlp('data/classification/datasets_for_further_analysis/dataset2/dataset2_feature_engineering',
+    'dataset2', 'dataset2', 'class')

@@ -9,9 +9,9 @@ from sklearn.naive_bayes import GaussianNB, MultinomialNB, BernoulliNB, Categori
 from sklearn.metrics import accuracy_score
 
 
-file_tag = 'diabetes_noscaling'
-filenametrain = f'data/classification/datasets_for_further_analysis/dataset1/noscaling_diabetes_train.csv'
-filenametest = f'data/classification/datasets_for_further_analysis/dataset1/noscaling_diabetes_test.csv'
+file_tag = 'dataset1_0.2_0.1_balanced_over'
+filenametrain = f'data/classification/datasets_for_further_analysis/dataset1/Balancing/diatebes_dataset1_0.2_0.1_balanced_over.csv'
+filenametest = f'data/classification/datasets_for_further_analysis/dataset1/Balancing/dataset1_0.2_0.1_feature_engineering_diabetes_test.csv'
 target = 'readmitted'
 
 train: DataFrame = read_csv(filenametrain)
@@ -25,14 +25,15 @@ tstY: ndarray = test.pop(target).values
 tstX: ndarray = test.values
 
 clf = GaussianNB()
+print(f'Best Classifier from the study: {clf}')
 clf.fit(trnX, trnY)
 prd_trn = clf.predict(trnX)
 prd_tst = clf.predict(tstX)
 plot_evaluation_results_dataset1(labels, trnY, prd_trn, tstY, prd_tst)
 savefig('images/nb/dataset1/'+file_tag+'_nb_best.png')
-show()
+#show()
 
-estimators = {'GaussianNB': GaussianNB(),
+''' estimators = {'GaussianNB': GaussianNB(),
               'MultinomialNB': MultinomialNB(),
               'BernoulliNB': BernoulliNB()
               #'CategoricalNB': CategoricalNB
@@ -49,4 +50,4 @@ for clf in estimators:
 figure()
 bar_chart(xvalues, yvalues, title='Comparison of Naive Bayes Models', ylabel='accuracy', percentage=True)
 savefig(f'images/nb/dataset1/'+file_tag+'_nb_study.png')
-show()
+show() '''

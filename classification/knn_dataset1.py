@@ -5,7 +5,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from dscharts import plot_evaluation_results_dataset1, multiple_line_chart, plot_overfitting_study
 from sklearn.metrics import accuracy_score
 
-file_tag = 'diabetes_over_noscaled'
+file_tag = 'dataset1_0.2_0.1_balanced_smote'
 
 def plot_overfitting_study(best_1, xvalues, prd_trn, prd_tst, name, xlabel, ylabel):
     evals = {'Train': prd_trn, 'Test': prd_tst}
@@ -14,8 +14,8 @@ def plot_overfitting_study(best_1, xvalues, prd_trn, prd_tst, name, xlabel, ylab
     savefig('images/knn/dataset1/'+file_tag+'_'+best_1+'_overfitting_'+name+'.png')
 
 
-filenametrain = f'data/classification/datasets_for_further_analysis/dataset1/noscaling_diabetes_train.csv'
-filenametest = f'data/classification/datasets_for_further_analysis/dataset1/noscaling_diabetes_test.csv'
+filenametrain = f'data/classification/datasets_for_further_analysis/dataset1/Balancing/diatebes_dataset1_0.2_0.1_balanced_smote.csv'
+filenametest = f'data/classification/datasets_for_further_analysis/dataset1/Balancing/dataset1_0.2_0.1_feature_engineering_diabetes_test.csv'
 target = 'readmitted'
 
 train: DataFrame = read_csv(filenametrain)
@@ -48,10 +48,10 @@ def knn_study():
                 last_best = y_tst_values[-1]
         values[d] = y_tst_values
 
-    figure()
-    multiple_line_chart(nvalues, values, title='KNN variants', xlabel='n', ylabel=str(accuracy_score), percentage=True)
-    savefig('images/knn/dataset1/'+file_tag+'_'+best[1]+'_overfitting_knn_study.png')
-    show()
+    #figure()
+    #multiple_line_chart(nvalues, values, title='KNN variants', xlabel='n', ylabel=str(accuracy_score), percentage=True)
+    #savefig('images/knn/dataset1/'+file_tag+'_'+best[1]+'_overfitting_knn_study.png')
+    #show()
     print('Best results with %d neighbors and %s'%(best[0], best[1]))
     return best[0], best[1]
 
@@ -62,9 +62,9 @@ def knn_best(best_0,best_1):
     prd_tst = clf.predict(tstX)
     plot_evaluation_results_dataset1(labels, trnY, prd_trn, tstY, prd_tst)
     savefig('images/knn/dataset1/'+file_tag+'_'+best_1+'_knn_best.png')
-    show()
+    #show()
 
-    d = best_1 #'euclidean'
+    ''' d = best_1 #'euclidean'
     eval_metric = accuracy_score
     y_tst_values = []
     y_trn_values = []
@@ -76,10 +76,11 @@ def knn_best(best_0,best_1):
         y_tst_values.append(eval_metric(tstY, prd_tst_Y))
         y_trn_values.append(eval_metric(trnY, prd_trn_Y))
     plot_overfitting_study(best_1, nvalues, y_trn_values, y_tst_values, name=f'KNN_K={n}_{d}', xlabel='K', ylabel=str(eval_metric))
-    show()
+    show() '''
 
 best_0, best_1 = knn_study()
 knn_best(best_0, best_1)
 #knn_best(5, 'manhattan')
 #knn_best(best_0, 'euclidean')
 #knn_best(best_0, 'chebyshev')
+
