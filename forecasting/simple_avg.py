@@ -5,20 +5,23 @@ from sklearn.base import RegressorMixin
 from ts_functions import PREDICTION_MEASURES, plot_evaluation_results, plot_forecasting_series
 
 #dataset1 - drop the insulin col
-dataset = 'dataset1'
-file_tag = 'glucose'
-index_col = "Date"
-target = 'Glucose'
-data = read_csv('data/forecasting/glucose.csv', index_col=index_col, sep=',', decimal='.', parse_dates=True, infer_datetime_format=True)
-data = data.drop("Insulin", axis='columns')
+# dataset = 'dataset1'
+# file_tag = 'glucose'
+# index_col = "Date"
+# target = 'Glucose'
+# data = read_csv('data/forecasting/glucose.csv', index_col=index_col, sep=',', decimal='.', parse_dates=True, infer_datetime_format=True)
+# data = data.drop("Insulin", axis='columns')
+# data = data.sort_values(index_col)
 
 
 #dataset2
-# dataset = 'dataset2'
-# file_tag = 'drought'
-# index_col = 'date'
-# target = 'QV2M'
-# data = read_csv('data/forecasting/drought.forecasting_dataset.csv', index_col=index_col, sep=',', decimal='.', parse_dates=True, infer_datetime_format=True)
+dataset = 'dataset2'
+file_tag = 'drought'
+index_col = 'date'
+target = 'QV2M'
+data = read_csv('data/forecasting/drought.forecasting_dataset.csv', index_col=index_col, sep=',', decimal='.', parse_dates=True, infer_datetime_format=True)
+data = data.drop(["PRECTOT", "PS", "T2M", "T2MDEW", "T2MWET", "TS"], axis="columns")
+data = data.sort_values(index_col)
 
 print(data.head())
 

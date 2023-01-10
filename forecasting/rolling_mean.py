@@ -15,7 +15,7 @@ def main(data, dataset, granularity, train, test, prd_trn, prd_tst, index_col, t
     savefig(f'images/rolling_mean/'+dataset+'/rolling_mean_plots_'+granularity+'.png')
 
 class RollingMeanRegressor (RegressorMixin):
-    def __init__(self, win: int = 3):
+    def __init__(self, win: int = 1):
         super().__init__()
         self.win_size = win
 
@@ -43,9 +43,12 @@ measure = 'R2'
 # data = read_csv('data/forecasting/glucose.csv', index_col='Date', sep=',', decimal='.', parse_dates=True, dayfirst=True, infer_datetime_format=True)
 # target = 'Glucose'
 # data.drop(['Insulin'], axis=1, inplace=True)
+# data = data.sort_values('Date')
+
 data = read_csv('data/forecasting/drought.forecasting_dataset.csv', index_col='date', sep=',', decimal='.', parse_dates=True, dayfirst=True, infer_datetime_format=True)
 target = 'QV2M'
 data.drop(["PRECTOT", "PS", "T2M", "T2MDEW", "T2MWET", "TS"], axis=1, inplace=True)
+data = data.sort_values('date')
 
 train, test = split_dataframe(data, trn_pct = 0.7)
 
