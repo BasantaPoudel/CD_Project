@@ -6,7 +6,7 @@ import pandas as pd
 #import dataframe_image as dfi
 
 data = pd.read_csv(
-    'forecasting/data/classification/datasets_for_further_analysis/dataset1/diabetic_fill_columns_mv.csv',
+    'data/classification/datasets_for_further_analysis/dataset1/diabetic_drop_columns_mv.csv',
     index_col = 'encounter_id')
 
 strategy = 2
@@ -14,6 +14,7 @@ strategy = 2
 if strategy == 1:
     tmp_nr, tmp_sb, tmp_bool = None, None, None
     variables = get_variable_types(data)
+    print(variables)
     numeric_vars = variables['Numeric']
     symbolic_vars = variables['Symbolic']
     binary_vars = variables['Binary']

@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 from numpy import nan
 from pandas.plotting import register_matplotlib_converters
-from matplotlib.pyplot import figure, savefig
+from matplotlib.pyplot import figure, savefig, show
 from dscharts import bar_chart
 from collections import defaultdict
 
@@ -27,4 +27,5 @@ for j in df:
     mvv[j] = s
             
 bar_chart(list(mvv.keys()), list(mvv.values()), title='Nr of missing values per variable', xlabel='variables', ylabel='nr missing values', rotation=True)
-savefig('images/data_dimensionality/dataset2/missing_values.png')
+show()
+#savefig('images/data_dimensionality/dataset2/missing_values.png')

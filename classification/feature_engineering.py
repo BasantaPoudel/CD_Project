@@ -12,7 +12,7 @@ def feature_engineering(filename, file, dataset, index_col):
 
     # for dataset1: there are no variables with correlation > 0.55
     # drop variables based on correlation
-    THRESHOLD = 0.9
+    THRESHOLD = 0.2
     drop, corr_mtx = select_redundant(data.corr(), THRESHOLD)
     print(drop.keys())
     print(data.shape)
@@ -23,7 +23,7 @@ def feature_engineering(filename, file, dataset, index_col):
         df = data
     print(df.shape)
     df2 = drop_useless_vars(df, file)
-    print(df2.shape)
+    print(df2.shape) 
 
 
     # drop variables based on variance analysis:
@@ -38,13 +38,14 @@ def feature_engineering(filename, file, dataset, index_col):
 
     final_df = drop_low_var(df2, vars2drop)
     print(final_df.shape)
-    final_df.to_csv('data/classification/datasets_for_further_analysis/'+dataset+'/'+dataset+f'_{THRESHOLD}_{threshold_variance}_feature_engineering.csv')
+    final_df.to_csv('data/classification/datasets_for_further_analysis/'+dataset+'/FeatureEng/'+dataset+f'_{THRESHOLD}_{threshold_variance}_feature_engineering.csv')
 
 
 def drop_useless_vars(data, dataset):  # drop all variables that have no numeric meaning for modeling
 
     if dataset == 'dataset1':
-        useless_vars1 = ['payer_code', 'patient_nbr']
+        useless_vars1 = ['payer_code', 'patient_nbr', 'glipizide-metformin', 'metformin-pioglitazone', 
+            'acetohexamide', 'troglitazone', 'glimepiride-pioglitazone', 'metformin-rosiglitazone']
         for variable in useless_vars1:
             if variable in data:
                 data.drop([variable], inplace=True, axis=1)
@@ -130,8 +131,8 @@ def drop_low_var(data, vars2drop):
 
 # still need to select the right dataset for feature selection, SCALING dataaset should be used!:
 
-# feature_engineering('data/classification/datasets_for_further_analysis/dataset1/dataset1_drop_outliers.csv',
-#                                        'dataset1', 'dataset1', 'encounter_id')
+feature_engineering('data/classification/datasets_for_further_analysis/dataset1/FeatureEng/dataset1_dropna_replacing_outliers.csv',
+                                        'dataset1', 'dataset1', 'encounter_id')
 
 # feature_engineering('forecasting/data/classification/datasets_for_further_analysis/dataset2/dataset2_scaled_zscore.csv',
 #                                         'dataset2', 'dataset2', 'date')

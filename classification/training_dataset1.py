@@ -27,7 +27,7 @@ def training_split(file_tag, data, target, urlfiles, scalingtype):
     return train, test
 
 data: DataFrame = read_csv(
-    'forecasting/data/classification/datasets_for_further_analysis/dataset1/diabetic_fill_columns_mv.csv')
+    'data/classification/datasets_for_further_analysis/dataset1/FeatureEng/dataset1_0.2_0.1_feature_engineering.csv')
 
 target = 'readmitted'
 positive = 1 #"<30" 
@@ -36,17 +36,17 @@ intermediate = 2 #">30"
 
 values = {'Original': [len(data[data[target] == negative]), len(data[data[target] == intermediate]), len(data[data[target] == positive])]}
 
-train, test = training_split('diabetes', data, 'readmitted', 'data/classification/datasets_for_further_analysis/dataset1', 'noscaling')
+train, test = training_split('diabetes', data, 'readmitted', 'data/classification/datasets_for_further_analysis/dataset1/FeatureEng', 'dataset1_0.2_0.1_feature_engineering')
 
 values['train'] = [len(train[train[target] == negative]), len(train[train[target] == intermediate]), len(train[train[target] == positive])] 
 values['test'] =  [len(test[test[target] == negative]), len(test[test[target] == intermediate]), len(test[test[target] == positive])]
 
-plt.figure(figsize=(9, 11))
+#plt.figure(figsize=(9, 11))
 #plt.ylabel(r'$\ln\left(\frac{x_a-x_b}{x_a-x_c}\right)$')
 #plt.xlabel(r'$\ln\left(\frac{x_a-x_d}{x_a-x_e}\right)$', fontsize=50)
-ds.multiple_bar_chart([negative, intermediate, positive], values, title='Data distribution per dataset')
+#ds.multiple_bar_chart([negative, intermediate, positive], values, title='Data distribution per dataset')
 #plt.savefig('images/data_splitting/dataset1/diabetes_split.pdf', bbox_inches = 'tight')
-plt.show()
+#plt.show()
 
 
 

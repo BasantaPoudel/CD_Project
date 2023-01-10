@@ -5,10 +5,10 @@ from pandas import concat, DataFrame
 from pandas import Series
 from imblearn.over_sampling import SMOTE
 
-filename = 'forecasting/data/classification/datasets_for_further_analysis/dataset1/noscaling_diabetes_train.csv'
+filename = 'data/classification/datasets_for_further_analysis/dataset1/Balancing/dataset1_0.2_0.1_feature_engineering_diabetes_train.csv'
 
 file = "balanced"
-scaling = "noscaling"
+scaling = "dataset1_0.2_0.1"
 
 original = read_csv(filename, sep=',', decimal='.')
 class_var = 'readmitted'
@@ -43,7 +43,7 @@ print(len(df_intermediate))
 df_neg_sample = DataFrame(df_negatives.sample(len(df_positives)))
 df_inter_sample = DataFrame(df_intermediate.sample(len(df_positives)))
 df_under = concat([df_positives, df_neg_sample, df_inter_sample], axis=0)
-df_under.to_csv(f'data/classification/datasets_for_further_analysis/dataset1/diatebes_'+scaling+'_'+file+'_under.csv', index=False)
+df_under.to_csv(f'data/classification/datasets_for_further_analysis/dataset1/Balancing/diatebes_'+scaling+'_'+file+'_under.csv', index=False)
 values['UnderSample'] = [len(df_positives), len(df_neg_sample), len(df_inter_sample)]
 print('Minority class=', positive_class, ':', len(df_positives))
 print('Majority class=', negative_class, ':', len(df_neg_sample))
@@ -55,7 +55,7 @@ print('Proportion:', round(len(df_positives) / len(df_neg_sample), 2), ': 1')
 df_pos_sample = DataFrame(df_positives.sample(len(df_negatives), replace=True))
 df_inter_sample = DataFrame(df_intermediate.sample(len(df_negatives), replace=True))
 df_over = concat([df_pos_sample, df_negatives, df_inter_sample], axis=0)
-df_over.to_csv(f'data/classification/datasets_for_further_analysis/dataset1/diatebes_'+scaling+'_'+file+'_over.csv', index=False)
+df_over.to_csv(f'data/classification/datasets_for_further_analysis/dataset1/Balancing/diatebes_'+scaling+'_'+file+'_over.csv', index=False)
 values['OverSample'] = [len(df_pos_sample), len(df_negatives), len(df_inter_sample)]
 print('Minority class=', positive_class, ':', len(df_pos_sample))
 print('Majority class=', negative_class, ':', len(df_negatives))
@@ -72,7 +72,7 @@ print('Proportion:', round(len(df_positives) / len(df_neg_sample), 2), ': 1')
 df_neg_sample_smote = DataFrame(df_negatives.sample(len(df_intermediate)))
 df_pos_sample_smote = DataFrame(df_positives.sample(len(df_intermediate), replace=True))
 df_smote = concat([df_pos_sample_smote, df_neg_sample_smote, df_intermediate], axis=0)
-df_smote.to_csv(f'data/classification/datasets_for_further_analysis/dataset1/diatebes_'+scaling+'_'+file+'_smote.csv', index=False)
+df_smote.to_csv(f'data/classification/datasets_for_further_analysis/dataset1/Balancing/diatebes_'+scaling+'_'+file+'_smote.csv', index=False)
 values['Smote'] = [len(df_pos_sample_smote), len(df_neg_sample_smote), len(df_intermediate)]
 print('Minority class=', positive_class, ':', len(df_pos_sample_smote))
 print('Majority class=', negative_class, ':', len(df_neg_sample_smote))

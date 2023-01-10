@@ -237,7 +237,7 @@ def diagnostic(data_Diagnostic) -> dict:
         #print(data_Diagnostic[n])
 
         if pd.isna(data_Diagnostic[n]):
-            data_diag_encoding[n] = 'NaN' #-1
+            data_diag_encoding[n] = -1
         elif "V" in data_Diagnostic[n]:
             data_diag_encoding[n] = 17
         elif "E" in data_Diagnostic[n]:
@@ -310,6 +310,4 @@ def dummify(df, vars_to_dummify):
     return final_df
 
 #data_encoding('data/classification/datasets_for_further_analysis/dataset1/diabetic_fill_columns_mv.csv', "?")
-data_encoding('forecasting/data/classification/diabetic_data.csv', "?")
-
-
+data_encoding('data/classification/diabetic_data.csv', "?")

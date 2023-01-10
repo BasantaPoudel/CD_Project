@@ -9,8 +9,8 @@ def outliers_treatment(filename, file, dataset, index_col, na_values):
 
     print_summary5(data)
     drop_outliers(data, dataset, file)
-    #replacing_outliers(data, dataset, file)
-    #truncating_outliers(data, dataset, file)
+    replacing_outliers(data, dataset, file)
+    truncating_outliers(data, dataset, file)
 
 
 def determine_outlier_thresholds(summary5: DataFrame, var: str):
@@ -39,7 +39,7 @@ def drop_outliers(data, dataset, file):
         top_threshold, bottom_threshold = determine_outlier_thresholds(summary5, var)
         outliers = df[(df[var] > top_threshold) | (df[var] < bottom_threshold)]
         df.drop(outliers.index, axis=0, inplace=True)
-    output_location = 'data/classification/datasets_for_further_analysis/'+dataset+'/'+file+'_drop_outliers.csv'
+    output_location = 'data/classification/datasets_for_further_analysis/'+dataset+'/Outliers/'+file+'_drop_outliers.csv'
     df.to_csv(f'{output_location}', index=True)
     print('data after dropping outliers:', df.shape)
 
@@ -59,9 +59,9 @@ def replacing_outliers(data, dataset, file):
 
     print('Original data:', data.shape)
     # print('data after replacing outliers:', df.describe())
-    output_location = 'data/classification/datasets_for_further_analysis/'+dataset+'/'+file+'_replacing_outliers.csv'
+    output_location = 'data/classification/datasets_for_further_analysis/'+dataset+'/Outliers/'+file+'_replacing_outliers.csv'
 
-    #df.to_csv(f'{output_location}', index=True)
+    df.to_csv(f'{output_location}', index=True)
     print('data after replacing outliers:', df.shape)
 
 
@@ -80,7 +80,7 @@ def truncating_outliers(data, dataset, file):
 
     print('Original data:', data.shape)
     # print('data after truncating outliers:', df.describe())
-    output_location = 'data/classification/datasets_for_further_analysis/'+dataset+'/'+file+'_truncate_outliers.csv'
+    output_location = 'data/classification/datasets_for_further_analysis/'+dataset+'/Outliers/'+file+'_truncate_outliers.csv'
 
     #df.to_csv(f'{output_location}', index=True)
     print('data after truncating outliers:', df.shape)
@@ -92,7 +92,8 @@ def print_summary5(data):
 
 # outliers_treatment('data/classification/datasets_for_further_analysis/dataset1/mv_filled_mean_dataset1.csv', 'diabetic_data', 'dataset1', 'encounter_id', '')
 
-outliers_treatment('data/classification/datasets_for_further_analysis/dataset1/diabetic_drop_columns_mv.csv', 'dataset1', 'dataset1', 'encounter_id', '')
+outliers_treatment('data/classification/datasets_for_further_analysis/dataset1/MVI/mv_filled_mean_dataset1.csv', 'dataset1_filled_mean', 'dataset1', 'encounter_id', '')
+outliers_treatment('data/classification/datasets_for_further_analysis/dataset1/MVI/diabetic_dropna_drop_columns_mv.csv', 'dataset1_dropna', 'dataset1', 'encounter_id', '')
 
 # outliers_treatment('data/classification/diabetic_data.csv', 'diabetic_data', 'dataset1', 'encounter_id', '')
 #outliers_treatment('data/classification/datasets_for_further_analysis/dataset2/dataset2_variable_encoding.csv', 'dataset2', 'dataset2', 'date', '')
