@@ -10,6 +10,18 @@ import feature_engineering as fe
 # # #Variable Encoding
 # ve.data_encoding('data/classification/drought.csv')
 # #
+
+# # #Train Test Splitting
+# tr.training_split('dataset2', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_variable_encoding.csv', 'class', 0, 1, 'data/classification/datasets_for_further_analysis/dataset2', 'variable_encoding')
+
+#
+# #Evaluate the outliers treatment approaches
+knn.knn_variants('dataset2_variable_encoding', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_variable_encoding', 'class', 'dataset2', '')
+# nb.nb_variants('dataset2_variable_encoding', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_variable_encoding', 'class', 'dataset2', '')
+
+
+
+
 # # #Outliers Treatment
 # ot.outliers_treatment('data/classification/datasets_for_further_analysis/dataset2/dataset2_variable_encoding.csv', 'dataset2_variable_encoding', 'dataset2', '')
 # #
@@ -57,16 +69,16 @@ import feature_engineering as fe
 # tr.training_split('dataset2', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_drop_redundant_vars_0.95_feature_engineering.csv', 'class', 0, 1, 'data/classification/datasets_for_further_analysis/dataset2', 'drop_redundant_vars_0.95_feature_engineering')
 
 #Evaluate the feature engineering approaches
-knn.knn_variants('dataset2_drop_redundant_vars_0.7_feature_engineering', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_drop_redundant_vars_0.7_feature_engineering', 'class', 'dataset2', '')
-knn.knn_variants('dataset2_drop_redundant_vars_0.8_feature_engineering', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_drop_redundant_vars_0.8_feature_engineering', 'class', 'dataset2', '')
-knn.knn_variants('dataset2_drop_redundant_vars_0.9_feature_engineering', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_drop_redundant_vars_0.9_feature_engineering', 'class', 'dataset2', '')
-knn.knn_variants('dataset2_drop_redundant_vars_0.95_feature_engineering', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_drop_redundant_vars_0.95_feature_engineering', 'class', 'dataset2', '')
-
-
-nb.nb_variants('dataset2_drop_redundant_vars_0.7_feature_engineering', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_drop_redundant_vars_0.7_feature_engineering', 'class', 'dataset2', '')
-nb.nb_variants('dataset2_drop_redundant_vars_0.8_feature_engineering', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_drop_redundant_vars_0.8_feature_engineering', 'class', 'dataset2', '')
-nb.nb_variants('dataset2_drop_redundant_vars_0.9_feature_engineering', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_drop_redundant_vars_0.9_feature_engineering', 'class', 'dataset2', '')
-nb.nb_variants('dataset2_drop_redundant_vars_0.95_feature_engineering', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_drop_redundant_vars_0.95_feature_engineering', 'class', 'dataset2', '')
+# knn.knn_variants('dataset2_drop_redundant_vars_0.7_feature_engineering', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_drop_redundant_vars_0.7_feature_engineering', 'class', 'dataset2', '')
+# knn.knn_variants('dataset2_drop_redundant_vars_0.8_feature_engineering', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_drop_redundant_vars_0.8_feature_engineering', 'class', 'dataset2', '')
+# knn.knn_variants('dataset2_drop_redundant_vars_0.9_feature_engineering', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_drop_redundant_vars_0.9_feature_engineering', 'class', 'dataset2', '')
+# knn.knn_variants('dataset2_drop_redundant_vars_0.95_feature_engineering', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_drop_redundant_vars_0.95_feature_engineering', 'class', 'dataset2', '')
+#
+#
+# nb.nb_variants('dataset2_drop_redundant_vars_0.7_feature_engineering', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_drop_redundant_vars_0.7_feature_engineering', 'class', 'dataset2', '')
+# nb.nb_variants('dataset2_drop_redundant_vars_0.8_feature_engineering', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_drop_redundant_vars_0.8_feature_engineering', 'class', 'dataset2', '')
+# nb.nb_variants('dataset2_drop_redundant_vars_0.9_feature_engineering', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_drop_redundant_vars_0.9_feature_engineering', 'class', 'dataset2', '')
+# nb.nb_variants('dataset2_drop_redundant_vars_0.95_feature_engineering', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_drop_redundant_vars_0.95_feature_engineering', 'class', 'dataset2', '')
 
 
 # Balancing dataset

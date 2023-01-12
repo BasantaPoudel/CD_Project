@@ -26,13 +26,11 @@ def nb_variants(file_tag, filename, target, dataset, method):
     tstY: ndarray = test.pop(target).values
     tstX: ndarray = test.values
 
-
     estimators = {'GaussianNB': GaussianNB(),
                   # 'MultinomialNB': MultinomialNB(),
                   'BernoulliNB': BernoulliNB()
                   # 'CategoricalNB': CategoricalNB
                   }
-
     xvalues = []
     yvalues = []
     for clf in estimators:
@@ -43,6 +41,9 @@ def nb_variants(file_tag, filename, target, dataset, method):
 
     figure()
     bar_chart(xvalues, yvalues, title='Comparison of Naive Bayes Models', ylabel='accuracy', percentage=True)
+    clf_string = xvalues[yvalues.index(max(yvalues))]
+    clf = estimators.get(clf_string)
+    print(clf)
     #preparation steps
     image_location = 'images/nb/preparation_steps/' + dataset
     #nb_study
@@ -53,12 +54,11 @@ def nb_variants(file_tag, filename, target, dataset, method):
         #Running over balanced
         savefig(image_location+'/'+file_tag+'_'+method+'_nb_study.png')
 
-    nb_best(dataset, file_tag, image_location, labels, trnX, trnY, tstX, tstY, method)
+    nb_best(dataset, file_tag, clf, image_location, labels, trnX, trnY, tstX, tstY, method)
     #show()
 
 
-def nb_best(dataset, file_tag, image_location, labels, trnX, trnY, tstX, tstY, method):
-    clf = GaussianNB()
+def nb_best(dataset, file_tag, clf, image_location, labels, trnX, trnY, tstX, tstY, method):
     print(f'Best Classifier from the study: {clf}')
     clf.fit(trnX, trnY)
     prd_trn = clf.predict(trnX)
