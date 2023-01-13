@@ -1,0 +1,63 @@
+Epoch: 0, loss: 0.33594
+Epoch: 500, loss: 0.02486
+Epoch: 1000, loss: 0.02399
+Epoch: 1500, loss: 0.02330
+Epoch: 2000, loss: 0.02307
+
+
+TRAIN R2= 0.1033303445867364
+TEST R2= -0.12325602091634047
+
+
+LSTM - seq length=4 hidden_units=8 and nr_episodes=500->0.08
+LSTM - seq length=4 hidden_units=8 and nr_episodes=1000->0.04
+LSTM - seq length=4 hidden_units=8 and nr_episodes=2500->-0.14
+LSTM - seq length=4 hidden_units=8 and nr_episodes=5000->-0.37
+LSTM - seq length=4 hidden_units=16 and nr_episodes=500->0.04
+LSTM - seq length=4 hidden_units=16 and nr_episodes=1000->-0.10
+LSTM - seq length=4 hidden_units=16 and nr_episodes=2500->-0.16
+LSTM - seq length=4 hidden_units=16 and nr_episodes=5000->-0.53
+LSTM - seq length=4 hidden_units=32 and nr_episodes=500->-0.10
+LSTM - seq length=4 hidden_units=32 and nr_episodes=1000->-0.14
+LSTM - seq length=4 hidden_units=32 and nr_episodes=2500->-1.67
+LSTM - seq length=4 hidden_units=32 and nr_episodes=5000->-2.29
+LSTM - seq length=20 hidden_units=8 and nr_episodes=500->0.05
+LSTM - seq length=20 hidden_units=8 and nr_episodes=1000->-0.04
+LSTM - seq length=20 hidden_units=8 and nr_episodes=2500->-0.29
+LSTM - seq length=20 hidden_units=8 and nr_episodes=5000->-0.57
+LSTM - seq length=20 hidden_units=16 and nr_episodes=500->0.04
+LSTM - seq length=20 hidden_units=16 and nr_episodes=1000->-0.09
+LSTM - seq length=20 hidden_units=16 and nr_episodes=2500->-0.37
+LSTM - seq length=20 hidden_units=16 and nr_episodes=5000->-3.41
+LSTM - seq length=20 hidden_units=32 and nr_episodes=500->-0.04
+LSTM - seq length=20 hidden_units=32 and nr_episodes=1000->-0.24
+LSTM - seq length=20 hidden_units=32 and nr_episodes=2500->-2.31
+LSTM - seq length=20 hidden_units=32 and nr_episodes=5000->-2.86
+LSTM - seq length=60 hidden_units=8 and nr_episodes=500->0.01
+LSTM - seq length=60 hidden_units=8 and nr_episodes=1000->-0.28
+LSTM - seq length=60 hidden_units=8 and nr_episodes=2500->-2.55
+LSTM - seq length=60 hidden_units=8 and nr_episodes=5000->-2.47
+LSTM - seq length=60 hidden_units=16 and nr_episodes=500->-0.37
+LSTM - seq length=60 hidden_units=16 and nr_episodes=1000->-1.73
+LSTM - seq length=60 hidden_units=16 and nr_episodes=2500->-2.43
+LSTM - seq length=60 hidden_units=16 and nr_episodes=5000->-3.45
+LSTM - seq length=60 hidden_units=32 and nr_episodes=500->-0.26
+LSTM - seq length=60 hidden_units=32 and nr_episodes=1000->-0.68
+LSTM - seq length=60 hidden_units=32 and nr_episodes=2500->-4.02
+LSTM - seq length=60 hidden_units=32 and nr_episodes=5000->-5.73
+LSTM - seq length=100 hidden_units=8 and nr_episodes=500->-0.03
+LSTM - seq length=100 hidden_units=8 and nr_episodes=1000->-0.06
+LSTM - seq length=100 hidden_units=8 and nr_episodes=2500->-0.26
+LSTM - seq length=100 hidden_units=8 and nr_episodes=5000->-0.42
+LSTM - seq length=100 hidden_units=16 and nr_episodes=500->-0.02
+LSTM - seq length=100 hidden_units=16 and nr_episodes=1000->-0.12
+LSTM - seq length=100 hidden_units=16 and nr_episodes=2500->-0.83
+LSTM - seq length=100 hidden_units=16 and nr_episodes=5000->-0.69
+LSTM - seq length=100 hidden_units=32 and nr_episodes=500->-0.29
+LSTM - seq length=100 hidden_units=32 and nr_episodes=1000->-0.68
+LSTM - seq length=100 hidden_units=32 and nr_episodes=2500->-3.16
+LSTM - seq length=100 hidden_units=32 and nr_episodes=5000->-5.49
+Best results with seq length=4 hidden=8 episodes=500 ==> measure=0.08
+
+Best results with seq length=4 hidden=8 episodes=500 ==> measure=0.08
+{'RMSE': [0.13697554449966035, 0.21076650222922683], 'MAE': [0.10434771, 0.1632282]} {'R2': [0.2707392341263948, -0.36782250308953013]}
