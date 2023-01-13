@@ -22,7 +22,8 @@ def data_transofrmation_original_multivariant(data, index_col,  dataset, target)
 def smothing_win_size_10(data, dataset, target, granularity):
     WIN_SIZE = 10
     rolling = data.rolling(window=WIN_SIZE)
-    smooth_df = rolling.mean()    
+    smooth_df = rolling.mean()
+    smooth_df.to_csv('data/forecasting/datasets_for_further_analysis/'+dataset+'/smothing_10_'+granularity+'.csv', index=True)
     figure(figsize=(3*HEIGHT, HEIGHT/2))
     plot_series(smooth_df, title=f'Smoothing (win_size={WIN_SIZE})', x_label='timestamp', y_label='glucose')
     xticks(rotation = 45)
@@ -30,10 +31,23 @@ def smothing_win_size_10(data, dataset, target, granularity):
     savefig(image_location+'/smothing_win_size_10.png')
     #show()
 
+def smothing_win_size_20(data, dataset, target, granularity):
+    WIN_SIZE = 20
+    rolling = data.rolling(window=WIN_SIZE)
+    smooth_df = rolling.mean()
+    smooth_df.to_csv('data/forecasting/datasets_for_further_analysis/'+dataset+'/smothing_20_'+granularity+'.csv', index=True)
+    figure(figsize=(3*HEIGHT, HEIGHT/2))
+    plot_series(smooth_df, title=f'Smoothing (win_size={WIN_SIZE})', x_label='timestamp', y_label='glucose')
+    xticks(rotation = 45)
+    image_location = 'images/data_transformation/' + dataset
+    savefig(image_location+'/smothing_win_size_20.png')
+    #show()
+
 def smothing_win_size_100(data, dataset, target, granularity):
     WIN_SIZE = 100
     rolling = data.rolling(window=WIN_SIZE)
     smooth_df = rolling.mean()
+    smooth_df.to_csv('data/forecasting/datasets_for_further_analysis/'+dataset+'/smothing_100_'+granularity+'.csv', index=True)
     figure(figsize=(3*HEIGHT, HEIGHT/2))
     plot_series(smooth_df, title=f'Smoothing (win_size={WIN_SIZE})', x_label='timestamp', y_label='glucose')
     xticks(rotation = 45)
@@ -108,15 +122,21 @@ dataset = 'dataset1'
 target = 'Glucose'
 data = read_csv('data/forecasting/glucose.csv',  index_col=index_col, sep=',', decimal='.', parse_dates=True,dayfirst=True,  infer_datetime_format=True)
 
-data_transofrmation_original(data, dataset, target)
-data_transofrmation_original_multivariant(data, index_col,  dataset, target)
-smothing_win_size_10(data, dataset, target, "general")
-smothing_win_size_100(data, dataset, target, "general")
-aggregate_hourly(data, dataset, target)
-aggregate_daily(data, dataset, target)
-aggregate_weekly(data, dataset, target)
-aggregate_monthly(data, dataset, target)
-differentiation(data, dataset, "general")
+#index_col = 'date'
+#dataset = 'dataset2'
+#target = 'QV2M'
+#data = read_csv('data/forecasting/drought.forecasting_dataset.csv',  index_col=index_col, sep=',', decimal='.', parse_dates=True,dayfirst=True,  infer_datetime_format=True)
+
+#data_transofrmation_original(data, dataset, target)
+#data_transofrmation_original_multivariant(data, index_col,  dataset, target)
+smothing_win_size_10(data, dataset, target, "daily")
+smothing_win_size_100(data, dataset, target, "daily")
+smothing_win_size_20(data, dataset, target, "daily")
+#aggregate_hourly(data, dataset, target)
+#aggregate_daily(data, dataset, target)
+#aggregate_weekly(data, dataset, target)
+#aggregate_monthly(data, dataset, target)
+#differentiation(data, dataset, "general")
 
 
 
@@ -142,12 +162,12 @@ def differentiation_secondDerivative_dataset(data, dataset, granularity):
     diff_df_2.to_csv('data/forecasting/aggregation/'+dataset+'/differentiation_secondDerivate_'+granularity+'.csv', index=True)
 
 
-index_col = 'timestamp'
-dataMostAtomic = read_csv('data/forecasting/aggregation/dataset1/aggregate_daily.csv',  index_col=index_col, sep=',', decimal='.', parse_dates=True,dayfirst=True,  infer_datetime_format=True)
-smothing_win_size_10_dataset(dataMostAtomic, dataset, target, "daily")
-smothing_win_size_100_dataset(dataMostAtomic, dataset, target, "daily")
-differentiation_dataset(dataMostAtomic, dataset, "daily")
-differentiation_secondDerivative_dataset(dataMostAtomic, dataset, "daily")
+#index_col = 'timestamp'
+#dataMostAtomic = read_csv('data/forecasting/aggregation/dataset1/aggregate_daily.csv',  index_col=index_col, sep=',', decimal='.', parse_dates=True,dayfirst=True,  infer_datetime_format=True)
+#smothing_win_size_10_dataset(dataMostAtomic, dataset, target, "daily")
+#smothing_win_size_100_dataset(dataMostAtomic, dataset, target, "daily")
+#differentiation_dataset(dataMostAtomic, dataset, "daily")
+#differentiation_secondDerivative_dataset(dataMostAtomic, dataset, "daily")
 
 
 
