@@ -45,9 +45,9 @@ def nb_variants(file_tag, filename, target, dataset, method):
     clf = estimators.get(clf_string)
     print(clf)
     #preparation steps
-    image_location = 'images/nb/preparation_steps/' + dataset
+    # image_location = 'images/nb/preparation_steps/' + dataset
     #nb_study
-    # image_location = 'images/nb/nb_study/' + dataset
+    image_location = 'images/nb/nb_study/' + dataset
     if method == '':
         savefig(image_location+'/'+file_tag+'_nb_study.png')
     else:
@@ -72,6 +72,4 @@ def nb_best(dataset, file_tag, clf, image_location, labels, trnX, trnY, tstX, ts
 
 
 # TODO - Change the image_location variable and other parameters
-# nb_variants('dataset2_scaled_zscore_model',
-#             'forecasting/data/classification/datasets_for_further_analysis/dataset2/dataset2_scaled_zscore', 'class', 'dataset2', 'undersampling')
-# nb_variants('dataset2_feature_engineering', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_feature_engineering', 'class', 'dataset2', 'undersampling')
+nb_variants('dataset2_drop_outliers_drop_redundant_vars_0.7_feature_engineering', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_drop_outliers_drop_redundant_vars_0.7_feature_engineering', 'class', 'dataset2', '')

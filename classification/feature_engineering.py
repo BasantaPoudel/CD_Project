@@ -7,28 +7,29 @@ from dscharts import bar_chart, get_variable_types
 
 def feature_engineering(filename, file, dataset, index_col):
     data = read_csv(filename,index_col=index_col)
+    data.drop(['Unnamed: 0'], inplace=True, axis=1)
     print('shape of original data:', data.shape)
     # data = drop_useless_vars(data, file)
     # data.to_csv('data/classification/datasets_for_further_analysis/'+dataset+'/'+dataset+'_drop_useless_vars_feature_engineering.csv')
 
     # for dataset1: there are no variables with correlation > 0.55
     # drop variables based on correlation - drop_redundant
-    threshold = 0.95
-    df = correlation_analysis(data, dataset, threshold)
+    threshold = 0.2
+    df = correlation_analysis(data, file, dataset, threshold)
     # print(df.shape)
-    df.to_csv('data/classification/datasets_for_further_analysis/'+dataset+'/'+dataset+f'_drop_redundant_vars_{threshold}_feature_engineering.csv')
-
+    df.to_csv('data/classification/datasets_for_further_analysis/'+dataset+'/'+file+f'_drop_redundant_vars_{threshold}_feature_engineering.csv')
+    print(data.head())
     # Drop on the basis of variance analysis
-    # final_df, threshold_variance = variance_analysis(dataset, df2)
+    # final_df, threshold_variance = variance_analysis(file, dataset, df)
     # final_df.to_csv('data/classification/datasets_for_further_analysis/'+dataset+'/'+dataset+f'_{THRESHOLD}_{threshold_variance}_feature_engineering.csv')
 
 
-def correlation_analysis(data, dataset, threshold):
+def correlation_analysis(data, file, dataset, threshold):
     drop, corr_mtx = select_redundant(data.corr(), threshold)
     print(drop.keys())
     print(data.shape)
     try:
-        plot_corrmatrix(corr_mtx, dataset, threshold)
+        plot_corrmatrix(corr_mtx, file, dataset, threshold)
         df = drop_redundant(data, drop)
     except:
         df = data
@@ -53,14 +54,14 @@ def select_redundant(corr_mtx, threshold: float) -> tuple[dict, DataFrame]:
     return vars_2drop, corr_mtx
 
 
-def plot_corrmatrix(corr_mtx, dataset, THRESHOLD):
+def plot_corrmatrix(corr_mtx, file, dataset, THRESHOLD):
     if corr_mtx.empty:
         raise ValueError('Matrix is empty.')
 
     figure(figsize=[10, 10])
     heatmap(corr_mtx, xticklabels=corr_mtx.columns, yticklabels=corr_mtx.columns, annot=False, cmap='Blues')
     title('Filtered Correlation Analysis')
-    savefig('images/feature_engineering/'+dataset+f'/filtered_correlation_analysis_{THRESHOLD}.png')
+    savefig('images/feature_engineering/'+dataset+'/'+file+f'_filtered_correlation_analysis_{THRESHOLD}.png')
     # show()
 
 
@@ -95,7 +96,7 @@ def drop_useless_vars(data, dataset):  # drop all variables that have no numeric
     return data
 
 
-def variance_analysis(dataset, df2):
+def variance_analysis(file, dataset, df2):
     # drop variables based on variance analysis:
     threshold_variance = 0.1
     if 'Unnamed: 0' in df2:
@@ -103,14 +104,14 @@ def variance_analysis(dataset, df2):
     numeric = get_variable_types(df2)['Numeric']
     print('numeric variables are:', numeric)
     print(df2.var())
-    vars2drop = select_low_variance(df2[numeric], threshold_variance, dataset)
+    vars2drop = select_low_variance(df2[numeric], threshold_variance, file, dataset)
     print('vars with low variance:', vars2drop)
     final_df = drop_low_var(df2, vars2drop)
     print(final_df.shape)
     return final_df, threshold_variance
 
 
-def select_low_variance(data: DataFrame, threshold: float, dataset) -> list:
+def select_low_variance(data: DataFrame, threshold: float, file, dataset) -> list:
     lst_variables = []
     lst_variances = []
     for el in data.columns:
@@ -123,7 +124,7 @@ def select_low_variance(data: DataFrame, threshold: float, dataset) -> list:
     figure(figsize=[10, 4])
     if len(lst_variables) != 0:
         bar_chart(lst_variables, lst_variances, title='Variance analysis', xlabel='variables', ylabel='variance')
-        savefig('images/feature_engineering/'+dataset+'/filtered_variance_analysis.png')
+        savefig('images/feature_engineering/'+dataset+'/'+file+f'_filtered_variance_analysis{threshold}.png')
         # show()
     return lst_variables
 

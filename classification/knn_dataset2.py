@@ -49,9 +49,9 @@ def knn_variants(file_tag, filename, target, dataset, method):
     figure()
     multiple_line_chart(nvalues, values, title='KNN variants', xlabel='n', ylabel=str(accuracy_score), percentage=True)
     # preparation steps
-    image_location = 'images/knn/preparation_steps/' + dataset
+    #image_location = 'images/knn/preparation_steps/' + dataset
     #knn study steps
-    # image_location = 'images/knn/knn_study/' + dataset
+    image_location = 'images/knn/knn_study/' + dataset
     if method == '':
         savefig(image_location+'/'+file_tag+'_knn_study.png')
     else:
@@ -110,3 +110,4 @@ def plot_overfitting_study(file_tag, dataset, method, image_location, xvalues, p
 # (file_tag, filename, target, dataset, method)
 #Running for classification steps
 # knn_variants('dataset2_feature_engineering', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_feature_engineering', 'class', 'dataset2', 'undersampling')
+knn_variants('dataset2_drop_outliers_drop_redundant_vars_0.7_feature_engineering', 'data/classification/datasets_for_further_analysis/dataset2/dataset2_drop_outliers_drop_redundant_vars_0.7_feature_engineering', 'class', 'dataset2', '')
